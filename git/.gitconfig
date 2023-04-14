@@ -1,0 +1,13 @@
+[user]
+	name = thayer6
+	email = casey.thayer6@gmail.com
+[color]
+	ui = auto
+[merge]
+	conflictstyle = diff3
+[init]
+	defaultBranch = main
+[core]
+	excludesfile = /Users/caseythayer/.gitignore_global
+	autocrlf = false
+	eol = lf
