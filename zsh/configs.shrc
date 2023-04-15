@@ -59,3 +59,5 @@ export PATH=~/.dotfiles/helpers/bin:$PATH
 #asdf
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
+# direnv
+eval "$(direnv hook zsh)"
