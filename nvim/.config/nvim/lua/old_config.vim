@@ -67,7 +67,6 @@ nmap <C-w><right> <C-w>5>
 nmap <C-w><up> <C-w>5+
 nmap <C-w><down> <C-w>5-
 
-
 " Open current directory
 nmap te :tabedit
 nmap <leader>tn :tabnew<Return>

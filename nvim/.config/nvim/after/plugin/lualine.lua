@@ -7,6 +7,7 @@ end
 
 
 local branch = {
+    icon = "🌱",
     'branch',
     cond = hide_in_width(80)
 }
@@ -25,6 +26,7 @@ local filetype = {
     cond = hide_in_width(100)
 }
 local filename = {
+    icon = "📁",
     'filename',
     path = 1
 }
@@ -47,7 +49,7 @@ end
 
 local active_lsp = {
     attached_lsp,
-    icon = '',
+    icon = ',',
     cond = function() return #vim.lsp.get_active_clients() > 0 and hide_in_width(100)() end
 }
 
@@ -84,7 +86,7 @@ require'lualine'.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {},
-    lualine_c = {branch, active_lsp, filename},
+    lualine_c = {branch, filename},
     lualine_x = {wpm.historic_graph, diff, diagnostics, {get_venv, color={gui='bold'}}, filetype},
     lualine_y = {},
     lualine_z = {progress, location}
