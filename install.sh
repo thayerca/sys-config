@@ -1,14 +1,16 @@
 #!/usr/bin/env zsh
 
-# TODO: update this script
-STOW_FOLDERS="git,kitty,nvim,tmux,vim,zsh"
+### This script sets up dotfile symlinks in $HOME
 
-DOT_FILES=$HOME/.dotfiles
+# available systems: mba-m2, zelus-m1
+SYSTEM=mba-m2
 
-pushd $DOT_FILES
-for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
+# cd into relevant dotfile folder
+cd ~/dotfiles/$SYSTEM
+
+# loop through folders and stow
+for dir in */;
 do
-    stow -D $folder
-    stow $folder
+    echo "Stowing $dir"
+    stow $dir --target=$HOME
 done
-popd

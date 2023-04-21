@@ -1,13 +1,15 @@
 #!/usr/bin/env zsh
 
-STOW_FOLDERS="gitconfig,tmux,vim,zsh"
+### This script removes dotfile symlinks from $HOME
 
-DOT_FILES=$HOME/.dotfiles
+# available systems: mba-m2, zelus-m1
+SYSTEM=mba-m2
+# cd into relevant dotfile folder
+cd ~/dotfiles/$SYSTEM
 
-pushd $DOT_FILES
-for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
+# loop through folders and remove symlink
+for dir in */;
 do
-    echo "Removing $folder"
-    stow -D $folder
+    echo "Removing symlink for $dir"
+    stow -D $dir --target=$HOME
 done
-popd
