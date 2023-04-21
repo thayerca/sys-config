@@ -1,0 +1,10 @@
+.DS_STORE
+.vscode
+.envrc
+test_k8s.yaml
+dummy_k8s.yaml
+test_cache.yaml
+*.pyc
+__pycache_
+.python-version
+venv/
