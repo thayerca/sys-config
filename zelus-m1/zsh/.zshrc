@@ -118,24 +118,24 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 #
-# sspaeti customized properties
+# customized properties
 #
-source $HOME/.dotfiles/zsh/paths.shrc
-source $HOME/.dotfiles/zsh/aliases.shrc
-source $HOME/.dotfiles/zsh/functions.shrc
+source $HOME/paths.shrc
+source $HOME/aliases.shrc
+source $HOME/functions.shrc
 #source $HOME/.dotfiles/zsh/.secrets
 #airbyte
 #source $HOME/.dotfiles/zsh/.secrets_airbyte
 #source $HOME/.dotfiles/zsh/paths_airbyte.shrc
 
-source $HOME/.dotfiles/zsh/configs.shrc
-source $HOME/.dotfiles/zsh/end.shrc
+source $HOME/configs.shrc
+source $HOME/end.shrc
 
 
 # OCTAVIA CLI 0.40.22
-OCTAVIA_ENV_FILE=/Users/sspaeti/.octavia
-export OCTAVIA_ENABLE_TELEMETRY=False
-alias octavia="docker run -i --rm -v \$(pwd):/home/octavia-project --network host --env-file \${OCTAVIA_ENV_FILE} --user \$(id -u):\$(id -g) airbyte/octavia-cli:0.40.22"
+# OCTAVIA_ENV_FILE=/Users/sspaeti/.octavia
+# export OCTAVIA_ENABLE_TELEMETRY=False
+#alias octavia="docker run -i --rm -v \$(pwd):/home/octavia-project --network host --env-file \${OCTAVIA_ENV_FILE} --user \$(id -u):\$(id -g) airbyte/octavia-cli:0.40.22"
 
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"

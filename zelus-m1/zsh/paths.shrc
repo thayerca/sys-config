@@ -14,19 +14,19 @@ export PATH="~/.asdf/installs/poetry/1.2.2/bin:$PATH"
 export git=~/Documents/git
 export de=$git/de
 export general=$git/general
-export sspaeticom=$git/sspaeti.com
+#export sspaeticom=$git/sspaeti.com
 export venvs=~/.venvs/
-export sync=~/Simon/Sync
-export secondbrain=/Users/sspaeti/Simon/Sync/SecondBrain/
-export public_secondbrain=$git/sspaeti.com/second-brain-public/content
+#export sync=~/Simon/Sync
+#export secondbrain=/Users/sspaeti/Simon/Sync/SecondBrain/
+#export public_secondbrain=$git/sspaeti.com/second-brain-public/content
 
 
-export areas=/Users/sspaeti/Simon/Sync/SecondBrain/⚛️\ Areas
-export blog=/Users/sspaeti/Documents/git/sspaeti.com/sspaeti-hugo-blog
-export hugo=$blog
+#export areas=/Users/sspaeti/Simon/Sync/SecondBrain/⚛️\ Areas
+#export blog=/Users/sspaeti/Documents/git/sspaeti.com/sspaeti-hugo-blog
+#export hugo=$blog
 export docs=~/Documents
-export SPARK_HOME=~/Documents/spark/spark-3.0.1-bin-hadoop3.2
-export VS_Projects=/Users/sspaeti/Documents/VS_Projects/
+#export SPARK_HOME=~/Documents/spark/spark-3.0.1-bin-hadoop3.2
+#export VS_Projects=/Users/sspaeti/Documents/VS_Projects/
 export PYSPARK_PYTHON=python3
 #export DATASETS=/Users/sspaeti/Simon/Sync/Business/13_sspaeti/Real-estate/_DATASETS
 
