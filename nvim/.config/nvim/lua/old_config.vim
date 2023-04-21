@@ -116,7 +116,4 @@ nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 let w:surround_{char2nr('w')} = "```\r```"
 let b:surround_{char2nr('b')} = "**\r**"
 
-
-
-
 au! BufWritePost $RC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC

@@ -1,4 +1,5 @@
 require("neo-tree").setup({
+  open_on_setup = true,
   filesystem = {
     filtered_items = {
       visible = true,

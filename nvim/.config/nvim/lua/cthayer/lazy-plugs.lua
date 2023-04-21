@@ -35,17 +35,17 @@ return {
       { "rafamadriz/friendly-snippets" },
     },
   },
-  -- { --doesn't work well with trouble below
-  --   "folke/todo-comments.nvim",
-  --   event = "VeryLazy",
-  --   dependencies = "nvim-lua/plenary.nvim",
-  --   config = function()
-  --     require("todo-comments").setup({
-  --       vim.keymap.set("n", "<leader>tt", ":TodoTrouble<CR>", { noremap = true, silent = true }),
-  --       vim.keymap.set("n", "<leader>tc", ":TodoTelescope<CR>", { noremap = true, silent = true }),
-  --     })
-  --   end,
-  -- },
+  { --doesn't work well with trouble below
+     "folke/todo-comments.nvim",
+     event = "VeryLazy",
+     dependencies = "nvim-lua/plenary.nvim",
+     config = function()
+       require("todo-comments").setup({
+         vim.keymap.set("n", "<leader>tt", ":TodoTrouble<CR>", { noremap = true, silent = true }),
+         vim.keymap.set("n", "<leader>tc", ":TodoTelescope<CR>", { noremap = true, silent = true }),
+        })
+    end,
+  },
   {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
