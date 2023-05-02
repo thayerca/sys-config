@@ -35,6 +35,9 @@ return {
       { "rafamadriz/friendly-snippets" },
     },
   },
+  { "jalvesaq/Nvim-R" },
+  { "gaalcaras/ncm-R" },
+  { "dense-analysis/ale" },
   { --doesn't work well with trouble below
      "folke/todo-comments.nvim",
      event = "VeryLazy",

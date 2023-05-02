@@ -1,5 +1,80 @@
+zdbb() {
+    cd $HOME/zelus/basketball
+    DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
+        && cd "$DIR"
+}
+zdg() {
+  cd $HOME/zelus/general
+  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
+    && cd "$DIR"
+}
+zdes() {
+  cd $HOME/zelus/esports
+  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
+    && cd "$DIR"
+}
+zdfb() {
+  cd $HOME/zelus/football
+  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
+    && cd "$DIR"
+}
+zgcp() {
+  PROJECT=$(gcloud config configurations list --format json | jq -r ".[] | .name" | fzf-tmux)
+  gcloud config configurations activate "$PROJECT"
+}
+dev-tag() {
+  GIT_TIMESTAMP=$(date -u "+%Y%m%d.%H%M%S");
+  if [[ $# -eq 1 ]] ; then
+     echo "Tagging and pushing with dev-basketball-ct-$1-$GIT_TIMESTAMP"
+     sleep 3
+     git tag dev-basketball-ct-$1-$GIT_TIMESTAMP
+     git push origin dev-basketball-ct-$1-$GIT_TIMESTAMP
+  else
+     echo "Error: requires exactly one argument"
+  fi
+}
 glogone() {
     DEFAULT=10
     NUM_COMMITS="${1:-$DEFAULT}"
     git --no-pager log --oneline -n $NUM_COMMITS
+}
+killpods() {
+    # app=bkrdp-ss, bkrdp-ngss, bkie
+    # model=basketball-adjusted-plus-minus
+    kubectl delete pods -l $1 
+}
+killjobs() {
+    # app=bkrdp-ss, bkrdp-ngss, bkie
+    # model=basketball-adjusted-plus-minus
+    kubectl delete jobs -l $1
+}
+wpod() {
+    watch -n $1 "kubectl get pod | grep $2"
+}
+wjob() {
+    watch -n $1 "kubectl get job | grep $2"
+}
+zmvbbd() {
+    kubectl port-forward svc/zelus-model-versioner -n zelus-model-versioner :80 | cloud_sql_proxy -instances=zelus-basketball-dev:us-central1:basketball-data=tcp:5432
+}
+dev-airflow() {
+  if [[ $# -eq 1 ]] ; then
+    echo "dev branch PR to $1"
+    FEATURE_BRANCH=$(git branch --show-current);
+    FEATURE_BRANCH_DEV=$(git branch --show-current)-dev;
+    CURRENT_DIR=$PWD
+    cd $(git rev-parse --show-toplevel)
+    git branch --delete --force dev-$1;
+    git branch --delete --force $FEATURE_BRANCH_DEV;
+    git checkout dev-$1; git pull origin dev-$1;
+    git checkout -b $FEATURE_BRANCH_DEV;
+    git diff --name-only --diff-filter=AMR main $FEATURE_BRANCH | xargs git checkout $FEATURE_BRANCH --
+    git diff --name-only --diff-filter=D dev-$1 $FEATURE_BRANCH | xargs git rm --
+    git commit -m "$(git show -s --format=%s $FEATURE_BRANCH)"
+    git push origin "$(git_current_branch)"
+    git checkout $FEATURE_BRANCH
+    cd $CURRENT_DIR
+  else
+     echo "Error: requires exactly one argument"
+  fi
 }

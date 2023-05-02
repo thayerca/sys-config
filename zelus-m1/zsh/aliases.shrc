@@ -81,4 +81,23 @@ alias dkcpdown="docker-compose down"
 alias dkcpstart="docker-compose start"
 alias dkcpstop="docker-compose stop"
 
+# zelus specific
+# aliases
+alias ls='exa'
+alias R='R --no-restore-data --no-save'
+alias r="radian"
+alias da='direnv allow'
+alias dr='direnv reload'
+alias gprunesquashmerged='git checkout -q master && \
+    git for-each-ref refs/heads/ "--format=%(refname:short)" | \
+    while read branch; \
+    do mergeBase=$(git merge-base master $branch) && \
+        [[ $(git cherry master \
+        $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && \
+        git branch -D $branch; done'
+alias util='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+alias gotosleep="pmset sleepnow"
+alias duckdb="/Applications/duckdb ; exit;"
+alias glom="git pull origin main"
 
+#

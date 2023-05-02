@@ -59,5 +59,23 @@ export PATH=~/.dotfiles/helpers/bin:$PATH
 #asdf
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
+# zelus specific
 # direnv
 eval "$(direnv hook zsh)"
+# kubectl
+source <(kubectl completion zsh)
+# google cloud sdk
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+# pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+iterm2_print_user_vars() {
+  iterm2_set_user_var pyenv $((pyenv version 2> /dev/null) | cut -f 1 -d " ")
+  iterm2_set_user_var kubectx $(kubectl config current-context 2> /dev/null)
+  iterm2_set_user_var kubens $(kubectl config get-contexts | awk '/*/ {print $5}')
+}
+export GPG_TTY=$(tty)
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || bat -n --theme=base16 --color=always {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+

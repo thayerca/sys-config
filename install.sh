@@ -3,7 +3,7 @@
 ### This script sets up dotfile symlinks in $HOME
 
 # available systems: mba-m2, zelus-m1
-SYSTEM=mba-m2
+SYSTEM=$1
 
 # cd into relevant dotfile folder
 cd ~/dotfiles/$SYSTEM

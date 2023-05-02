@@ -5,6 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+ZSH_THEME="powerlevel10k/powerlevel10k"
+#POWERLEVEL9K_MODE="awesome-patched"
+#ZSH_THEME="gruvbox"
+#SOLARIZED_THEME="dark"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -16,10 +21,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell" #"agnoster" #"pygmalion" #"robbyrussell"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-#POWERLEVEL9K_MODE="awesome-patched"
-#ZSH_THEME="gruvbox"
-#SOLARIZED_THEME="dark"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -84,6 +85,9 @@ export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/.oh-my-zsh/custom/plugins/zsh-syntax
 # source ~/.oh-my-zsh/plugins/git/git.plugin.zsh
 plugins=(git macos docker docker-compose virtualenv vi-mode poetry)
 #installed with brew therefor not in above list: zsh-syntax-highlighting zsh-autosuggestions
+#
+#this line should route all .zcompdump files into the cached dir
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
 source $ZSH/oh-my-zsh.sh
 
@@ -141,3 +145,12 @@ export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 #eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+# zsh-kubectl-prompt
+autoload -U colors; colors
+source $HOME/prompt_configs/zsh-kubectl-prompt/kubectl.zsh
+RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
+# zsh-gcloud-prompt
+autoload -Uz colors; colors
+source $HOME/prompt_configs/zsh-gcloud-prompt/gcloud.zsh
+RPROMPT='%{$fg[cyan]%}($ZSH_GCLOUD_PROMPT)%{$reset_color%}'
