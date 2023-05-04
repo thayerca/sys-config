@@ -130,7 +130,7 @@ vim.keymap.set("n", "c-c", "<Esc>")
 --tab navigation
 vim.keymap.set("n", "gn", ":bnext<CR>")
 vim.keymap.set("n", "gp", ":bprevious<CR>")
-vim.keymap.set("n", "gD", ":bdelete<CR>")
+vim.keymap.set("n", "gb", ":bdelete<CR>")
 
 --quickfix toggle_qf
 local toggle_qf = function()
