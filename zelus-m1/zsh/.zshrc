@@ -148,9 +148,10 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 # zsh-kubectl-prompt
 autoload -U colors; colors
-source $HOME/prompt_configs/zsh-kubectl-prompt/kubectl.zsh
-RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
+#source $HOME/prompt_configs/zsh-kubectl-prompt/kubectl.zsh
+#RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
 # zsh-gcloud-prompt
 autoload -Uz colors; colors
-source $HOME/prompt_configs/zsh-gcloud-prompt/gcloud.zsh
-RPROMPT='%{$fg[cyan]%}($ZSH_GCLOUD_PROMPT)%{$reset_color%}'
+#source $HOME/prompt_configs/zsh-gcloud-prompt/gcloud.zsh
+#RPROMPT='%{$fg[cyan]%}($ZSH_GCLOUD_PROMPT)%{$reset_color%}'
+skip_global_compinit=1

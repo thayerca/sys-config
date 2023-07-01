@@ -99,5 +99,6 @@ alias util='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {
 alias gotosleep="pmset sleepnow"
 alias duckdb="/Applications/duckdb ; exit;"
 alias glom="git pull origin main"
-
+alias ka="kubectl apply -f $1"
+alias kdj="kubectl delete job $1"
 #
