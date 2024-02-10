@@ -9,4 +9,19 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
-	required = true
+  required = true
+[alias]
+  cj="!f() {                                               \
+            cd -- \"${GIT_PREFIX:-.}\";                            \
+            msg_flag_idx=-1;                                       \
+            for i in $(seq 1 $#); do                               \
+              if [[ \"$(eval echo \\${${i}} )\" == \"-m\" ]]; then \
+                msg_flag_idx=${i};                                 \
+              fi                                                   \
+            done;                                                  \
+            [[ $msg_flag_idx -eq -1 ]] && { exit $(git commit $@); } ; \
+            jira_tix=$(git rev-parse --abbrev-ref HEAD | sed -n -e 's|.*/\\(.*\\)|\\1|p' ); \
+            msg=\"[$jira_tix] $(eval echo \\${$((msg_flag_idx+1))})\"; \
+            set -- \"${@:1:$msg_flag_idx}\" \"\\\"$msg\\\"\" \"${@:$((msg_flag_idx+2)):$#}\" ; \
+            eval git commit $@; \
+          }; f"

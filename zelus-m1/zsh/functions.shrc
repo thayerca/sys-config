@@ -49,6 +49,9 @@ killjobs() {
     kubectl delete jobs -l $1
 }
 wpod() {
+  # Arg $1 - seconds to refresh
+  # Arg $2 - part of pod name to grep
+
     watch -n $1 "kubectl get pod | grep $2"
 }
 wjob() {
@@ -58,6 +61,8 @@ zmvbbd() {
     kubectl port-forward svc/zelus-model-versioner -n zelus-model-versioner :80 | cloud_sql_proxy -instances=zelus-basketball-dev:us-central1:basketball-data=tcp:5432
 }
 dev-tag() {
+  # Arg $1 - dev tag label typically a JIRA ticket number
+
   GIT_TIMESTAMP=$(date -u "+%Y%m%d.%H%M%S");
   if [[ $# -eq 1 ]] ; then
      echo "Tagging and pushing with dev-basketball-ct-$1-$GIT_TIMESTAMP"
@@ -67,4 +72,32 @@ dev-tag() {
   else
      echo "Error: requires exactly one argument"
   fi
+}
+release-tag() {
+  # Arg $1 - commit SHA to be release tagged
+  # Arg $2 - release number
+  echo "Checking out and pulling main branch"
+  git checkout main
+  git pull
+
+  echo "Checking out commit: $1"
+  git checkout $1
+  git pull origin $1
+
+  GIT_TIMESTAMP=$(date -u "+%Y%m%d.%H%M%S")
+  SPORT=basketball
+  RELEASE=$2
+
+  echo "Sport: $SPORT; Release: $RELEASE; Timestamp: $GIT_TIMESTAMP"
+  echo "Tagging and pushing"
+  git tag release-$SPORT-$RELEASE-$GIT_TIMESTAMP
+  git push origin release-$SPORT-$RELEASE-$GIT_TIMESTAMP
+  echo "Release tag complete"
+}
+
+# delete all branches merged into main
+dam() {
+  echo "=== Deleting all branches (besides main and dev-basketball) ==="
+  git checkout main && git branch | egrep -v "(^\*|main)" | egrep -v "(^\*|dev-basketball)" | xargs git branch -D
+  echo "☑️  Done!"
 }

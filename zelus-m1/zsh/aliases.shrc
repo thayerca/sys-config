@@ -63,8 +63,8 @@ alias gf='git fetch'
 alias gcl='git clone'
 alias gt='vim -c ":DiffviewOpen"' --diff current changes
 alias gcpr="gh pr create -w"
-# alias gtb = '! args=$@; shift $#; nvim -c \"DiffviewOpen $args\"'
-
+alias gc="git cj -m"
+alias multipull="find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;"
 
 alias lg=lazygit
 alias cat=bat
@@ -100,4 +100,6 @@ alias duckdb="/Applications/duckdb ; exit;"
 alias glom="git pull origin main"
 alias ka="kubectl apply -f $1"
 alias kdj="kubectl delete job $1"
-#
+
+# terraform
+alias tf="./terraform.sh"

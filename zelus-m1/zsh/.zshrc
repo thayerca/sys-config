@@ -9,7 +9,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 #POWERLEVEL9K_MODE="awesome-patched"
 #ZSH_THEME="gruvbox"
 #SOLARIZED_THEME="dark"
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 

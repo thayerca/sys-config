@@ -1,7 +1,7 @@
 -- ~/.config/nvim/lua/settings.lua
 
 -- setup must be called before loading
-vim.cmd("colorscheme kanagawa") --#kanagawa
+--vim.cmd("colorscheme kanagawa") --#kanagawa
 
 -- Basic Neovim settings
 vim.o.number = true -- Enable line numbers
@@ -58,14 +58,11 @@ vim.opt.encoding = "utf8"
 
 -- Highlight what I yanked
 vim.cmd("autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=500 }")
+-- In line characters
+vim.opt.listchars = { eol = "↵", tab = "→  ", trail = "·", extends = "$" }
 
 vim.cmd([[
 " Python: auto format on save with Black
 autocmd BufWritePre *.py execute ':Black'
-" set virtual env -> still needed with lsp? 
-let g:python3_host_prog = expand($HOME."/.venvs/nvim/bin/python3")
-" format JSON
-:command! Formatj :%!jq .
-:command! Unformatj :%!jq -c .
 ]])
 

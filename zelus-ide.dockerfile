@@ -43,10 +43,15 @@ RUN apt-get update && apt-get install -y \
 #ENV LANG=en_US.UTF-8
 
 # Install Neovim from source.
-RUN mkdir -p /root/TMP
-RUN cd /root/TMP && git clone https://github.com/neovim/neovim
-RUN cd /root/TMP/neovim && git checkout stable && make -j4 && make install
-RUN rm -rf /root/TMP
+# Set the NVIM_CONFIG_DIR environment variable to your configuration directory
+ENV NVIM_CONFIG_DIR=/home/devuser/.config/nvim
+# Clone the Neovim repository
+RUN git clone https://github.com/neovim/neovim.git /neovim
+
+# Build and install Neovim
+WORKDIR /neovim
+RUN make CMAKE_BUILD_TYPE=Release
+RUN make install
 
 # Create a new user and set it as the default user
 RUN useradd -ms /bin/zsh devuser
@@ -83,7 +88,7 @@ RUN mkdir -p /home/devuser/.config/nvim
 
 # Copy your init.lua (or init.vim) and plugins.lua to the Neovim configuration directory
 # Copy your Neovim configuration files
-COPY ./simple-config/.config/nvim/init.lua /home/devuser/.config/nvim/
+COPY ./simple-config/.config/nvim /home/devuser/.config/nvim
 COPY ./simple-config/.fzf/ /home/devuser/
 COPY ./simple-config/.config/.tmux.conf /home/devuser/.config/
 # Install Packer.nvim as devuser
