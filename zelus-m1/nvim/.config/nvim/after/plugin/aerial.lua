@@ -1,19 +1,39 @@
-require('aerial').setup({
-  on_attach = function(bufnr)
-    -- Toggle the aerial window with <leader>a
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o', '<cmd>AerialToggle!<CR>', {})
-    -- Jump forwards/backwards with '{' and '}'
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '{', '<cmd>AerialPrev<CR>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '}', '<cmd>AerialNext<CR>', {})
-    -- Jump up the tree with '[[' or ']]'
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[[', '<cmd>AerialPrevUp<CR>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']]', '<cmd>AerialNextUp<CR>', {})
-  end
+local aerial_on_attach = function(bufnr)
+  require('aerial').on_attach(bufnr)
+  -- Aerial key mappings
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o', '<cmd>AerialToggle!<CR>', {})
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '{', '<cmd>AerialPrev<CR>', {})
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '}', '<cmd>AerialNext<CR>', {})
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[[', '<cmd>AerialPrevUp<CR>', {})
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']]', '<cmd>AerialNextUp<CR>', {})
+end
 
-})
+-- R LSP
+require('lspconfig')['r_language_server'].setup{
+  on_attach = aerial_on_attach,
+}
 
--- Set up your LSP clients here, using the aerial on_attach method
--- require("lspconfig").vimls.setup{
---   on_attach = require("aerial").on_attach,
--- }
--- Repeat this for each language server you have configured
+-- Python LSP with Pyright
+require('lspconfig')['pyright'].setup{
+  on_attach = aerial_on_attach,
+}
+
+-- SQL LSP (using sqls, adjust if using a different LSP for SQL)
+require('lspconfig')['sqls'].setup{
+  on_attach = aerial_on_attach,
+}
+
+-- Lua LSP (assuming using sumneko_lua)
+require('lspconfig')['sumneko_lua'].setup{
+  on_attach = aerial_on_attach,
+}
+
+-- Dockerfile LSP (using dockerls)
+require('lspconfig')['dockerls'].setup{
+  on_attach = aerial_on_attach,
+}
+
+-- YAML LSP (using yamlls)
+require('lspconfig')['yamlls'].setup{
+  on_attach = aerial_on_attach,
+}

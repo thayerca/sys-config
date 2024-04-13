@@ -21,7 +21,7 @@ require("null-ls").setup({
         -- W0707 disable raise-missing-from which we cant use because py2 back compat
         -- C0301 Line too long => disabled as black-formatter handles long lines automatically
         diagnostics.flake8.with({extra_args = {"--max-line-length=140", "--disable=R,duplicate-code,W0231,W0511,W1201,W1202,W0707,C0301,no-init"}}),
-        diagnostics.mypy.with({extra_args = {"--ignore-missing-imports"}}),
+        diagnostics.mypy.with({extra_args = {"--ignore-missing-imports", "--disable-error-code=E501"}}),
         diagnostics.write_good
     },
 })

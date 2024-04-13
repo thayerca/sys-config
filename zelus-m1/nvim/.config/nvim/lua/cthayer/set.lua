@@ -1,6 +1,9 @@
 -- setup must be called before loading
 vim.cmd("colorscheme kanagawa") --#kanagawa
 
+vim.opt.listchars = { eol = "↵", tab = "→  ", trail = "·", extends = "$" }
+vim.opt.list = true
+
 -- vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
 vim.opt.completeopt = { "menu" }
 vim.opt.shortmess = vim.opt.shortmess + { c = true }

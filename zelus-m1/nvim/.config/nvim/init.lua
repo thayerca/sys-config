@@ -1,10 +1,8 @@
 require("cthayer.lazy")
+require("cthayer.mason_tools")
 require("theme.kanagawa")
-vim.cmd("source $HOME/.config/nvim/lua/old_config.vim")
+--vim.cmd("source $HOME/.config/nvim/lua/old_config.vim")
 require("cthayer.set")
 require("cthayer.remap")
 
-vim.opt.listchars = { eol = "↵", tab = "→  ", trail = "·", extends = "$" }
---lead = '·',
-vim.opt.list = true
-
+vim.g.python3_host_prog = '~/.config/nvim/py3nvim/bin/python'

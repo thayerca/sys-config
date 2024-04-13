@@ -4,7 +4,6 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
   'eslint',
-  'rust_analyzer',
   'lua_ls',
 })
 
@@ -40,22 +39,12 @@ local sources = {
     { name = 'vsnip' },
     { name = 'path' },
     { name = 'luasnip' },
-    { name = 'obsidian' },
-    { name = 'obsidian_new' },
-    { name = 'nvim_lsp:sumneko_lua' },
     { name = 'nvim_lsp:null-ls' },
   }
 -- disable completion with tab
 -- this helps with copilot setup
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
-
---Copilot cycle through suggestions
-vim.cmd([[
-imap <silent> <Leader>cn <Plug>(copilot-next)
-imap <silent> <Leader>cp <Plug>(copilot-previous)
-imap <silent> <Leader>cd <Plug>(copilot-dismiss)
-]])
 
 
 lsp.setup_nvim_cmp({

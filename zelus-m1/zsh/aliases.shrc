@@ -20,19 +20,6 @@ function chpwd() {
 alias da='direnv allow'
 alias dr='direnv reload'
 
-# Pomodoro timer
-# ->Requires brew install caarlos0/tap/timer terminal-notifier
-alias pomo_work="timer 30m && terminal-notifier -message 'Pomodoro'\
-        -title 'Work Timer is up! Take a Break 😊'\
-        -sound Crystal"
-
-alias pomo_rest="timer 10m && terminal-notifier -message 'Pomodoro'\
-        -title 'Break is over! Get back to work 😬'\
-        -sound Crystal"
-
-# that  pip install strawberry-graphql[debug-server] will not fail (square brackets are used for globbing: https://stackoverflow.com/a/30539963/5246670)
-alias pip='noglob pip'
-
 # tmux
 alias ide=~/.tmux/ide
 alias tmux-session=~/.tmux/tmux-session
@@ -63,9 +50,8 @@ alias gf='git fetch'
 alias gcl='git clone'
 alias gt='vim -c ":DiffviewOpen"' --diff current changes
 alias gcpr="gh pr create -w"
-alias gc="git cj -m"
 alias multipull="find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;"
-
+alias gsync="git checkout main && git pull --rebase && git fetch --prune"
 alias lg=lazygit
 alias cat=bat
 
@@ -87,15 +73,6 @@ alias R='R --no-restore-data --no-save'
 alias r="radian"
 alias da='direnv allow'
 alias dr='direnv reload'
-alias gprunesquashmerged='git checkout -q master && \
-    git for-each-ref refs/heads/ "--format=%(refname:short)" | \
-    while read branch; \
-    do mergeBase=$(git merge-base master $branch) && \
-        [[ $(git cherry master \
-        $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && \
-        git branch -D $branch; done'
-alias util='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
-alias gotosleep="pmset sleepnow"
 alias duckdb="/Applications/duckdb ; exit;"
 alias glom="git pull origin main"
 alias ka="kubectl apply -f $1"
