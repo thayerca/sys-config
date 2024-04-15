@@ -41,10 +41,6 @@ local sources = {
     { name = 'luasnip' },
     { name = 'nvim_lsp:null-ls' },
   }
--- disable completion with tab
--- this helps with copilot setup
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
 
 
 lsp.setup_nvim_cmp({
@@ -87,7 +83,6 @@ lsp.on_attach(function(client, bufnr)
   --prime
   vim.keymap.set("n", "sC", function() vim.lsp.buf.workspace_symbol() end, opts)
   vim.keymap.set("n", "<Leader>lw", function() vim.lsp.buf.workspace_symbol() end, opts)
-  -- vim.keymap.set("n", "<Leader>lt", function() vim.diagnostic.open_float() end, opts) --done with :TroubleToggle
 
   vim.keymap.set("n", "<Leader>ln", function() vim.diagnostic.goto_next() end, opts)
   vim.keymap.set("n", "]n", function() vim.diagnostic.goto_next() end, opts)
@@ -97,10 +92,6 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
   vim.keymap.set("n", "<leader>lh", function() vim.lsp.buf.signature_help() end, opts)
 
-  -- turn on grammarly language server only for filetype=markdown
-  if client.name == "grammarly" then
-    vim.api.nvim_buf_set_option(bufnr, "filetype", "markdown")
-  end
 end)
 
 lsp.setup()

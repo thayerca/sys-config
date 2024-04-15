@@ -64,7 +64,11 @@ return require("lazy").setup({
     },
   },
   -- Nvim-R: R support for Neovim, enhancing R language development.
-  { "jalvesaq/Nvim-R" },
+  { "jalvesaq/Nvim-R",
+    config = function()
+      vim.g.R_assign = 0  -- Disable automatic conversion of _ to <-
+    end
+  },
   -- ncm-R: Autocompletion for R language using NCM.
   { "gaalcaras/ncm-R" },
   -- ALE: Asynchronous Lint Engine, a plugin for linting and fixing code.
