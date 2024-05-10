@@ -157,6 +157,11 @@ gagc() {
 
 # bigquery query
 function query-gcp() {
+    # Define colors
+    local RED="\033[0;31m"
+    local GREEN="\033[0;32m"
+    local NO_COLOR="\033[0m"
+    
     # Accept the SQL query as a parameter
     local query="$1"
     if [[ -z "$query" ]]; then
@@ -166,7 +171,7 @@ function query-gcp() {
 
     # Step 1: Print the current GCP project
     local current_project=$(gcloud config get-value project 2>/dev/null)
-    echo "Current GCP Project: $current_project"
+    echo "Current GCP Project: ${RED}$current_project${NO_COLOR}"
     read "response?Is this the project you want to query? (y/n) "
     if [[ "$response" != "y" ]]; then
         echo "Exiting..."
@@ -186,7 +191,7 @@ function query-gcp() {
 
     local cost_in_gb=$(bc <<< "scale=2; $query_cost / 1024 / 1024 / 1024")
     local estimated_cost=$(bc <<< "scale=2; $cost_in_gb * 0.01")  # Assuming $0.01 per GB
-    echo "Estimated cost: \$${estimated_cost} USD"
+    echo "${GREEN}Estimated cost: \$${estimated_cost} USD${NO_COLOR}"
     echo "Data processed: ${cost_in_gb} GB"
 
     # Step 3: Ask user if they want to continue
@@ -204,6 +209,10 @@ function query-gcp() {
 # Example usage: query_gcp "SELECT * FROM your_dataset.your_table LIMIT 10"
 
 function bigquery() {
+    # Define colors
+    local RED="\033[0;31m"
+    local NO_COLOR="\033[0m"
+    
     # Get the current GCP project
     local current_project=$(gcloud config get-value project)
 
@@ -213,7 +222,7 @@ function bigquery() {
         return 1
     fi
     
-    echo "Opening BigQuery console for $current_project"
+    echo "Opening BigQuery console for ${RED}$current_project${NO_COLOR}"
     read "response?Is this the project you want to query? (y/n) "
     if [[ "$response" != "y" ]]; then
         echo "Exiting..."
