@@ -6,3 +6,4 @@ test_k8s/
 __pycache_
 .python-version
 venv/
+.mypy_cache
