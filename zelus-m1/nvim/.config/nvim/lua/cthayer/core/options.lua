@@ -37,6 +37,3 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
-
-vim.opt.listchars = { eol = "↵", tab = "→  ", trail = "·", extends = "$" }
-vim.opt.list = true

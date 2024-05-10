@@ -10,6 +10,7 @@ alias vim=nvim
 alias c=clear
 alias cat=bat
 alias ls='exa'
+alias rshell='exec $SHELL'
 
 # direnv
 alias da='direnv allow'

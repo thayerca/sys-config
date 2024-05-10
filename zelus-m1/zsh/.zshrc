@@ -29,15 +29,6 @@ source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh
 # pyenv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-iterm2_print_user_vars() {
-  iterm2_set_user_var pyenv $((pyenv version 2> /dev/null) | cut -f 1 -d " ")
-  iterm2_set_user_var kubectx $(kubectl config current-context 2> /dev/null)
-  iterm2_set_user_var kubens $(kubectl config get-contexts | awk '/*/ {print $5}')
-}
-export GPG_TTY=$(tty)
-export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || bat -n --theme=base16 --color=always {} || tree -C {}) 2> /dev/null | head -200'"
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # customized properties
 source $HOME/aliases.shrc
@@ -50,22 +41,14 @@ export SHELL=zsh
 
 # bash completion
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-# add pylsp path for python lsp support
-export PATH="$PATH:/Users/cthayer/.pyenv/versions/3.8.12/envs/zelus/lib/python3.8/site-packages"
 
-# add homebrew
+# homebrew
 export PATH=/opt/homebrew/bin:$PATH
-
-# following https://earthly.dev/blog/homebrew-on-m1/
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-
-# # openssl and new M1 chip
 export PYTHON_BUILD_HOMEBREW_OPENSSL_FORMULA=openssl@3
-
-# add this after homebrew to use m1 /opt/homebrew before old homebrew that was in /usr/local/bin 
 export PATH="$PATH:/usr/local/bin/"
 
 # zsh-kubectl-prompt
