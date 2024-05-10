@@ -37,7 +37,6 @@ alias gcpr="gh pr create -w"
 alias gsync="git checkout main && git pull --rebase && git fetch --prune"
 alias glom="git pull origin main"
 alias lg=lazygit
-alias nb="git checkout -b casey/$1"
 
 # docker
 alias dkps="docker ps"

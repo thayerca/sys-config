@@ -104,7 +104,7 @@ dam() {
 }
 
 # create a new branch
-function new-branch() {
+function nb() {
   if [[ $# -eq 0 ]]; then
     echo "Usage: new_branch <jira-ticket>"
     return 1
