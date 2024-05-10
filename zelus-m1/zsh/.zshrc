@@ -50,7 +50,8 @@ export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PYTHON_BUILD_HOMEBREW_OPENSSL_FORMULA=openssl@3
 export PATH="$PATH:/usr/local/bin/"
-
+# poetry
+export PATH="$HOME/.local/bin:$PATH"
 # zsh-kubectl-prompt
 autoload -U colors; colors
 
