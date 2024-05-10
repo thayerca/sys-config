@@ -228,4 +228,13 @@ function bigquery() {
     open -a firefox "$full_url"
 }
 
+function oncall() {
+  # Open links for on call inspection
+  local looker_dashboard_link="https://lookerstudio.google.com/u/0/reporting/0250a1f8-d774-4bf8-935e-3700fd856765/page/URU7C?s=h6jXziSXFsk"
+  local prd_airflow_link="https://airflow-basketball.prod.zelusanalytics.com/home?tags=incremental"
+  local stg_airflow_link="https://airflow-basketball.stg.zelusanalytics.com/home?tags=incremental"
+  local nba_schedule_link="https://www.nba.com/schedule"
 
+  echo "Opening links for on call inspection..."
+  open -a firefox "$looker_dashboard_link" "$nba_schedule_link" "$prd_airflow_link" "$stg_airflow_link"
+}

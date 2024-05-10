@@ -48,6 +48,7 @@ alias dkcpup="docker-compose up -d"
 alias dkcpdown="docker-compose down"
 alias dkcpstart="docker-compose start"
 alias dkcpstop="docker-compose stop"
+alias dclean="docker system prune -a --volumes"
 
 # kubernetes
 alias ka="kubectl apply -f $1"
