@@ -1,37 +1,21 @@
-#python 3
+# python 3
 alias python=python3
 alias pip=pip3
-#make neovim default vim
+
+# make neovim default vim
 export EDITOR="nvim"
 alias vim=nvim
-#This is a great way of always being sure that the ipython instance always belongs to the virtualenv's python version.
-alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 
+# general
 alias c=clear
-
-# show hidden files by default
-alias ll='ls -la'
-function chpwd() {
-    emulate -L zsh
-    ll
-}
+alias cat=bat
+alias ls='exa'
 
 # direnv
 alias da='direnv allow'
 alias dr='direnv reload'
 
-# tmux
-alias ide=~/.tmux/ide
-alias tmux-session=~/.tmux/tmux-session
-alias killtmuxsessions="tmux ls -F'#{session_name}'|egrep '^[0-9]+$'|xargs -I% tmux kill-session -t \"=%\""
-alias ta="tmux attach"
-# opening a new tmux session from current directory and name it like last part of pwd path
-alias tn='tmux new -s `eval echo $(pwd) | sed "s/.*\///"`'
-# when closing ranger it will be at the path you were
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias r=ranger
-
-#git shortcuts
+# git
 alias g='git'
 alias ga='git add'
 alias gc='gcj'
@@ -49,15 +33,13 @@ alias grr='git remote rm'
 alias gpu='git pull'
 alias gf='git fetch'
 alias gcl='git clone'
-alias gt='vim -c ":DiffviewOpen"' --diff current changes
 alias gcpr="gh pr create -w"
-alias multipull="find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;"
 alias gsync="git checkout main && git pull --rebase && git fetch --prune"
+alias glom="git pull origin main"
 alias lg=lazygit
-alias cat=bat
+alias nb="git checkout -b casey/$1"
 
-
-#docker
+# docker
 alias dkps="docker ps"
 alias dkst="docker stats"
 alias dkpsa="docker ps -a"
@@ -67,17 +49,16 @@ alias dkcpdown="docker-compose down"
 alias dkcpstart="docker-compose start"
 alias dkcpstop="docker-compose stop"
 
-# zelus specific
-# aliases
-alias ls='exa'
-alias R='R --no-restore-data --no-save'
-alias r="radian"
-alias da='direnv allow'
-alias dr='direnv reload'
-alias duckdb="/Applications/duckdb ; exit;"
-alias glom="git pull origin main"
+# kubernetes
 alias ka="kubectl apply -f $1"
 alias kdj="kubectl delete job $1"
+
+# R
+alias R='R --no-restore-data --no-save'
+alias r="radian"
+
+# duckdb
+alias duckdb="/Applications/duckdb ; exit;"
 
 # terraform
 alias tf="./terraform.sh"
