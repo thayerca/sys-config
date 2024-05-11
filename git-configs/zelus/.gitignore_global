@@ -1,0 +1,9 @@
+.DS_STORE
+.vscode
+.envrc
+test_k8s/
+*.pyc
+__pycache_
+.python-version
+venv/
+.mypy_cache
