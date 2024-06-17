@@ -31,8 +31,8 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 # customized properties
-source $HOME/aliases.shrc
-source $HOME/functions.shrc
+source $HOME/.aliases.shrc
+source $HOME/.functions.shrc
 
 export SHELL=zsh
 
