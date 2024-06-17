@@ -298,6 +298,3 @@ delete_branches() {
     echo
   done
 }
-
-# Call the function
-delete_branches
