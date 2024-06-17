@@ -250,7 +250,21 @@ function oncall() {
 
 # Function to loop through local Git branches and ask for confirmation to delete
 delete_branches() {
+  # Colors
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  YELLOW='\033[0;33m'
+  BLUE='\033[0;34m'
+  NC='\033[0m' # No Color
+
+  # Emojis
+  BRANCH_EMOJI="🌿"
+  INFO_EMOJI="ℹ️"
+  DELETE_EMOJI="🗑️"
+  SKIP_EMOJI="⏭️"
+
   # Checkout the main branch
+  echo -e "${BLUE}Checking out the main branch...${NC}"
   git checkout main
 
   # Fetch all local branches into an array
@@ -260,6 +274,7 @@ delete_branches() {
   for branch in "${branches[@]}"; do
     # Skip the main branch
     if [ "$branch" = "main" ]; then
+      echo -e "${SKIP_EMOJI} ${YELLOW}Skipping main branch${NC}"
       continue
     fi
 
@@ -267,15 +282,22 @@ delete_branches() {
     branch_info=$(git log -1 --pretty=format:"%h %an <%ae> %ad%n%s" "$branch")
 
     # Print branch information
-    echo "Branch: $branch"
-    echo "$branch_info"
+    echo -e "${BRANCH_EMOJI} ${BLUE}Branch: ${GREEN}$branch${NC}"
+    echo -e "${INFO_EMOJI} ${YELLOW}$branch_info${NC}"
     echo
 
     # Ask for confirmation to delete the branch
-    echo -n "Do you want to delete the branch '$branch'? (y/n) "
+    echo -n -e "${DELETE_EMOJI} ${RED}Do you want to delete the branch '$branch'? (y/n) ${NC}"
     read confirm
     if [ "$confirm" = "y" ]; then
-      git branch -D "$branch"
+      git branch -d "$branch"
+      echo -e "${GREEN}Branch '$branch' deleted.${NC}"
+    else
+      echo -e "${YELLOW}Branch '$branch' not deleted.${NC}"
     fi
+    echo
   done
 }
+
+# Call the function
+delete_branches
