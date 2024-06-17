@@ -275,7 +275,7 @@ delete_branches() {
     echo -n "Do you want to delete the branch '$branch'? (y/n) "
     read confirm
     if [ "$confirm" = "y" ]; then
-      git branch -d "$branch"
+      git branch -D "$branch"
     fi
   done
 }
