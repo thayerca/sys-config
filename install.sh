@@ -13,6 +13,9 @@ do
     echo "Symlinked $dir folder to home directory"
 done
 
+# set up tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # set up git config based on computer type
 if [ "$1" != "personal" ] && [ "$1" != "zelus" ]; then
   echo "Invalid argument. Please specify 'personal' or 'zelus'"
