@@ -1,77 +1,77 @@
 zdbb() {
-    cd $HOME/zelus/basketball
-    DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
-        && cd "$DIR"
+  cd $HOME/zelus/basketball
+  DIR=$(find * -maxdepth 0 -type d -print 2>/dev/null | fzf-tmux) &&
+    cd "$DIR"
 }
 zdg() {
   cd $HOME/zelus/general
-  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
-    && cd "$DIR"
+  DIR=$(find * -maxdepth 0 -type d -print 2>/dev/null | fzf-tmux) &&
+    cd "$DIR"
 }
 zdes() {
   cd $HOME/zelus/esports
-  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
-    && cd "$DIR"
+  DIR=$(find * -maxdepth 0 -type d -print 2>/dev/null | fzf-tmux) &&
+    cd "$DIR"
 }
 zdfb() {
   cd $HOME/zelus/football
-  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
-    && cd "$DIR"
+  DIR=$(find * -maxdepth 0 -type d -print 2>/dev/null | fzf-tmux) &&
+    cd "$DIR"
 }
 zgcp() {
   PROJECT=$(gcloud config configurations list --format json | jq -r ".[] | .name" | fzf-tmux)
   gcloud config configurations activate "$PROJECT"
 }
 model-dev-tag() {
-  GIT_TIMESTAMP=$(date -u "+%Y%m%d.%H%M%S");
-  if [[ $# -eq 2 ]] ; then
-     echo "Tagging and pushing with dev-$1/cthayer/$2-$GIT_TIMESTAMP"
-     sleep 3
-     git tag dev-$1/cthayer/$2-$GIT_TIMESTAMP
-     git push origin dev-$1/cthayer/$2-$GIT_TIMESTAMP
+  GIT_TIMESTAMP=$(date -u "+%Y%m%d.%H%M%S")
+  if [[ $# -eq 2 ]]; then
+    echo "Tagging and pushing with dev-$1/cthayer/$2-$GIT_TIMESTAMP"
+    sleep 3
+    git tag dev-$1/cthayer/$2-$GIT_TIMESTAMP
+    git push origin dev-$1/cthayer/$2-$GIT_TIMESTAMP
   else
-     echo "Error: requires exactly two arguments"
+    echo "Error: requires exactly two arguments"
   fi
 }
 glogone() {
-    DEFAULT=10
-    NUM_COMMITS="${1:-$DEFAULT}"
-    git --no-pager log --oneline -n $NUM_COMMITS
+  DEFAULT=10
+  NUM_COMMITS="${1:-$DEFAULT}"
+  git --no-pager log --oneline -n $NUM_COMMITS
 }
 killpods() {
-    # app=bkrdp-ss, bkrdp-ngss, bkie
-    # model=basketball-adjusted-plus-minus
-    kubectl delete pods -l $1 
+  # app=bkrdp-ss, bkrdp-ngss, bkie
+  # model=basketball-adjusted-plus-minus
+  kubectl delete pods -l $1
 }
 killjobs() {
-    # app=bkrdp-ss, bkrdp-ngss, bkie
-    # model=basketball-adjusted-plus-minus
-    kubectl delete jobs -l $1
+  # app=bkrdp-ss, bkrdp-ngss, bkie
+  # model=basketball-adjusted-plus-minus
+  kubectl delete jobs -l $1
 }
 wpod() {
   # Arg $1 - seconds to refresh
   # Arg $2 - part of pod name to grep
 
-    watch -n $1 "kubectl get pod | grep $2"
+  watch -n $1 "kubectl get pod | grep $2"
 }
 wjob() {
-    watch -n $1 "kubectl get job | grep $2"
+  watch -n $1 "kubectl get job | grep $2"
 }
 zmvbbd() {
-    kubectl port-forward svc/zelus-model-versioner -n zelus-model-versioner :80 | cloud_sql_proxy -instances=zelus-basketball-dev:us-central1:basketball-data=tcp:5432
+  kubectl port-forward svc/zelus-model-versioner -n zelus-model-versioner :80 | cloud_sql_proxy -instances=zelus-basketball-dev:us-central1:basketball-data=tcp:5432
 }
 dev-tag() {
   # Arg $1 - sport name
   # Arg $2 - dev tag label typically a JIRA ticket number
 
-  GIT_TIMESTAMP=$(date -u "+%Y%m%d.%H%M%S");
-  if [[ $# -eq 2 ]] ; then
-     echo "Tagging and pushing with dev-$1-ct-$2-$GIT_TIMESTAMP"
-     sleep 3
-     git tag dev-$1-ct-$2-$GIT_TIMESTAMP
-     git push origin dev-$1-ct-$2-$GIT_TIMESTAMP
+  GIT_TIMESTAMP=$(date -u "+%Y%m%d.%H%M%S")
+  if [[ $# -eq 2 ]]; then
+    echo "Tagging and pushing with dev-$1-ct-$2-$GIT_TIMESTAMP"
+    sleep 3
+    git tag dev-$1-ct-$2-$GIT_TIMESTAMP
+    git push origin dev-$1-ct-$2-$GIT_TIMESTAMP
   else
-     echo "Error: requires exactly two argument"
+    echo "Error: requires exactly two argument"
   fi
 }
 release-tag() {
@@ -114,7 +114,7 @@ function nb() {
   local branch_name="casey/${jira_ticket}"
 
   # check if branch already exists
-  if git rev-parse --git-dir > /dev/null 2>&1; then
+  if git rev-parse --git-dir >/dev/null 2>&1; then
     # create and switch to new branch
     git checkout -b "$branch_name"
     echo "Created new branch: $branch_name"
@@ -131,7 +131,7 @@ function nb() {
 # create commit message including jira ticket ID from branch name
 gcj() {
   # Ensure we're inside a Git repository
-  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     echo "This command must be run in a git repository."
     return 1
   fi
@@ -157,84 +157,84 @@ gagc() {
 
 # bigquery query
 function query-gcp() {
-    # Define colors
-    local RED="\033[0;31m"
-    local GREEN="\033[0;32m"
-    local NO_COLOR="\033[0m"
-    
-    # Accept the SQL query as a parameter
-    local query="$1"
-    if [[ -z "$query" ]]; then
-        echo "Please provide a SQL query as an argument."
-        return 1
-    fi
+  # Define colors
+  local RED="\033[0;31m"
+  local GREEN="\033[0;32m"
+  local NO_COLOR="\033[0m"
 
-    # Step 1: Print the current GCP project
-    local current_project=$(gcloud config get-value project 2>/dev/null)
-    echo "Current GCP Project: ${RED}$current_project${NO_COLOR}"
-    read "response?Is this the project you want to query? (y/n) "
-    if [[ "$response" != "y" ]]; then
-        echo "Exiting..."
-        return 1
-    fi
+  # Accept the SQL query as a parameter
+  local query="$1"
+  if [[ -z "$query" ]]; then
+    echo "Please provide a SQL query as an argument."
+    return 1
+  fi
 
-    # Step 2: Calculate the cost and size of the query
-    echo "Calculating cost and size of the query..."
-    local dry_run_output=$(bq query --use_legacy_sql=false --dry_run --format=prettyjson "$query" 2>&1)
-    local query_cost=$(echo "$dry_run_output" | jq '.statistics.query.totalBytesProcessed | tonumber' 2>/dev/null)
+  # Step 1: Print the current GCP project
+  local current_project=$(gcloud config get-value project 2>/dev/null)
+  echo "Current GCP Project: ${RED}$current_project${NO_COLOR}"
+  read "response?Is this the project you want to query? (y/n) "
+  if [[ "$response" != "y" ]]; then
+    echo "Exiting..."
+    return 1
+  fi
 
-    if [[ -z "$query_cost" || "$query_cost" == "null" ]]; then
-        echo "Failed to calculate query cost. Error was:"
-        echo "$dry_run_output"
-        return 1
-    fi
+  # Step 2: Calculate the cost and size of the query
+  echo "Calculating cost and size of the query..."
+  local dry_run_output=$(bq query --use_legacy_sql=false --dry_run --format=prettyjson "$query" 2>&1)
+  local query_cost=$(echo "$dry_run_output" | jq '.statistics.query.totalBytesProcessed | tonumber' 2>/dev/null)
 
-    local cost_in_gb=$(bc <<< "scale=2; $query_cost / 1024 / 1024 / 1024")
-    local estimated_cost=$(bc <<< "scale=2; $cost_in_gb * 0.01")  # Assuming $0.01 per GB
-    echo "${GREEN}Estimated cost: \$${estimated_cost} USD${NO_COLOR}"
-    echo "Data processed: ${cost_in_gb} GB"
+  if [[ -z "$query_cost" || "$query_cost" == "null" ]]; then
+    echo "Failed to calculate query cost. Error was:"
+    echo "$dry_run_output"
+    return 1
+  fi
 
-    # Step 3: Ask user if they want to continue
-    read "cont?Do you want to continue with this query? (y/n) "
-    if [[ "$cont" != "y" ]]; then
-        echo "Query cancelled."
-        return 1
-    fi
+  local cost_in_gb=$(bc <<<"scale=2; $query_cost / 1024 / 1024 / 1024")
+  local estimated_cost=$(bc <<<"scale=2; $cost_in_gb * 0.01") # Assuming $0.01 per GB
+  echo "${GREEN}Estimated cost: \$${estimated_cost} USD${NO_COLOR}"
+  echo "Data processed: ${cost_in_gb} GB"
 
-    # Step 4: Execute the query and print results
-    echo "Executing query..."
-    bq query --use_legacy_sql=false "$query"
+  # Step 3: Ask user if they want to continue
+  read "cont?Do you want to continue with this query? (y/n) "
+  if [[ "$cont" != "y" ]]; then
+    echo "Query cancelled."
+    return 1
+  fi
+
+  # Step 4: Execute the query and print results
+  echo "Executing query..."
+  bq query --use_legacy_sql=false "$query"
 }
 
 # Example usage: query_gcp "SELECT * FROM your_dataset.your_table LIMIT 10"
 
 function bigquery() {
-    # Define colors
-    local RED="\033[0;31m"
-    local NO_COLOR="\033[0m"
-    
-    # Get the current GCP project
-    local current_project=$(gcloud config get-value project)
+  # Define colors
+  local RED="\033[0;31m"
+  local NO_COLOR="\033[0m"
 
-    # Check if a project is set
-    if [ -z "$current_project" ]; then
-        echo "No GCP project is currently set."
-        return 1
-    fi
-    
-    echo "Opening BigQuery console for ${RED}$current_project${NO_COLOR}"
-    read "response?Is this the project you want to query? (y/n) "
-    if [[ "$response" != "y" ]]; then
-        echo "Exiting..."
-        return 1
-    fi
+  # Get the current GCP project
+  local current_project=$(gcloud config get-value project)
 
-    # Define base URL or project-specific URL pattern
-    local base_url="https://console.cloud.google.com/"
-    local full_url="${base_url}bigquery?project=${current_project}&supportedpurview=project&ws=!1m0"
+  # Check if a project is set
+  if [ -z "$current_project" ]; then
+    echo "No GCP project is currently set."
+    return 1
+  fi
 
-    # Firefox is not running, start it and open the URL
-    open -a firefox "$full_url"
+  echo "Opening BigQuery console for ${RED}$current_project${NO_COLOR}"
+  read "response?Is this the project you want to query? (y/n) "
+  if [[ "$response" != "y" ]]; then
+    echo "Exiting..."
+    return 1
+  fi
+
+  # Define base URL or project-specific URL pattern
+  local base_url="https://console.cloud.google.com/"
+  local full_url="${base_url}bigquery?project=${current_project}&supportedpurview=project&ws=!1m0"
+
+  # Firefox is not running, start it and open the URL
+  open -a firefox "$full_url"
 }
 
 function oncall() {

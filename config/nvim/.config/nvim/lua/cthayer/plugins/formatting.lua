@@ -1,5 +1,8 @@
 return {
 	"stevearc/conform.nvim",
+	dependencies = {
+		"mhartington/formatter.nvim",
+	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local conform = require("conform")
@@ -21,6 +24,33 @@ return {
 			},
 		})
 
+		require("formatter").setup({
+			filetype = {
+				sh = {
+					-- Shell Script Formatter
+					function()
+						return {
+							exe = "shfmt",
+							args = { "-i", "2" },
+							stdin = true,
+						}
+					end,
+				},
+				["shrc"] = {
+					function()
+						return {
+							exe = "shfmt",
+							args = { "-i", "2" },
+							stdin = true,
+						}
+					end,
+				},
+			},
+		})
+		-- Set filetype for .shrc files
+		vim.cmd([[
+      autocmd BufRead,BufNewFile *.shrc set filetype=sh
+    ]])
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
 				lsp_fallback = true,
