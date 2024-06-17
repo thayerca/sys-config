@@ -250,29 +250,32 @@ function oncall() {
 
 # Function to loop through local Git branches and ask for confirmation to delete
 delete_branches() {
-  # Fetch all local branches
-  branches=$(git branch --format '%(refname:short)')
+  # Checkout the main branch
+  git checkout main
+
+  # Fetch all local branches into an array
+  branches=($(git branch --format '%(refname:short)'))
 
   # Loop through each branch
-  for branch in $branches; do
-    # Skip the current branch
-    if [ "$branch" = "$(git rev-parse --abbrev-ref HEAD)" ]; then
+  for branch in "${branches[@]}"; do
+    # Skip the main branch
+    if [ "$branch" = "main" ]; then
       continue
     fi
 
     # Get detailed information about the branch
-    branch_info=$(git log -1 --pretty=format:"%C(yellow)Commit:%Creset %H%n%C(yellow)Author:%Creset %an <%ae>%n%C(yellow)Date:%Creset %ad%n%n%C(yellow)Message:%Creset %s" $branch)
+    branch_info=$(git log -1 --pretty=format:"%h %an <%ae> %ad%n%s" "$branch")
 
     # Print branch information
-    echo
     echo "Branch: $branch"
     echo "$branch_info"
     echo
 
     # Ask for confirmation to delete the branch
-    read -p "Do you want to delete the branch '$branch'? (y/n) " confirm
+    echo -n "Do you want to delete the branch '$branch'? (y/n) "
+    read confirm
     if [ "$confirm" = "y" ]; then
-      git branch -d $branch
+      git branch -d "$branch"
     fi
   done
 }

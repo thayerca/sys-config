@@ -11,7 +11,7 @@ alias c=clear
 alias cat=bat
 alias ls='exa'
 alias rsh='exec $SHELL'
-
+alias cdd='cd $HOME/dotfiles'
 # direnv
 alias da='direnv allow'
 alias dr='direnv reload'
