@@ -1,5 +1,5 @@
 [user]
-	name = thayer6
+	name = thayerca
 	email = casey.thayer6@gmail.com
 [init]
 	defaultBranch = main
@@ -9,7 +9,7 @@
   eol = lf
 	pager = delta
 [github]
-	user = thayer6 
+	user = thayerca
 [diff]
   tool = nvimdiff #meld
   colorMoved = default
