@@ -1,4 +1,6 @@
 .DS_STORE
 .python-version
 __pycache__
+.pytest_cache
+.mypy_cache
 .envrc
