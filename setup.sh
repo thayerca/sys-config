@@ -25,10 +25,10 @@ ln -sf ~/sys-config/zsh/functions.shrc ~/.functions.shrc
 ln -sf ~/sys-config/tmux/.tmux.conf ~/.tmux.conf
 ln -sf ~/sys-config/tmux/.tmux ~/.tmux
 ln -sf ~/sys-config/powerline/.p10k.zsh ~/.p10k.zsh
-ln -sf ~/sys-config/fzf/.fzf/ ~/.fzf
+ln -sf ~/sys-config/fzf/ ~/.fzf
 ln -sf ~/sys-config/git-configs/.gitconfig ~/.gitconfig
 ln -sf ~/sys-config/git-configs/.gitignore_global ~/.gitignore_global
-ln -sf ~/sys-config/nvim/.config/nvim ~/.config/nvim
+ln -sf ~/sys-config/nvim/ ~/.config/nvim
 ln -sf ~/sys-config/kitty ~/.config/kitty
 
 ### Install fonts for powerline
