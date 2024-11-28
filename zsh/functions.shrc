@@ -298,3 +298,53 @@ delete_branches() {
     echo
   done
 }
+
+# proxy to dbs
+phil-db-up() {
+  # Check if at least one argument is provided
+  if [ $# -lt 1 ]; then
+    echo "[ERROR] Usage: phil-db-up <db-name> [additional-db-names...]"
+    echo "[INFO] Example: phil-db-up biomech prod"
+    return 1
+  fi
+
+  # Initialize the cloud-sql-proxy command
+  local cmd="cloud-sql-proxy"
+
+  # Function to map friendly names to instance names
+  map_instance() {
+    case "$1" in
+      # add new instances here
+      biomech) echo "phil-new:us-east1:prod-biomech-v5-1-0" ;;
+      prod) echo "phil-new:us-east1:phil-db-prod-v2" ;;
+      # new-instance) echo "instance" ;;
+      *) echo "" ;;
+    esac
+  }
+
+  # Handle the --all flag
+  if [ "$1" == "--all" ]; then
+    echo "[INFO] Starting all instances..."
+    # add new instances here
+    for db_name in biomech prod; do
+      instance=$(map_instance "$db_name")
+      echo "[INFO] Starting CloudSQL proxy to '$instance'"
+      cmd="$cmd $instance"
+    done
+  else
+    echo "[INFO] Starting specific instances: $@"
+    # Loop through each provided argument
+    for db_name in "$@"; do
+      instance=$(map_instance "$db_name")
+      if [ -z "$instance" ]; then
+        echo "[ERROR] Unknown database '$db_name'. Please update the mapping."
+        return 1
+      fi
+      echo "[INFO] Starting CloudSQL proxy to '$instance'"
+      cmd="$cmd $instance"
+    done
+  fi
+
+  eval "$cmd"
+  open -a dbeaver
+}

@@ -17,7 +17,7 @@ brew "curl"
 brew "derailed/k9s/k9s"
 brew "direnv"
 brew "docker", link: false
-brew "exa"
+brew "eza"
 brew "fd"
 brew "fzf"
 brew "gh"

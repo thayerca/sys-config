@@ -5,13 +5,19 @@ alias pip=pip3
 # make neovim default vim
 export EDITOR="nvim"
 alias vim=nvim
+alias vv=nvim
 
 # general
 alias c=clear
 alias cat=bat
-alias ls='exa'
+alias ll='eza -l -a --icons'
+alias ls='eza -l --icons'
+alias xx='exit'
 alias rsh='exec $SHELL'
 alias cdd='cd $HOME/dotfiles'
+alias cdh='cd $HOME'
+alias cdm='cd $HOME/ct'
+
 # direnv
 alias da='direnv allow'
 alias dr='direnv reload'
@@ -53,6 +59,8 @@ alias dclean="docker system prune -a --volumes"
 # kubernetes
 alias ka="kubectl apply -f $1"
 alias kdj="kubectl delete job $1"
+alias kgp="kubectl get pods"
+alias kgj="kubectl get jobs"
 
 # R
 alias R='R --no-restore-data --no-save'
