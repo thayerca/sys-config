@@ -30,6 +30,7 @@ ln -sf ~/sys-config/git-configs/.gitconfig ~/.gitconfig
 ln -sf ~/sys-config/git-configs/.gitignore_global ~/.gitignore_global
 ln -sf ~/sys-config/nvim/ ~/.config/nvim
 ln -sf ~/sys-config/kitty ~/.config/kitty
+ln -sf ~/sys-config/ghostty ~/.config/ghostty
 
 ### Install fonts for powerline
 if [ ! -d "$HOME/fonts" ]; then
