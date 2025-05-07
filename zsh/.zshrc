@@ -40,7 +40,7 @@ export SHELL=zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # bash completion
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+"[ -f /opt/homebrew/etc/bash_completion ] && . /opt/homebrew/etc/bash_completion" 
 
 # homebrew
 export PATH=/opt/homebrew/bin:$PATH

@@ -19,6 +19,7 @@ brew bundle --file=~/sys-config/Brewfile
 ### Symlink Config Files
 echo "Creating symlinks for configuration files..."
 ln -sf ~/sys-config/zsh/.zshrc ~/.zshrc
+ln -sf ~/sys-config/bash/ct-bash.shrc ~/.ct-bash.shrc
 ln -sf ~/sys-config/zsh/.zprofile ~/.zprofile
 ln -sf ~/sys-config/zsh/aliases.shrc ~/.aliases.shrc
 ln -sf ~/sys-config/zsh/functions.shrc ~/.functions.shrc
