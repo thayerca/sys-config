@@ -1,5 +1,20 @@
-"$schema" = 'https://starship.rs/config-schema.json'
+# ------------------------------------------------------------------------------
+# 🚀 starship.toml — Prompt Configuration
+# ------------------------------------------------------------------------------
+# Description:
+#   Highly readable, minimal-yet-informative prompt using Starship and the
+#   Catppuccin Mocha theme. Designed for Python, Git, Kubernetes, and cloud-first workflows.
+#
+# Author: Casey A. Thayer
+# Location: ~/.config/starship.toml
+# ------------------------------------------------------------------------------
 
+"$schema" = "https://starship.rs/config-schema.json"
+palette = "catppuccin_mocha"
+
+# ------------------------------------------------------------------------------
+# 🌈 Format: Prompt Layout and Segments
+# ------------------------------------------------------------------------------
 format = """
 [](surface0)\
 $os\
@@ -22,19 +37,9 @@ $time\
 [ ](fg:purple)\
 $line_break$character"""
 
-palette = 'catppuccin_mocha'
-
-[palettes.gruvbox_dark]
-color_fg0 = '#fbf1c7'
-color_bg1 = '#3c3836'
-color_bg3 = '#665c54'
-color_blue = '#458588'
-color_aqua = '#689d6a'
-color_green = '#98971a'
-color_orange = '#d65d0e'
-color_purple = '#b16286'
-color_red = '#cc241d'
-color_yellow = '#d79921'
+# ------------------------------------------------------------------------------
+# 🎨 Custom Palettes
+# ------------------------------------------------------------------------------
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
@@ -63,6 +68,10 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+
+# ------------------------------------------------------------------------------
+# 🖥 OS and User
+# ------------------------------------------------------------------------------
 
 [os]
 disabled = false
@@ -95,6 +104,10 @@ style_user = "bg:surface0 fg:text"
 style_root = "bg:surface0 fg:text"
 format = '[ $user ]($style)'
 
+# ------------------------------------------------------------------------------
+# 📂 Directory Display
+# ------------------------------------------------------------------------------
+
 [directory]
 style = "fg:mantle bg:peach"
 format = "[ $path ]($style)"
@@ -107,6 +120,10 @@ truncation_symbol = "…/"
 "Music" = "󰝚 "
 "Pictures" = " "
 "Developer" = "󰲋 "
+
+# ------------------------------------------------------------------------------
+# 🌱 Git Integration
+# ------------------------------------------------------------------------------
 
 [git_branch]
 symbol = ""
@@ -126,6 +143,10 @@ modified = " "     # Pencil icon
 deleted = " "      # Minus icon
 renamed = " "
 staged = '[++\($count\)](green)'
+
+# ------------------------------------------------------------------------------
+# 🐍 Languages & Runtimes
+# ------------------------------------------------------------------------------
 
 [nodejs]
 symbol = ""
@@ -152,6 +173,10 @@ symbol = ""
 style = "bg:teal"
 format = '[[ $symbol( $version) {$virtualenv} ](fg:base bg:teal)]($style)'
 
+# ------------------------------------------------------------------------------
+# 🐋 Kubernetes, GCloud, Docker
+# ------------------------------------------------------------------------------
+
 [docker_context]
 symbol = ""
 style = "bg:mantle"
@@ -168,11 +193,19 @@ symbol = "󱃾"
 format = '[[ $symbol( $context) ](fg:black bg:blue)]($style)'
 disabled = false
 
+# ------------------------------------------------------------------------------
+# ⏰ Clock
+# ------------------------------------------------------------------------------
+
 [time]
 disabled = false
 time_format = "%R"
 style = "bg:peach"
 format = '[[  $time ](fg:mantle bg:purple)]($style)'
+
+# ------------------------------------------------------------------------------
+# ✨ Prompt Line & Status Symbol
+# ------------------------------------------------------------------------------
 
 [line_break]
 disabled = false
