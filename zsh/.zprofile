@@ -1,8 +1,24 @@
+# ------------------------------------------------------------------------------
+# 📦 .zprofile — Login Shell Environment (macOS)
+# ------------------------------------------------------------------------------
+# Description:
+#   One-time environment setup for login shells and GUI apps (VS Code, PyCharm).
+#   Paths and env vars defined here will apply outside interactive terminals.
+#
+# Author: Casey A. Thayer
+# Location: ~/.zprofile
+# ------------------------------------------------------------------------------
+
+# 🍺 Homebrew path setup (Apple Silicon, macOS)
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-eval $(/opt/homebrew/bin/brew shellenv)  # Apple silicon (Arm-based)
-export PYENV_ROOT="$HOME/.pyenv"         # pyenv/pyenv-virtualenv
-export PATH=$(pyenv root)/shims:$PATH    # pyenv/pyenv-virtualenv
-export ARTIFACTORY_USER=cthayer       # Zelus/Artifactory username
-export ARTIFACTORY_PASSWORD={password}   # Artifactory encrypted password
-export PATH="$HOME/.poetry/bin:$PATH" # poetry
+# 🐍 pyenv setup for GUI apps (e.g., VS Code launched via Spotlight)
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+
+# ✍️ Default editor (optional)
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+# 📦 Add user bin path (optional)
+export PATH="$HOME/bin:$PATH"
