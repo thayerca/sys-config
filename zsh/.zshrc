@@ -63,8 +63,8 @@ export PYTHON_BUILD_HOMEBREW_OPENSSL_FORMULA=openssl@3
 # 📦 direnv
 eval "$(direnv hook zsh)"
 
-# 📦 fzf
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+# 🔍 fzf
+[[ -f "$HOME/.fzf/key-bindings.zsh" ]] && source "$HOME/.fzf/key-bindings.zsh"
 
 # 📦 pyenv & virtualenv
 if command -v pyenv > /dev/null; then
@@ -86,6 +86,7 @@ fi
 
 # 📦 Bash completion (some tools rely on this)
 [[ -f /opt/homebrew/etc/bash_completion ]] && source /opt/homebrew/etc/bash_completion
+
 
 # ------------------------------------------------------------------------------
 # 🐍 Python & uv (optional)
