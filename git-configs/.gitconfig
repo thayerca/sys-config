@@ -1,61 +1,94 @@
+# ------------------------------------------------------------------------------
+# 🧬 .gitconfig — Global Git Configuration
+# ------------------------------------------------------------------------------
+# Description:
+#   Streamlined git configuration for command-line and tool integrations.
+#   Includes enhanced diffing, merge tooling, delta, LFS, and GitHub CLI support.
+#
+# Author: Casey A. Thayer
+# Location: ~/.gitconfig
+# ------------------------------------------------------------------------------
+
 [user]
-	name = thayerca
-	email = casey.thayer6@gmail.com
+  name = thayerca
+  email = casey.thayer6@gmail.com
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
 [core]
-	excludesfile = /Users/caseythayer/.gitignore_global
-	autocrlf = false
+  excludesfile = ~/.gitignore_global
+  autocrlf = false
   eol = lf
-	pager = delta
+  pager = delta
+
 [github]
-	user = thayerca
+  user = thayerca
+
+[hub]
+  protocol = https
+
+# ------------------------------------------------------------------------------
+# 🧪 Diffs & Difftools
+# ------------------------------------------------------------------------------
+
 [diff]
-  tool = nvimdiff #meld
+  tool = nvimdiff
   colorMoved = default
-  #nvimdiff
+
 [difftool]
   prompt = false
-[difftool "meld"]
-  cmd = meld "$REMOTE" "$LOCAL"
+
 [difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
-	path = /opt/homebrew/bin/nvim
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[mergetool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[hub]
-	protocol = https
-[interactive]
-	diffFilter = delta --color-only
-[delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  cmd = nvim -d "$LOCAL" "$REMOTE"
+  path = /opt/homebrew/bin/nvim
+
+# ------------------------------------------------------------------------------
+# 🧠 Merge Tools
+# ------------------------------------------------------------------------------
+
 [merge]
-    conflictstyle = diff3
+  conflictstyle = diff3
+
+[mergetool "nvimdiff"]
+  cmd = nvim -d "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"
+  trustExitCode = true
+
+# ------------------------------------------------------------------------------
+# 🧩 Git LFS
+# ------------------------------------------------------------------------------
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+# ------------------------------------------------------------------------------
+# 🎨 Delta for Pretty Diffs
+# ------------------------------------------------------------------------------
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true        # Enable n/N navigation between diff hunks
+  light = false          # Set to true for light backgrounds
+
 [color]
-	ui = true
+  ui = true
+
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal    = red bold
+  oldHighlight = red bold 52
+  newNormal    = green bold
+  newHighlight = green bold 22
+
 [color "diff"]
-	meta = 11
-	frag = magenta bold
-	func = 146 bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+  meta       = 11
+  frag       = magenta bold
+  func       = 146 bold
+  commit     = yellow bold
+  old        = red bold
+  new        = green bold
+  whitespace = red reverse
