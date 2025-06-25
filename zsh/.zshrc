@@ -16,6 +16,7 @@
 # 🎨 Theme and Oh My Zsh
 # ------------------------------------------------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 #export ZSH_THEME="powerlevel10k/powerlevel10k"
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="$ZSH/custom/plugins/zsh-syntax-highlighting/highlighters"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
