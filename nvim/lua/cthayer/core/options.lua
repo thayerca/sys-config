@@ -1,43 +1,84 @@
-vim.cmd("let g:netrw_liststyle = 3")
+-- ------------------------------------------------------------------------------
+-- 🛠 options.lua — Core Neovim Settings
+-- ------------------------------------------------------------------------------
+-- Description:
+--   Sets base editor behavior for indentation, UI, search, splits, etc.
+--
+-- Author: Casey A. Thayer
+-- Location: ~/.config/nvim/lua/cthayer/core/options.lua
+-- ------------------------------------------------------------------------------
 
 local opt = vim.opt
+local g = vim.g
 
-opt.relativenumber = true
-opt.number = true
+-- ------------------------------------------------------------------------------
+-- 🗂 UI & Display
+-- ------------------------------------------------------------------------------
 
--- tabs & indentation
-opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
-opt.shiftwidth = 2 -- 2 spaces for indent width
-opt.expandtab = true -- expand tab to spaces
-opt.autoindent = true -- copy indent from current line when starting new one
+opt.number = true -- Show absolute line number on cursor line
+opt.relativenumber = true -- Show relative line numbers
+opt.cursorline = true -- Highlight current line
+opt.signcolumn = "yes" -- Keep sign column visible
+opt.wrap = false -- Don't wrap lines
+opt.termguicolors = true -- Enable 24-bit RGB colors
+opt.background = "dark" -- Set background for dark color schemes
+opt.synmaxcol = 240 -- Avoid slow highlighting on long lines
 
-opt.wrap = false
+-- Use a cleaner Netrw list style
+g.netrw_liststyle = 3
 
--- search settings
-opt.ignorecase = true -- ignore case when searching
-opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
+-- ------------------------------------------------------------------------------
+-- 🛠 Tabs & Indentation
+-- ------------------------------------------------------------------------------
 
-opt.cursorline = true
+opt.tabstop = 2 -- Number of spaces a <Tab> counts for
+opt.shiftwidth = 2 -- Number of spaces to use for autoindent
+opt.expandtab = true -- Convert tabs to spaces
+opt.autoindent = true -- Copy indent from current line
+opt.smartindent = true -- Add smart autoindenting for new lines
 
--- turn on termguicolors for tokyonight colorscheme to work
--- (have to use iterm2 or any other true color terminal)
-opt.termguicolors = true
-opt.background = "dark" -- colorschemes that can be light or dark will be made dark
-opt.signcolumn = "yes" -- show sign column so that text doesn't shift
+-- ------------------------------------------------------------------------------
+-- 🔍 Search
+-- ------------------------------------------------------------------------------
 
--- backspace
-opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
+opt.ignorecase = true -- Ignore case in search by default...
+opt.smartcase = true -- ... unless uppercase letters are used
+opt.incsearch = true -- Show match while typing
+opt.hlsearch = true -- Highlight search matches
 
--- clipboard
-opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+-- ------------------------------------------------------------------------------
+-- 📋 Clipboard & Backspace
+-- ------------------------------------------------------------------------------
 
--- split windows
-opt.splitright = true -- split vertical window to the right
-opt.splitbelow = true -- split horizontal window to the bottom
+opt.clipboard:append("unnamedplus") -- Use system clipboard as default register
+opt.backspace = "indent,eol,start" -- Backspace over everything in insert mode
 
--- turn off swapfile
-opt.swapfile = false
+-- ------------------------------------------------------------------------------
+-- 🪟 Split Behavior
+-- ------------------------------------------------------------------------------
 
--- encoding
-opt.encoding = "utf-8"
-opt.fileencoding = "utf-8"
+opt.splitright = true -- Vertical splits open to the right
+opt.splitbelow = true -- Horizontal splits open below
+
+-- ------------------------------------------------------------------------------
+-- 📁 File Handling
+-- ------------------------------------------------------------------------------
+
+opt.swapfile = false -- Disable swapfile
+opt.backup = false -- Disable backup files
+opt.writebackup = false -- Disable backup before overwriting a file
+opt.undofile = true -- Enable persistent undo
+opt.encoding = "utf-8" -- Set global string encoding
+opt.fileencoding = "utf-8" -- File-specific encoding
+
+-- ------------------------------------------------------------------------------
+-- 🚀 Performance
+-- ------------------------------------------------------------------------------
+
+opt.lazyredraw = true -- Don't redraw while executing macros
+
+-- ------------------------------------------------------------------------------
+-- 🤖 Completion
+-- ------------------------------------------------------------------------------
+
+opt.completeopt = { "menuone", "noselect" } -- Better popup menu experience

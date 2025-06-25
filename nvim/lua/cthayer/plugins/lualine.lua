@@ -1,10 +1,27 @@
+-- -----------------------------------------------------------------------------
+-- 📊 Plugin: lualine.nvim
+-- https://github.com/nvim-lualine/lualine.nvim
+--
+-- A fast and customizable statusline plugin written in Lua.
+--
+-- 🛠 How it works:
+-- - Displays current mode, file info, diagnostics, encoding, etc.
+-- - Highly customizable themes and sections
+-- - Integrates with other plugins like `lazy.nvim` to show updates
+--
+-- 💡 Usage tips:
+-- - Customize `lualine_x` to display what’s most useful to you
+-- - Use `lazy.status.has_updates()` and `lazy.status.updates` to show pending plugin updates
+-- -----------------------------------------------------------------------------
+
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	dependencies = { "nvim-tree/nvim-web-devicons" }, -- icons in statusline
 	config = function()
 		local lualine = require("lualine")
-		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
+		local lazy_status = require("lazy.status") -- plugin update notifications
 
+		-- 🎨 Define a custom color palette for the theme
 		local colors = {
 			blue = "#65D1FF",
 			green = "#3EFFDC",
@@ -14,8 +31,10 @@ return {
 			fg = "#c3ccdc",
 			bg = "#112638",
 			inactive_bg = "#2c3043",
+			semilightgray = "#6c7086",
 		}
 
+		-- 🧱 Define lualine theme for each mode
 		local my_lualine_theme = {
 			normal = {
 				a = { bg = colors.blue, fg = colors.bg, gui = "bold" },
@@ -49,24 +68,43 @@ return {
 			},
 		}
 
-		-- configure lualine with modified theme
+		-- ⚙️ Configure lualine with custom theme and sections
 		lualine.setup({
 			options = {
 				icons_enabled = true,
 				theme = my_lualine_theme,
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				disabled_filetypes = {},
 			},
 			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_c = { "filename" },
 				lualine_x = {
+					-- Show pending Lazy plugin updates
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
 						color = { fg = "#ff9e64" },
 					},
-					{ "encoding" },
-					{ "fileformat" },
-					{ "filetype" },
+					"encoding",
+					"fileformat",
+					"filetype",
 				},
+				lualine_y = { "progress" },
+				lualine_z = { "location" },
 			},
+			inactive_sections = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = { "filename" },
+				lualine_x = { "location" },
+				lualine_y = {},
+				lualine_z = {},
+			},
+			tabline = {},
+			extensions = {},
 		})
 	end,
 }

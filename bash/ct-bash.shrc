@@ -7,7 +7,7 @@ bind 'TAB:menu-complete'
 # Add fzf for enhanced fuzzy searching
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_TMUX=1
-export FZF_TMUX_HEIGHT=40%  # Adjust the height as needed
+export FZF_TMUX_HEIGHT=40% # Adjust the height as needed
 # Append rather than overwrite history
 shopt -s histappend
 
@@ -20,11 +20,11 @@ export HISTFILESIZE=20000
 
 # Interactive search via fzf
 fzf-history() {
-    local selected=$(history | fzf | awk '{$1=""; print substr($0,2)}')
-    if [ -n "$selected" ]; then
-        READLINE_LINE=$selected
-        READLINE_POINT=${#selected}
-    fi
+  local selected=$(history | fzf | awk '{$1=""; print substr($0,2)}')
+  if [ -n "$selected" ]; then
+    READLINE_LINE=$selected
+    READLINE_POINT=${#selected}
+  fi
 }
 
 # Auto-start tmux in Ghostty
@@ -32,4 +32,8 @@ if [[ "$TERM_PROGRAM" == "ghostty" ]] && [ -z "$TMUX" ] && command -v tmux >/dev
   tmux attach-session -t ghostty || tmux new-session -s ghostty
 fi
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-
+# Load pyenv and pyenv-virtualenv
+export PYENV_ROOT="$HOME/.pyenv"
+eval "$("$PYENV_ROOT/bin/pyenv" init --path)"
+eval "$("$PYENV_ROOT/bin/pyenv" init -)"
+eval "$("$PYENV_ROOT/bin/pyenv" virtualenv-init -)"

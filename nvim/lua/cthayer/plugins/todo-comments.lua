@@ -1,21 +1,55 @@
+-- Plugin: folke/todo-comments.nvim
+-- URL: https://github.com/folke/todo-comments.nvim
+-- Description: Highlights and searches for comment keywords like TODO, FIX, HACK, etc.
+-- How it works: Uses Treesitter (or regex as fallback) to detect comment keywords and provides highlights, navigation, and Telescope integration.
+-- Usage Tips:
+--   - Use `:TodoTelescope` to search all TODO comments via Telescope
+--   - Use `]t` and `[t` to jump to next/previous comment keyword
+--   - Customize keywords and highlight colors via `keywords` in `setup()`
+
 return {
-  "folke/todo-comments.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = { "nvim-lua/plenary.nvim" },
-  config = function()
-    local todo_comments = require("todo-comments")
+	"folke/todo-comments.nvim",
+	event = { "BufReadPre", "BufNewFile" },
+	dependencies = { "nvim-lua/plenary.nvim" },
+	config = function()
+		local todo_comments = require("todo-comments")
 
-    -- set keymaps
-    local keymap = vim.keymap -- for conciseness
+		todo_comments.setup({
+			signs = true, -- show signs in the gutter
+			highlight = {
+				keyword = "wide", -- highlight entire line or just keyword ("wide", "foreground", "background")
+				after = "", -- disable highlighting after keyword
+			},
+			search = {
+				command = "rg",
+				args = {
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+				},
+				pattern = [[\b(KEYWORDS):]], -- regex to match keywords
+			},
+			keywords = {
+				FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+				TODO = { icon = " ", color = "info" },
+				HACK = { icon = " ", color = "warning" },
+				WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+				PERF = { icon = " ", alt = { "OPTIMIZE", "PERFORMANCE", "BENCHMARK" } },
+				NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+				TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+			},
+		})
 
-    keymap.set("n", "]t", function()
-      todo_comments.jump_next()
-    end, { desc = "Next todo comment" })
+		-- Keymaps for navigation
+		local keymap = vim.keymap
+		keymap.set("n", "]t", function()
+			todo_comments.jump_next()
+		end, { desc = "Jump to next todo comment" })
 
-    keymap.set("n", "[t", function()
-      todo_comments.jump_prev()
-    end, { desc = "Previous todo comment" })
-
-    todo_comments.setup()
-  end,
+		keymap.set("n", "[t", function()
+			todo_comments.jump_prev()
+		end, { desc = "Jump to previous todo comment" })
+	end,
 }

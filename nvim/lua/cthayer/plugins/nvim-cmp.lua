@@ -1,63 +1,118 @@
+-- -----------------------------------------------------------------------------
+-- 🔗 Plugin: nvim-cmp
+-- https://github.com/hrsh7th/nvim-cmp
+--
+-- Autocompletion plugin for Neovim that integrates with LSP, snippets, buffer
+-- content, file paths, command line, and more. Displays VSCode-like
+-- suggestions using pictograms via lspkind.
+--
+-- 💡 How it works:
+-- - nvim-cmp fetches suggestions from different sources (LSP, snippets, buffer)
+-- - Snippet expansion is handled via LuaSnip
+-- - Icons and formatting powered by lspkind
+-- - Lazy loads VSCode snippets via friendly-snippets
+-- - Supports autocompletion in insert mode and command-line mode
+-- -----------------------------------------------------------------------------
+
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	dependencies = {
-		"hrsh7th/cmp-buffer", -- source for text in buffer
-		"hrsh7th/cmp-path", -- source for file system paths
+		"hrsh7th/cmp-buffer", -- buffer word completion
+		"hrsh7th/cmp-path", -- filesystem path completion
+		"hrsh7th/cmp-cmdline", -- command-line completion
+		"hrsh7th/cmp-nvim-lsp", -- LSP completion
+		"hrsh7th/cmp-nvim-lua", -- nvim Lua API completion
 		{
-			"L3MON4D3/LuaSnip",
-			-- follow latest release.
-			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-			-- install jsregexp (optional!).
+			"L3MON4D3/LuaSnip", -- snippet engine
+			version = "v2.*",
 			build = "make install_jsregexp",
 		},
-		"saadparwaiz1/cmp_luasnip", -- for autocompletion
-		"rafamadriz/friendly-snippets", -- useful snippets
-		"onsails/lspkind.nvim", -- vs-code like pictograms
+		"saadparwaiz1/cmp_luasnip", -- luasnip integration
+		"rafamadriz/friendly-snippets", -- preconfigured snippets
+		"onsails/lspkind.nvim", -- pictograms in completion
 	},
 	config = function()
 		local cmp = require("cmp")
-
 		local luasnip = require("luasnip")
-
 		local lspkind = require("lspkind")
 
-		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+		-- Load VSCode-style snippets from friendly-snippets
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
+			-- Configure completion popup behavior
 			completion = {
 				completeopt = "menu,menuone,preview,noselect",
 			},
-			snippet = { -- configure how nvim-cmp interacts with snippet engine
+			-- Configure snippet expansion
+			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
 				end,
 			},
+			-- Key mappings for completion behavior
 			mapping = cmp.mapping.preset.insert({
-				["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-				["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+				["<C-k>"] = cmp.mapping.select_prev_item(),
+				["<C-j>"] = cmp.mapping.select_next_item(),
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-				["<C-e>"] = cmp.mapping.abort(), -- close completion window
-				["<CR>"] = cmp.mapping.confirm({ select = false }),
+				["<C-Space>"] = cmp.mapping.complete(),
+				["<C-e>"] = cmp.mapping.abort(),
+				["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item
 			}),
-			-- sources for autocompletion
+			-- Sources used for completion
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" }, -- snippets
-				{ name = "buffer" }, -- text within current buffer
-				{ name = "path" }, -- file system paths
+				{ name = "luasnip" },
+				{ name = "buffer" },
+				{ name = "path" },
+				{ name = "nvim_lua" },
+				{ name = "spell" },
 			}),
-
-			-- configure lspkind for vs-code like pictograms in completion menu
+			-- Customize appearance with icons and ellipsis
 			formatting = {
 				format = lspkind.cmp_format({
 					maxwidth = 50,
 					ellipsis_char = "...",
 				}),
 			},
+			-- Sorting behavior for suggestions
+			sorting = {
+				priority_weight = 2,
+				comparators = {
+					cmp.config.compare.offset,
+					cmp.config.compare.exact,
+					cmp.config.compare.score,
+					cmp.config.compare.recently_used,
+					cmp.config.compare.locality,
+					cmp.config.compare.kind,
+					cmp.config.compare.length,
+					cmp.config.compare.order,
+				},
+			},
+			-- Customize borders for completion/documentation popups
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
+			},
+		})
+
+		-- Enable cmdline completion for `/` and `:`
+		cmp.setup.cmdline("/", {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = {
+				{ name = "buffer" },
+			},
+		})
+
+		cmp.setup.cmdline(":", {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources({
+				{ name = "path" },
+			}, {
+				{ name = "cmdline" },
+			}),
 		})
 	end,
 }
