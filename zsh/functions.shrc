@@ -34,10 +34,10 @@ COLOR_GRAY="\033[0;90m"
 # ------------------------------------------------------------------------------
 LOG_MODE=${LOG_MODE:-fancy}
 
-log_info()  { [[ "$LOG_MODE" == "fancy" ]] && echo -e "ℹ️  ${COLOR_BLUE}[INFO]${COLOR_RESET} $1"  || echo "[INFO] $1"; }
-log_warn()  { [[ "$LOG_MODE" == "fancy" ]] && echo -e "⚠️  ${COLOR_YELLOW}[WARN]${COLOR_RESET} $1" || echo "[WARN] $1"; }
+log_info() { [[ "$LOG_MODE" == "fancy" ]] && echo -e "ℹ️  ${COLOR_BLUE}[INFO]${COLOR_RESET} $1" || echo "[INFO] $1"; }
+log_warn() { [[ "$LOG_MODE" == "fancy" ]] && echo -e "⚠️  ${COLOR_YELLOW}[WARN]${COLOR_RESET} $1" || echo "[WARN] $1"; }
 log_error() { [[ "$LOG_MODE" == "fancy" ]] && echo -e "❌ ${COLOR_RED}[ERROR]${COLOR_RESET} $1" || echo "[ERROR] $1"; }
-log_ok()    { [[ "$LOG_MODE" == "fancy" ]] && echo -e "✅ ${COLOR_GREEN}[OK]${COLOR_RESET} $1"    || echo "[OK] $1"; }
+log_ok() { [[ "$LOG_MODE" == "fancy" ]] && echo -e "✅ ${COLOR_GREEN}[OK]${COLOR_RESET} $1" || echo "[OK] $1"; }
 log_prompt() { [[ "$LOG_MODE" == "fancy" ]] && echo -e "❓ ${COLOR_YELLOW}[PROMPT]${COLOR_RESET} $1" || echo "[PROMPT] $1"; }
 
 # ------------------------------------------------------------------------------
@@ -59,11 +59,20 @@ log_prompt() { [[ "$LOG_MODE" == "fancy" ]] && echo -e "❓ ${COLOR_YELLOW}[PROM
 #   gcp
 # ------------------------------------------------------------------------------
 
-gcp() {
+gcpp() {
   # 📦 Confirm dependencies are installed
-  command -v gcloud >/dev/null || { log_error "gcloud CLI not found."; return 1; }
-  command -v jq >/dev/null || { log_error "jq not found."; return 1; }
-  command -v fzf >/dev/null || { log_error "fzf not found."; return 1; } 
+  command -v gcloud >/dev/null || {
+    log_error "gcloud CLI not found."
+    return 1
+  }
+  command -v jq >/dev/null || {
+    log_error "jq not found."
+    return 1
+  }
+  command -v fzf >/dev/null || {
+    log_error "fzf not found."
+    return 1
+  }
 
   # ☁️ List available gcloud configs and let the user pick one with fzf
   log_info "Fetching available gcloud configurations..."
@@ -72,7 +81,7 @@ gcp() {
   # ❌ Exit if nothing selected
   if [[ -z "$PROJECT" ]]; then
     log_warn "No project selected. Aborting."
-    return 
+    return
   fi
 
   # ✅ Activate the selected config
@@ -99,7 +108,10 @@ gcp() {
 # ------------------------------------------------------------------------------
 glogone() {
   # 📦 Confirm dependencies are installed
-  command -v git >/dev/null || { log_error "Git not found."; return 1; }
+  command -v git >/dev/null || {
+    log_error "Git not found."
+    return 1
+  }
 
   # 🔢 Use passed number or fall back to default of 10
   local DEFAULT=10
@@ -129,12 +141,21 @@ glogone() {
 #   query-gcp "SELECT COUNT(*) FROM my_dataset.my_table"
 # ------------------------------------------------------------------------------
 query-gcp() {
-  
+
   # 📦 Confirm dependencies are installed
-  command -v bq >/dev/null || { log_error "bq CLI not found."; return 1; }
-  command -v jq >/dev/null || { log_error "jq not found."; return 1; }
-  command -v awk >/dev/null || { log_error "awk not found."; return 1; }
-  
+  command -v bq >/dev/null || {
+    log_error "bq CLI not found."
+    return 1
+  }
+  command -v jq >/dev/null || {
+    log_error "jq not found."
+    return 1
+  }
+  command -v awk >/dev/null || {
+    log_error "awk not found."
+    return 1
+  }
+
   # 📥 Accept query string as input
   local query="$1"
 
@@ -155,7 +176,7 @@ query-gcp() {
   # 💡 Run query as dry run to check cost
   log_info "Dry-running query to estimate cost..."
   local dry_run_output=$(bq query --use_legacy_sql=false --dry_run --format=prettyjson "$query" 2>&1)
-  local query_cost=$(jq -r '.statistics.query.totalBytesProcessed // empty' <<< "$dry_run_output")
+  local query_cost=$(jq -r '.statistics.query.totalBytesProcessed // empty' <<<"$dry_run_output")
 
   # ❗ Handle parse error
   if [[ -z "$query_cost" ]]; then
@@ -195,19 +216,28 @@ query-gcp() {
 #   bigquery
 # ------------------------------------------------------------------------------
 bigquery() {
-  
+
   # 📦 Confirm dependencies are installed
-  command -v open >/dev/null || { log_error "'open' not available."; return 1; }
-  
+  command -v open >/dev/null || {
+    log_error "'open' not available."
+    return 1
+  }
+
   # 📍 Get current GCP project
   local current_project=$(gcloud config get-value project)
-  [[ -z "$current_project" ]] && { log_error "No GCP project is currently set."; return 1; }
+  [[ -z "$current_project" ]] && {
+    log_error "No GCP project is currently set."
+    return 1
+  }
 
   # ✅ Confirm project with user
   log_info "Opening BigQuery console for ${COLOR_RED}$current_project${COLOR_RESET}"
-  log_prompt "Is this correct? (y/n) " 
+  log_prompt "Is this correct? (y/n) "
   read -r response
-  [[ "$response" != "y" ]] && { log_info "Exiting..."; return 1; }
+  [[ "$response" != "y" ]] && {
+    log_info "Exiting..."
+    return 1
+  }
 
   # 🌐 Open browser to BigQuery UI
   local full_url="https://console.cloud.google.com/bigquery?project=${current_project}&supportedpurview=project&ws=!1m0"
@@ -261,8 +291,6 @@ delete_branches() {
   done
 }
 
-
-
 # ------------------------------------------------------------------------------
 # 🔌 phil-db-up: Start Cloud SQL Proxy and connect to MySQL
 # ------------------------------------------------------------------------------
@@ -287,8 +315,14 @@ delete_branches() {
 # 🔌 phil-db-up: Start Cloud SQL Proxy and connect to MySQL
 # ------------------------------------------------------------------------------
 phil-db-up() {
-  command -v cloud-sql-proxy >/dev/null 2>&1 || { log_error "cloud-sql-proxy not found."; return 1; }
-  [[ $# -lt 1 ]] && { log_error "Usage: phil-db-up <db-name> [additional-db-names...]"; return 1; }
+  command -v cloud-sql-proxy >/dev/null 2>&1 || {
+    log_error "cloud-sql-proxy not found."
+    return 1
+  }
+  [[ $# -lt 1 ]] && {
+    log_error "Usage: phil-db-up <db-name> [additional-db-names...]"
+    return 1
+  }
 
   local socket_dir="/tmp/cloudsql"
   mkdir -p "$socket_dir"
@@ -301,9 +335,9 @@ phil-db-up() {
 
   map_instance() {
     case "$1" in
-      prod)    echo "phil-new:us-east1:phil-db-prod-v2";;
-      biomech) echo "phil-new:us-east1:prod-biomech-v5-1-0";;
-      *)       echo "";;
+    prod) echo "phil-new:us-east1:phil-db-prod-v2" ;;
+    biomech) echo "phil-new:us-east1:prod-biomech-v5-1-0" ;;
+    *) echo "" ;;
     esac
   }
 
@@ -336,15 +370,22 @@ phil-db-up() {
     else
       PS3="Select instance: "
       select sel in "${friendlyList[@]}"; do
-        [[ -n "$sel" ]] && { selected="$sel"; break; }
+        [[ -n "$sel" ]] && {
+          selected="$sel"
+          break
+        }
       done
     fi
   fi
 
   sockpath="$socket_dir/${selected}.sock"
-  [[ ! -S "$sockpath" ]] && { log_error "Socket not found: $sockpath"; return 1; }
+  [[ ! -S "$sockpath" ]] && {
+    log_error "Socket not found: $sockpath"
+    return 1
+  }
   [[ -z "$PHIL_DB_PROD_ADMIN_USER" || -z "$PHIL_DB_PROD_ADMIN_PASS" ]] && {
-    log_error "PHIL_DB_PROD_ADMIN_USER and PHIL_DB_PROD_ADMIN_PASS must be set."; return 1;
+    log_error "PHIL_DB_PROD_ADMIN_USER and PHIL_DB_PROD_ADMIN_PASS must be set."
+    return 1
   }
 
   log_info "Connecting to MySQL for $selected..."
@@ -366,14 +407,18 @@ phil-db-up() {
 # ------------------------------------------------------------------------------
 phil-db-switch() {
   [[ -z "$PHIL_DB_PROD_ADMIN_USER" || -z "$PHIL_DB_PROD_ADMIN_PASS" ]] && {
-    log_error "Env vars PHIL_DB_PROD_ADMIN_USER & PHIL_DB_PROD_ADMIN_PASS must be set."; return 1;
+    log_error "Env vars PHIL_DB_PROD_ADMIN_USER & PHIL_DB_PROD_ADMIN_PASS must be set."
+    return 1
   }
 
   local socket_dir="/tmp/cloudsql" instances=()
   for sock in "$socket_dir"/*.sock; do
     [ -S "$sock" ] && instances+=("$(basename "$sock" .sock)")
   done
-  [[ ${#instances[@]} -eq 0 ]] && { log_error "No sockets in $socket_dir."; return 1; }
+  [[ ${#instances[@]} -eq 0 ]] && {
+    log_error "No sockets in $socket_dir."
+    return 1
+  }
 
   log_info "Select instance to connect:"
   local selected
@@ -381,7 +426,10 @@ phil-db-switch() {
     selected=$(printf '%s\n' "${instances[@]}" | fzf)
   else
     select sel in "${instances[@]}"; do
-      [[ -n "$sel" ]] && { selected="$sel"; break; }
+      [[ -n "$sel" ]] && {
+        selected="$sel"
+        break
+      }
     done
   fi
 
