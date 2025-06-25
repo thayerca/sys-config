@@ -13,3 +13,6 @@
   - servies? -> syncing dotfiles?
   - fonts?
   - docs for each file
+
+- Add nvim plugins
+  - noice
