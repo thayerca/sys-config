@@ -16,3 +16,4 @@
 
 - Add nvim plugins
   - noice
+  - copilot
