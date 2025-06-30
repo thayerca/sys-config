@@ -42,6 +42,8 @@ alias sb='source ~/.ct-bash.shrc'
 alias cdh='cd $HOME'
 alias cdm='cd $HOME/ct'
 alias cdc='cd $HOME/ct/sys-config'
+alias pie='cd $HOME/phillies/pie'
+alias terraform='cd $HOME/phillies/terraform'
 
 # ------------------------------------------------------------------------------
 # 📂 File Listing
@@ -107,7 +109,6 @@ alias kgj='kubectl get jobs'
 alias kjr='kubectl get jobs | grep Running'
 alias kjf='kubectl get jobs | grep Failed'
 
-
 # ------------------------------------------------------------------------------
 # 📊 R
 # ------------------------------------------------------------------------------
@@ -118,7 +119,6 @@ alias r='radian'
 # 🦆 DuckDB
 # ------------------------------------------------------------------------------
 alias duckdb='/Applications/duckdb ; exit;'
-
 
 # ------------------------------------------------------------------------------
 # 🛠️ Terraform
