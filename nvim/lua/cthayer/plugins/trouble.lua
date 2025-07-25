@@ -63,18 +63,17 @@ return {
 			desc = "LSP References",
 		},
 	},
-	opts = {
-		focus = true,
-		auto_open = false,
-		auto_close = false,
-		auto_preview = true,
-		height = 10,
-		padding = true,
-		use_diagnostic_signs = true,
-	},
-	config = function(_, opts)
-		require("trouble").setup(opts)
-		-- Optional: improve highlighting visibility
+	config = function()
+		require("trouble").setup({
+			focus = true,
+			auto_open = false,
+			auto_close = false,
+			auto_preview = true,
+			height = 10,
+			padding = true,
+			use_diagnostic_signs = true,
+		})
+
 		vim.cmd([[highlight! link TroubleText DiagnosticVirtualTextWarn]])
 	end,
 }

@@ -20,7 +20,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 #export ZSH_THEME="powerlevel10k/powerlevel10k"
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="$ZSH/custom/plugins/zsh-syntax-highlighting/highlighters"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
-
+eval "$(starship init zsh)"
 plugins=(
   git
   macos
@@ -52,7 +52,7 @@ eval "$(starship init zsh)"
 # ------------------------------------------------------------------------------
 export SHELL=zsh
 eval "$(/opt/homebrew/bin/brew shellenv)"  # Adds Homebrew to PATH and sets variables
-
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"                            # Legacy tools
 export PATH="$HOME/.local/bin:$PATH"                          # pipx / uv installs
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
@@ -108,9 +108,6 @@ if [[ -f "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.z
   source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 fi
 
-# 📦 Bash completion (some tools rely on this)
-[[ -f /opt/homebrew/etc/bash_completion ]] && source /opt/homebrew/etc/bash_completion
-
 
 # ------------------------------------------------------------------------------
 # 🐍 Python & uv (optional)
@@ -134,6 +131,7 @@ autoload -U colors && colors
 skip_global_compinit=1  # Prevent Oh My Zsh from running compinit again unnecessarily
 
 # zsh-autosuggestions (Homebrew)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c6370'
 [[ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
   source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 

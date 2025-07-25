@@ -4,6 +4,7 @@
 # Description:
 #   Highly readable, minimal-yet-informative prompt using Starship and the
 #   Catppuccin Mocha theme. Designed for Python, Git, Kubernetes, and cloud-first workflows.
+#   Requires Starship version 1.14+ for palettes
 #
 # Author: Casey A. Thayer
 # Location: ~/.config/starship.toml

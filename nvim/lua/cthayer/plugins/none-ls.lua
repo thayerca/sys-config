@@ -32,23 +32,19 @@ return {
 				formatting.stylua, -- Lua
 				formatting.prettier, -- JS/TS, HTML, etc.
 				formatting.shfmt, -- Shell
-				formatting.beautysh, -- Alternative Shell formatter
-				formatting.dockfmt, -- Dockerfiles
 				formatting.terraform_fmt, -- Terraform
 				formatting.sqlfluff, -- SQL
 				formatting.pg_format, -- PostgreSQL
-				formatting.rustfmt, -- Rust
-				formatting.gofmt, -- Go
-				formatting.goimports, -- Go
-				formatting.ruff, -- Python (formatter)
 
 				-- 🔍 Linters
-				diagnostics.ruff, -- Python (linter)
-				diagnostics.eslint_d, -- JS/TS
+				--TODO: fix these built-ins executables are not being found
+				--diagnostics.ruff, -- Python (linter)
+				--diagnostics.eslint_d, -- JS/TS
+				--diagnostics.shellcheck, -- Shell
 				diagnostics.stylelint, -- CSS/SCSS
 				diagnostics.yamllint, -- YAML
-				diagnostics.shellcheck, -- Shell
 				diagnostics.markdownlint, -- Markdown
+				diagnostics.hadolint, -- Dockerfiles
 
 				-- 🔤 Completion
 				completion.spell, -- Spell checking
