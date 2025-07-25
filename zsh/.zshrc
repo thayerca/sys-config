@@ -131,7 +131,6 @@ autoload -U colors && colors
 skip_global_compinit=1  # Prevent Oh My Zsh from running compinit again unnecessarily
 
 # zsh-autosuggestions (Homebrew)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c6370'
 [[ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
   source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
