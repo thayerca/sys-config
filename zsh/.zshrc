@@ -22,14 +22,15 @@ export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="$ZSH/custom/plugins/zsh-syntax-highlighti
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
 eval "$(starship init zsh)"
 plugins=(
-  git
-  macos
   docker
   docker-compose
+  fast-syntax-highlighting
+  git
+  macos
   virtualenv
   vi-mode 
   zsh-autosuggestions
-  zsh-syntax-highlighting
+  zsh-autocomplete
 )
 
 source "$ZSH/oh-my-zsh.sh"
@@ -129,11 +130,3 @@ alias uvr="uv pip uninstall -y -r <(uv pip freeze)"
 # ------------------------------------------------------------------------------
 autoload -U colors && colors
 skip_global_compinit=1  # Prevent Oh My Zsh from running compinit again unnecessarily
-
-# zsh-autosuggestions (Homebrew)
-[[ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
-  source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
-# zsh-syntax-highlighting (Homebrew) — must be last
-[[ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
-  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
