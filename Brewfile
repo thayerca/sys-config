@@ -88,9 +88,9 @@ brew "pipenv"               # Manage Python dependencies via Pipfile
 brew "poetry"               # Python packaging and dependency management
 brew "pyenv"                # Python version manager
 brew "pyenv-virtualenv"     # pyenv plugin to manage virtual environments
-?brew "python-packaging"    # Core utilities for building Python packages
-?brew "python-tabulate"     # Pretty-print tabular data
-?brew "virtualenv"          # Tool to create isolated Python environments
+brew "python-packaging"    # Core utilities for building Python packages
+brew "python-tabulate"     # Pretty-print tabular data
+brew "virtualenv"          # Tool to create isolated Python environments
 brew "mypy"                 # Static type checker for Python
 
 # ─────────────────────────────────────────────────────────────
