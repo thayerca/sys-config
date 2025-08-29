@@ -8,7 +8,7 @@ brew "asciinema"             # Record and share terminal sessions
 brew "bat"                   # Syntax-highlighted cat alternative
 brew "bat-extras"            # Integrations and extensions for bat
 brew "bzip2"
-brew "curl"                 # Command line tool for data transfer
+brew "curl"                  # Command line tool for data transfer
 brew "eza"                   # Modern replacement for ls with icons and colors
 brew "fd"                    # Simple, fast alternative to find
 brew "fzf"                   # Command-line fuzzy finder
@@ -22,26 +22,26 @@ brew "tree"                  # Visualize directory structure as a tree
 brew "wget"
 brew "xz"
 brew "z"                     # Directory jumper based on usage history
-brew "zstd"                 # Zstandard compression library
+brew "zstd"                  # Zstandard compression library
 
 # ─────────────────────────────────────────────────────────────
 # 🐚 Shell & Terminal Enhancements
 #    Shells (bash/zsh), dotfile tools, syntax highlighting, session managers.
 #    Examples: zsh, starship, direnv, stow, tmux
 # ─────────────────────────────────────────────────────────────
-brew "bash"                  # GNU Bourne Again SHell
-brew "bash-completion@2"    # Programmable completion for Bash v4+
-brew "direnv"               # Load/unload environment variables per directory
-brew "figlet"                # Generate large ASCII text banners
-brew "mosh"                       # Mobile shell for remote sessions
-brew "ranger"               # Vim-like terminal file explorer
-brew "starship"              # Customizable, minimal shell prompt
-brew "stow"                 # Manage symlinked dotfiles easily
-brew "terminal-notifier"    # macOS push notifications via command line
-brew "tmux"                 # Persistent terminal sessions
-brew "zsh"                   # Z shell with scripting features
-brew "zsh-autosuggestions"  # Suggest commands as you type in zsh
-brew "zsh-completions"      # Extra autocomplete scripts for zsh
+brew "bash"                     # GNU Bourne Again SHell
+brew "bash-completion@2"        # Programmable completion for Bash v4+
+brew "direnv"                   # Load/unload environment variables per directory
+brew "figlet"                   # Generate large ASCII text banners
+brew "mosh"                     # Mobile shell for remote sessions
+brew "ranger"                   # Vim-like terminal file explorer
+brew "starship"                 # Customizable, minimal shell prompt
+brew "stow"                     # Manage symlinked dotfiles easily
+brew "terminal-notifier"        # macOS push notifications via command line
+brew "tmux"                     # Persistent terminal sessions
+brew "zsh"                      # Z shell with scripting features
+brew "zsh-autosuggestions"      # Suggest commands as you type in zsh
+brew "zsh-completions"          # Extra autocomplete scripts for zsh
 brew "zsh-syntax-highlighting"  # Syntax highlighting for zsh commands
 
 # ─────────────────────────────────────────────────────────────
@@ -50,14 +50,14 @@ brew "zsh-syntax-highlighting"  # Syntax highlighting for zsh commands
 #    Examples: git, make
 # ─────────────────────────────────────────────────────────────
 brew "commitizen"           # Generate commit messages using conventions
-brew "gh"                    # GitHub CLI for workflows and repos
-brew "git"                   # Distributed version control system
-brew "git-delta"             # Enhanced diff viewer for git
-brew "git-extras"            # Collection of git utilities
-brew "lazygit"               # TUI for git operations
+brew "gh"                   # GitHub CLI for workflows and repos
+brew "git"                  # Distributed version control system
+brew "git-delta"            # Enhanced diff viewer for git
+brew "git-extras"           # Collection of git utilities
+brew "lazygit"              # TUI for git operations
 brew "make"                 # Build automation tool
 brew "pre-commit"           # Manage and maintain Git hook scripts
-brew stylua
+brew "stylua"
 brew "tree-sitter"
 
 # ─────────────────────────────────────────────────────────────
@@ -67,7 +67,7 @@ brew "tree-sitter"
 # ─────────────────────────────────────────────────────────────
 brew "go"                   # Open source programming language from Google
 brew "lua"                  # Lightweight scripting language
-brew "neovim"                     # Modern `vim` fork
+brew "neovim"               # Modern `vim` fork
 brew "node"                 # JavaScript runtime built on Chrome's V8
 brew "python@3.8"           # Python 3.8 runtime
 brew "python@3.9"           # Python 3.9 runtime
@@ -75,8 +75,6 @@ brew "python@3.11"          # Python 3.11 runtime
 brew "python@3.12"          # Python 3.12 runtime
 brew "python@3.13"          # Python 3.13 runtime
 brew "r"
-brew "ruby"                 # Dynamic, open-source language
-brew "rust"
 brew "uv"                   # Fast, Python-compatible runtime
 brew "yarn"                 # Fast, reliable Node package manager
 
@@ -90,9 +88,9 @@ brew "pipenv"               # Manage Python dependencies via Pipfile
 brew "poetry"               # Python packaging and dependency management
 brew "pyenv"                # Python version manager
 brew "pyenv-virtualenv"     # pyenv plugin to manage virtual environments
-?brew "python-packaging"     # Core utilities for building Python packages
-?brew "python-tabulate"      # Pretty-print tabular data
-?brew "virtualenv"           # Tool to create isolated Python environments
+?brew "python-packaging"    # Core utilities for building Python packages
+?brew "python-tabulate"     # Pretty-print tabular data
+?brew "virtualenv"          # Tool to create isolated Python environments
 brew "mypy"                 # Static type checker for Python
 
 # ─────────────────────────────────────────────────────────────
@@ -101,7 +99,7 @@ brew "mypy"                 # Static type checker for Python
 #    Examples: zlib, libevent, libgit2, openssl@3
 # ─────────────────────────────────────────────────────────────
 brew "zlib"
-brew "openblas"                   # Optimized linear algebra library
+brew "openblas"             # Optimized linear algebra library
 brew "llvm"                 # Compiler infrastructure project
 
 # ─────────────────────────────────────────────────────────────
@@ -122,7 +120,7 @@ brew "docker"               # Docker CLI
 brew "docker-completion"    # Auto-completion for Docker CLI
 brew "helm"                 # Kubernetes package manager
 brew "kubectx"              # Switch kubectl contexts
-brew "kubens"
+brew "kubens"               # Switch kubectl namespaces
 brew "kubernetes-cli"       # Kubernetes CLI (kubectl)
 
 # ─────────────────────────────────────────────────────────────
@@ -149,7 +147,6 @@ cask "1password"                # Password manager
 cask "arc"                      # Browser
 cask "chatgpt"                  # OpenAI ChatGPT desktop app
 cask "dbeaver-community"        # Database GUI for SQL databases
-cask "discord"                  # Chat app
 cask "disk-inventory-x"         # Disk usage visualizer
 cask "docker"                   # Docker Desktop
 cask "ghostty"                  # GPU-accelerated terminal
