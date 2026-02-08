@@ -12,8 +12,8 @@ This folder is the single place for all **human-readable documentation** for sys
 | **[DEBUG.md](DEBUG.md)** | Something broke after install or after pulling changes: shell, tmux, Neovim, git, or setup script. Step-by-step fixes and a validation checklist. |
 | **[CHEATSHEET.md](CHEATSHEET.md)** | Look up keybindings and commands: Zsh (vi-mode, FZF), Tmux (prefix keybindings, copy mode, plugins), Neovim (leader keymaps, LSP, Telescope, Git, etc.). |
 | **[GIT-REBASE.md](GIT-REBASE.md)** | Run an interactive rebase: with Fugitive (`<Space>gr`), LazyGit, or the terminal. Explains pick/reword/squash and continue/abort. |
-| **[PLUGIN-RECOMMENDATIONS.md](PLUGIN-RECOMMENDATIONS.md)** | See which Neovim and Tmux plugins are already installed (and their keymaps) or browse optional future plugins. |
-| **[AUDIT-AND-PLAN.md](AUDIT-AND-PLAN.md)** | Understand the historical audit and improvement plan that shaped the current layout (reference only; not required for daily use). |
+| **[AUDIT-AND-PLAN.md](AUDIT-AND-PLAN.md)** | Historical audit snapshot (deprecated). Inventory and recommendations are out of date; see repo and [CHEATSHEET.md](CHEATSHEET.md) for current plugins/keymaps. |
+| **[TESTING.md](TESTING.md)** | How to run lint (config parse/load) and validate (post-install); optional CI. |
 
 ---
 
@@ -23,6 +23,7 @@ This folder is the single place for all **human-readable documentation** for sys
 - **Tmux prefix:** `Ctrl-A` — see [CHEATSHEET.md](CHEATSHEET.md) for all `prefix + …` bindings.
 - **Install from scratch:** [INSTALL.md](INSTALL.md) → clone repo → `bash setup.sh` → `exec $SHELL` → tmux: `prefix + I`.
 - **Something’s wrong:** [DEBUG.md](DEBUG.md) and/or `bash scripts/validate.sh`.
+- **Config checks:** `bash scripts/lint.sh` (before commit); `bash scripts/validate.sh` (after install). See [TESTING.md](TESTING.md).
 
 ---
 
@@ -33,6 +34,7 @@ This folder is the single place for all **human-readable documentation** for sys
 | `README.md` | Project overview and quick start (points here). |
 | `setup.sh` | One-shot bootstrap: Homebrew, Brewfile, symlinks, Oh My Zsh, fzf, TPM, pyenv. |
 | `scripts/validate.sh` | Checks symlinks and basic config; run after install or pull. |
+| `scripts/lint.sh` | Checks config syntax/load (zsh, tmux, nvim); run before commit or in CI. |
 | `zsh/` | `.zshrc`, `.zprofile`, `aliases.shrc`, `functions.shrc` — shell config (symlinked to `~`). |
 | `tmux/.tmux.conf` | Tmux config and TPM plugin list (symlinked to `~/.tmux.conf`). |
 | `nvim/` | Neovim config: `init.lua`, `lua/cthayer/` (core + plugins). Symlinked to `~/.config/nvim`. |

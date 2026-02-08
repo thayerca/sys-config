@@ -4,18 +4,27 @@
 **Scope:** Full repo audit for “clone → one script → done” bootstrap, environment hygiene, Neovim, and tmux.  
 **Constraints:** No new Neovim/tmux plugins in this pass; recommend only.
 
-**Note:** This is a historical reference. For day-to-day use, see [INDEX.md](INDEX.md).
+---
+
+## Deprecated — historical reference only
+
+**This document is out of date.** It describes the repo as it was at audit time. Use it only for context; for current layout and usage see [INDEX.md](INDEX.md) and the repo itself.
+
+**Updates since audit:**
+- **Bash removed:** Repo is zsh-only. `bash/` and `ct-bash.shrc` no longer exist; setup and docs do not reference bash config.
+- **Setup:** Preflight (git, curl, zsh), backup of existing dotfiles, and clear execution flow are in place. Python default is 3.13 (optional).
+- **Validation:** `scripts/validate.sh` (post-install) and `scripts/lint.sh` (syntax/load, no install) exist. See [TESTING.md](TESTING.md).
+- **Plugins:** Neovim and tmux plugin set may differ from the "24 plugin" count here; see `nvim/lua/cthayer/plugins/` and `tmux/.tmux.conf`.
+- **Docs:** INSTALL, DEBUG, CHEATSHEET, GIT-REBASE, TESTING, INDEX are the current docs.
 
 ---
 
-## 1. Inventory & Load Order
+## 1. Inventory & Load Order (snapshot at audit time)
 
-### 1.1 Directory Tree (config-relevant only)
+### 1.1 Directory Tree (config-relevant only) — *bash/ since removed*
 
 ```
 sys-config/
-├── bash/
-│   └── ct-bash.shrc          # Bash-specific config (starship, fzf, pyenv, Ghostty→tmux)
 ├── Brewfile                  # Homebrew bundle (formulas + casks)
 ├── fzf/
 │   └── .fzf/
@@ -63,12 +72,12 @@ sys-config/
 
 | Path | Purpose |
 |------|--------|
-| `setup.sh` | Install brew, Brewfile, symlinks, Powerline fonts, Oh My Zsh, fzf install, TPM, pyenv + Python 3.11. |
+| `setup.sh` | Install brew, Brewfile, symlinks, Powerline fonts, Oh My Zsh, fzf install, TPM, pyenv + Python 3.13 (optional). |
 | `zsh/.zprofile` | Login env: Homebrew, pyenv shims, EDITOR, $HOME/bin. |
 | `zsh/.zshrc` | OMZ, starship, PATH, history, direnv, fzf, pyenv, kubectl, gcloud, aliases, functions, fnm, nvm. |
 | `zsh/aliases.shrc` | Aliases for python/pip, nvim, nav, eza/bat, direnv, git, docker, k8s, R, duckdb, tf, ports/ip. |
 | `zsh/functions.shrc` | gcp, glogone, query-gcp, bigquery, delete_branches, phil-db-up/switch/status/down. |
-| `bash/ct-bash.shrc` | Bash: starship, fzf, history, Ghostty→tmux auto-attach, PATH (mysql-client), pyenv. |
+| ~~`bash/ct-bash.shrc`~~ | *Removed; repo is zsh-only.* |
 | `tmux/.tmux.conf` | default-shell zsh, 256color, mouse, prefix C-a, vim copy-mode, TPM + plugins (yank, catppuccin, fzf, vim-tmux-navigator). |
 | `nvim/init.lua` | Load core + lazy; set `python3_host_prog`. |
 | `nvim/lua/cthayer/core/*` | Options and keymaps (no autocmds in core). |
@@ -93,8 +102,7 @@ sys-config/
   6. History, direnv, fzf key-bindings, pyenv/virtualenv, kubectl, gcloud  
   7. uv aliases, source aliases.shrc + functions.shrc  
   8. colors, compinit skip, fnm, nvm
-- **Aliases/functions:** `~/.aliases.shrc`, `~/.functions.shrc` (both from .zshrc).
-- **Bash (when used):** `~/.ct-bash.shrc` (not auto-sourced; user runs `source ~/.ct-bash.shrc` or `sb`).
+- **Aliases/functions:** `~/.aliases.shrc`, `~/.functions.shrc` (both from .zshrc). *(Bash config was removed; repo is zsh-only.)*
 - **tmux:** Started by user or by Ghostty (if TERM_PROGRAM=ghostty). Reads `~/.tmux.conf` once; runs TPM from `~/.tmux/plugins/tpm/tpm`.
 - **Neovim:** Reads `~/.config/nvim/init.lua` → `cthayer.core` (options, keymaps) → `cthayer.lazy` (plugins). LSP/tools assume PATH from the shell that launched nvim (login/zprofile + zshrc).
 
@@ -106,9 +114,9 @@ sys-config/
 | **brew shellenv twice** | `zsh/.zshrc` ~L19, ~L55 | Redundant; keep one (after ZSH set). |
 | **EDITOR set in two places** | `zsh/.zprofile` L20–21, `zsh/aliases.shrc` L28 | Prefer .zprofile for env; aliases can drop `export EDITOR`. |
 | **PATH / pyenv** | .zprofile (login) vs .zshrc (pyenv init -) | Intended: .zprofile for GUI, .zshrc for interactive; ensure no duplicate PATH appends. |
-| **fzf-history + bindkey ^R** | .zshrc and ct-bash.shrc | Same logic in both; could live in a shared “fzf” snippet. |
-| **FZF_TMUX / FZF_TMUX_HEIGHT** | .zshrc and ct-bash.shrc | Duplicate; single source (e.g. env or one sourced file). |
-| **HIST* / history** | .zshrc and ct-bash.shrc | Same idea; keep in each shell’s rc or document single source. |
+| **fzf-history + bindkey ^R** | .zshrc only | *Obsolete: bash removed.* could live in a shared “fzf” snippet. |
+| **FZF_TMUX / FZF_TMUX_HEIGHT** | .zshrc only | *Obsolete: single source now.* |
+| **HIST* / history** | .zshrc only | *Obsolete: single source now.* shell’s rc or document single source. |
 | **p10k symlinked but unused** | setup.sh L26, powerline/.p10k.zsh, .zshrc p10k commented | Dead config; either remove from setup + repo or document “optional p10k”. |
 | **Neovim <C-h/j/k/l>** | core/keymaps.lua (splits) vs vim-tmux-navigator (tmux panes) | Plugin overrides; keymaps.lua entries for splits are redundant when plugin is loaded. |
 | **Formatting** | conform.nvim (format on save + <leader>mp) and none-ls (formatting sources + <leader>gf) | Both present; <leader>gf uses vim.lsp.buf.format (can trigger LSP or null-ls). Document or unify. |
@@ -162,7 +170,7 @@ sys-config/
 | **zsh/.zprofile** | `eval brew shellenv`, PYENV_ROOT, PATH (pyenv shims, $HOME/bin), EDITOR, VISUAL. |
 | **zsh/.zshrc** | ZSH, brew shellenv (×2), PATH (/opt/homebrew/bin, /usr/local/bin, .local/bin, openssl, llvm, .dagger/bin), SHELL, HIST*, FZF_TMUX, FZF_TMUX_HEIGHT, (pyenv/virtualenv via eval). |
 | **zsh/aliases.shrc** | EDITOR (redundant). |
-| **bash/ct-bash.shrc** | FZF_TMUX, FZF_TMUX_HEIGHT, HIST*, PATH (mysql-client), PYENV_ROOT + pyenv/virtualenv eval. |
+| ~~bash/ct-bash.shrc~~ | *Removed; repo is zsh-only.* |
 | **tmux/.tmux.conf** | No export; sets default-shell and terminal options only. |
 | **nvim** | No PATH export; sets `vim.g.python3_host_prog` to a fixed path. |
 | **setup.sh** | During run: PATH and pyenv evals for the subshell that installs pyenv/Python; does not persist. |

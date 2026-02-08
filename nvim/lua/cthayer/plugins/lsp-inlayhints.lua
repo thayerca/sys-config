@@ -22,7 +22,10 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("LspInlayHints", {}),
 			callback = function(ev)
-				inlay.on_attach(ev.data.client, ev.buf)
+				local client = ev.data and ev.data.client
+				if client and client.server_capabilities and client.server_capabilities.inlayHintProvider then
+					inlay.on_attach(client, ev.buf)
+				end
 			end,
 		})
 		vim.keymap.set("n", "<leader>uh", function() inlay.toggle() end, { desc = "Toggle inlay hints" })

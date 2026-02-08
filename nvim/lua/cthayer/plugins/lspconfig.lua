@@ -1,9 +1,8 @@
 -- ------------------------------------------------------------------------------
 -- nvim-lspconfig (neovim/nvim-lspconfig) — LSP client and server configs
 -- ------------------------------------------------------------------------------
--- What it does: Configures the Neovim LSP client and sets up language servers
---   (bashls, pyright, lua_ls, etc.). Only starts a server if its binary is in
---   PATH, so optional servers (e.g. ltex-ls, ansiblels) won't error when missing.
+-- What it does: Configures the Neovim LSP client via vim.lsp.config (Neovim 0.11+).
+--   Only enables a server if its binary is in PATH (avoids spawn errors for optional LSPs).
 -- Keymaps (LSP attach): gD gd gi gt gR, <leader>ca rn d D, [d ]d, K, <leader>rs
 -- Notes: Install servers via Mason or system; add new servers to the `servers` table.
 -- ------------------------------------------------------------------------------
@@ -17,10 +16,15 @@ return {
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		local lspconfig = require("lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 		local keymap = vim.keymap
+
+		-- File operations for neo-tree (nvim-lsp-file-operations); add to all LSP configs
+		local ok, lsp_file_ops = pcall(require, "lsp-file-operations")
+		if ok and lsp_file_ops and lsp_file_ops.default_capabilities then
+			capabilities = vim.tbl_deep_extend("force", capabilities, lsp_file_ops.default_capabilities())
+		end
 
 		-- Diagnostic signs in the gutter
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -29,10 +33,14 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		-- Keymaps on LSP attach (buffer-local)
+		-- Keymaps and server-specific behavior on LSP attach (buffer-local)
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
+				local client = vim.lsp.get_client_by_id(ev.data.client_id)
+				if not client then
+					return
+				end
 				local opts = { buffer = ev.buf, silent = true }
 				keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration", unpack(opts) })
 				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "LSP definitions", unpack(opts) })
@@ -54,24 +62,40 @@ return {
 				keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic", unpack(opts) })
 				keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic", unpack(opts) })
 				keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover", unpack(opts) })
-				keymap.set("n", "<leader>rs", ":LspRestart<CR>", { desc = "Restart LSP", unpack(opts) })
+				keymap.set("n", "<leader>rs", "<cmd>lsp restart<CR>", { desc = "Restart LSP", unpack(opts) })
+				-- Svelte: notify server on TS/JS file changes (replaces old on_attach)
+				if client.name == "svelte" then
+					vim.api.nvim_create_autocmd("BufWritePost", {
+						group = vim.api.nvim_create_augroup("SvelteTsJsNotify", { clear = false }),
+						pattern = { "*.js", "*.ts" },
+						callback = function(ctx)
+							client.notify("$/onDidChangeTsOrJsFile", { uri = vim.uri_from_fname(ctx.file) })
+						end,
+					})
+				end
 			end,
 		})
 
-		-- Server configs: only setup if the server's executable is in PATH (avoids spawn errors for optional LSPs like ltex-ls)
+		-- Server configs: register with vim.lsp.config, enable only if executable is in PATH (see :help lspconfig-nvim-0.11)
 		local servers = {
-			bashls = {},
+			-- Shell: bash-language-server; covers .sh and .bash (install via Mason or: npm i -g bash-language-server)
+			bashls = {
+				filetypes = { "sh", "bash" },
+			},
 			cssls = {},
 			dockerls = {},
 			eslint = {},
 			gopls = {},
 			html = {},
 			jsonls = {},
+			-- Lua: lua_ls (sumneko); Neovim config and general Lua (install via Mason or system)
 			lua_ls = {
+				filetypes = { "lua" },
 				settings = {
 					Lua = {
 						diagnostics = { globals = { "vim" } },
 						completion = { callSnippet = "Replace" },
+						workspace = { checkThirdParty = false },
 					},
 				},
 			},
@@ -85,16 +109,7 @@ return {
 			emmet_ls = {
 				filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 			},
-			svelte = {
-				on_attach = function(client, bufnr)
-					vim.api.nvim_create_autocmd("BufWritePost", {
-						pattern = { "*.js", "*.ts" },
-						callback = function(ctx)
-							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-						end,
-					})
-				end,
-			},
+			svelte = {},
 			astro = {},
 			volar = {},
 			graphql = {
@@ -103,20 +118,19 @@ return {
 			r_language_server = {},
 			ltex = {},        -- LaTeX/markdown grammar/spell; install ltex-ls or omit from list
 			ansiblels = {},   -- Ansible; install ansible-language-server or omit
-			lemminx = {},    -- XML; install lemminx or omit
-			groovyls = {},   -- Groovy; install groovyls or omit
+			lemminx = {},     -- XML; install lemminx or omit
+			groovyls = {},    -- Groovy; install groovyls or omit
 		}
 
-		for server, config in pairs(servers) do
-			local ok, default_config = pcall(function()
-				return lspconfig[server].document_config.default_config
-			end)
-			local cmd = ok and default_config and default_config.cmd and default_config.cmd[1]
+		for server, custom in pairs(servers) do
+			local config = vim.tbl_extend("keep", custom, { capabilities = capabilities })
+			vim.lsp.config(server, config)
+			-- Only enable if the server's cmd is available (nvim-lspconfig provides default configs with cmd)
+			local resolved = vim.lsp.config[server]
+			local cmd = resolved and resolved.cmd and resolved.cmd[1]
 			if type(cmd) == "string" and vim.fn.executable(cmd) == 1 then
-				config.capabilities = capabilities
-				lspconfig[server].setup(config)
+				vim.lsp.enable(server)
 			end
-			-- If cmd missing or not in PATH, skip (no spawn error); install the binary to enable
 		end
 	end,
 }

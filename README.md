@@ -23,7 +23,7 @@ Then start **tmux** and press **Ctrl-A**, then **I** (capital I) to install tmux
 | All keybindings and commands | [docs/CHEATSHEET.md](docs/CHEATSHEET.md) |
 | **All docs in one place** | [docs/INDEX.md](docs/INDEX.md) |
 
-**Validation (after install or pull):** `bash scripts/validate.sh`
+**Validation:** `bash scripts/validate.sh` (after install). **Lint (before commit):** `bash scripts/lint.sh`. See [docs/TESTING.md](docs/TESTING.md).
 
 ---
 
@@ -48,8 +48,8 @@ All documentation lives under **docs/** and is listed in **[docs/INDEX.md](docs/
 - **[docs/DEBUG.md](docs/DEBUG.md)** — Troubleshooting shell, tmux, Neovim, git, setup script; validation checklist.
 - **[docs/CHEATSHEET.md](docs/CHEATSHEET.md)** — Keymaps and commands for Zsh, Tmux, and Neovim (comprehensive).
 - **[docs/GIT-REBASE.md](docs/GIT-REBASE.md)** — Interactive rebase with Fugitive, LazyGit, or terminal.
-- **[docs/PLUGIN-RECOMMENDATIONS.md](docs/PLUGIN-RECOMMENDATIONS.md)** — Installed vs optional Neovim and Tmux plugins.
-- **[docs/AUDIT-AND-PLAN.md](docs/AUDIT-AND-PLAN.md)** — Historical audit and improvement plan (reference).
+- **[docs/TESTING.md](docs/TESTING.md)** — Lint and validate scripts; optional CI.
+- **[docs/AUDIT-AND-PLAN.md](docs/AUDIT-AND-PLAN.md)** — Historical audit (deprecated; see INDEX for current docs).
 
 ---
 
@@ -57,4 +57,4 @@ All documentation lives under **docs/** and is listed in **[docs/INDEX.md](docs/
 
 - **Reorganize:** Optional future layout could use `config/`, `scripts/`, `docs/` more explicitly.
 - **macOS defaults / fonts:** Optional scripts or docs (not included yet).
-- **More plugins:** See [docs/PLUGIN-RECOMMENDATIONS.md](docs/PLUGIN-RECOMMENDATIONS.md) for ideas; add new Neovim plugins under `nvim/lua/cthayer/plugins/`, tmux plugins in `tmux/.tmux.conf`.
+- **More plugins:** Add Neovim plugins under `nvim/lua/cthayer/plugins/`, tmux plugins in `tmux/.tmux.conf`. Keymaps are in [docs/CHEATSHEET.md](docs/CHEATSHEET.md).

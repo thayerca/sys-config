@@ -192,7 +192,7 @@ if [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
 fi
 
 # ------------------------------------------------------------------------------
-# 🐍 pyenv: optional Python version manager + default 3.11.
+# 🐍 pyenv: optional Python version manager + default 3.13.
 # ------------------------------------------------------------------------------
 if ! command -v pyenv &>/dev/null; then
   log "Installing pyenv..."

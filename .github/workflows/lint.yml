@@ -1,0 +1,25 @@
+# ------------------------------------------------------------------------------
+# Lint config on push/PR (syntax and load checks; no full install).
+# Runs scripts/lint.sh. See docs/TESTING.md.
+# ------------------------------------------------------------------------------
+name: Lint
+
+on:
+  push:
+    branches: [main, improved-config]
+  pull_request:
+    branches: [main, improved-config]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zsh tmux neovim
+
+      - name: Run lint
+        run: bash scripts/lint.sh

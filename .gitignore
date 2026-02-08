@@ -1,0 +1,6 @@
+# Lint / local artifacts
+.tmp/
+.nvimlog
+
+# OS
+.DS_Store

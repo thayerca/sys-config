@@ -79,14 +79,17 @@ opt.fileencoding = "utf-8" -- File-specific encoding
 -- ------------------------------------------------------------------------------
 -- 🚀 Performance
 -- ------------------------------------------------------------------------------
-
-opt.lazyredraw = true -- Don't redraw while executing macros
+-- Note: Don't set lazyredraw globally; it breaks Noice and is only for temporary
+-- use (e.g. during macro execution). Use :set lazyredraw in a macro if needed.
 
 -- ------------------------------------------------------------------------------
--- 📂 Folding (Treesitter provides foldexpr via plugin)
+-- 📂 Folding (Treesitter: expr + foldexpr so AST-based folds work)
 -- ------------------------------------------------------------------------------
 
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.require('nvim-treesitter.fold').get_fold_indic(v:lnum)"
 opt.foldlevelstart = 99 -- Start with folds open when opening a file
+opt.foldenable = true
 
 -- ------------------------------------------------------------------------------
 -- 🤖 Completion

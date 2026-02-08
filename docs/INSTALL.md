@@ -59,7 +59,7 @@ xcode-select --install
    - Run `brew bundle` from the repo’s Brewfile
    - Back up existing dotfiles to `~/.dotfiles-backup.YYYYMMDD` if they exist
    - Create symlinks from your home directory to the repo (e.g. `~/.zshrc` → repo)
-   - Install Powerline fonts (optional), Oh My Zsh (with `KEEP_ZSHRC=yes`), fzf shell integration, TPM, and pyenv + Python 3.11 (optional)
+   - Install Powerline fonts (optional), Oh My Zsh (with `KEEP_ZSHRC=yes`), fzf shell integration, TPM, and pyenv + Python 3.13 (optional)
 
 3. **Restart your shell** (or open a new terminal):
 
