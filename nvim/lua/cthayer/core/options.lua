@@ -1,8 +1,13 @@
 -- ------------------------------------------------------------------------------
--- 🛠 options.lua — Core Neovim Settings
+-- options.lua — Core Neovim settings
 -- ------------------------------------------------------------------------------
--- Description:
---   Sets base editor behavior for indentation, UI, search, splits, etc.
+-- What it does:
+--   Sets global editor behavior: line numbers, cursor line, colors, tab/indent,
+--   search (ignorecase, smartcase, hlsearch), clipboard, split direction, undo
+--   file, completeopt. Netrw list style and disabled built-in plugins are in lazy.lua.
+--
+-- How to interact:
+--   Edit this file to change default UI or editing behavior. Restart Neovim to apply.
 --
 -- Author: Casey A. Thayer
 -- Location: ~/.config/nvim/lua/cthayer/core/options.lua
@@ -76,6 +81,12 @@ opt.fileencoding = "utf-8" -- File-specific encoding
 -- ------------------------------------------------------------------------------
 
 opt.lazyredraw = true -- Don't redraw while executing macros
+
+-- ------------------------------------------------------------------------------
+-- 📂 Folding (Treesitter provides foldexpr via plugin)
+-- ------------------------------------------------------------------------------
+
+opt.foldlevelstart = 99 -- Start with folds open when opening a file
 
 -- ------------------------------------------------------------------------------
 -- 🤖 Completion

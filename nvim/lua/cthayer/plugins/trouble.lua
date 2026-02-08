@@ -1,12 +1,11 @@
--- ========================================
---  Trouble.nvim
---  URL: https://github.com/folke/trouble.nvim
---  Description: A pretty diagnostics, references, telescope results, quickfix and location list
---  How it works: Provides a toggleable panel for workspace/document diagnostics, LSP references, quickfix list, and todos
---  Usage tips:
---    - <leader>xx toggles the trouble list
---    - Use other keybindings for quick access to diagnostics and todos
--- ========================================
+-- ------------------------------------------------------------------------------
+-- trouble.nvim (folke/trouble.nvim) — Diagnostics, quickfix, loclist, todos
+-- ------------------------------------------------------------------------------
+-- What it does: Toggleable panel for workspace/buffer diagnostics, LSP
+--   references, quickfix list, location list, and TodoTrouble integration.
+-- Keymaps: <leader>xx (toggle diagnostics), <leader>xw/xd (workspace/doc diagnostics), <leader>xq (qflist), <leader>xl (loclist), <leader>xt (todos), <leader>xr (LSP refs).
+-- Notes: Depends on nvim-web-devicons and todo-comments.nvim.
+-- ------------------------------------------------------------------------------
 
 return {
 	"folke/trouble.nvim",

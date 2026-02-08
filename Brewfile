@@ -1,8 +1,19 @@
-# ─────────────────────────────────────────────────────────────
-# 📦 Core CLI Tools
-#    General purpose command-line tools
-#    Examples: fzf, bat, jq
-# ─────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
+# Brewfile — Homebrew formulas and casks
+# ------------------------------------------------------------------------------
+# What it does:
+#   Declares all Homebrew packages (CLI tools, shell, dev tools, languages,
+#   fonts, casks). Used by setup.sh via: brew bundle --file="$REPO/Brewfile".
+#
+# How to interact:
+#   Edit this file to add/remove packages. After changing, run:
+#   brew bundle --file=~/sys-config/Brewfile (or your repo path).
+#   To add a new formula: brew install <formula> && brew bundle dump.
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+# Core CLI Tools (fzf, bat, jq, ripgrep, etc.)
+# ------------------------------------------------------------------------------
 brew "ack"                   # Fast grep-like search utility
 brew "asciinema"             # Record and share terminal sessions
 brew "bat"                   # Syntax-highlighted cat alternative
@@ -26,11 +37,8 @@ brew "zstd"                 # Zstandard compression library
 
 # ─────────────────────────────────────────────────────────────
 # 🐚 Shell & Terminal Enhancements
-#    Shells (bash/zsh), dotfile tools, syntax highlighting, session managers.
-#    Examples: zsh, starship, direnv, stow, tmux
+#    Zsh and dotfile/session tools (no bash; this repo is zsh-only).
 # ─────────────────────────────────────────────────────────────
-brew "bash"                  # GNU Bourne Again SHell
-brew "bash-completion@2"    # Programmable completion for Bash v4+
 brew "direnv"               # Load/unload environment variables per directory
 brew "figlet"                # Generate large ASCII text banners
 brew "mosh"                       # Mobile shell for remote sessions

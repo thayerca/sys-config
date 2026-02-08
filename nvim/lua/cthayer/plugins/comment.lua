@@ -1,10 +1,11 @@
--- -----------------------------------------------------------------------------
--- 💬 Plugin: Comment.nvim
--- https://github.com/numToStr/Comment.nvim
---
--- Provides easy line and block commenting (e.g., `gcc`, `gbc`, `gc{motion}`).
--- Supports normal/visual/operator modes.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- Comment.nvim (numToStr/Comment.nvim) — Toggle line and block comments
+-- ------------------------------------------------------------------------------
+-- What it does: Comment/uncomment lines or blocks with gcc, gbc, gc{motion}.
+--   Works in normal, visual, and operator-pending modes.
+-- Keymaps: gcc (line), gbc (block), gc/gb + motion, gco gcO gcA (extra).
+-- Notes: Padding and sticky options in setup; filetype-aware.
+-- ------------------------------------------------------------------------------
 
 return {
 	"numToStr/Comment.nvim",

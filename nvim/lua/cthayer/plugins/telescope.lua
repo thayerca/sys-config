@@ -1,57 +1,56 @@
--- Plugin: telescope.nvim (with telescope-ui-select)
--- URL: https://github.com/nvim-telescope/telescope.nvim
--- Description: Fuzzy finder for files, text, buffers, and more. Extensible with useful extensions like `ui-select`.
--- How it works: Provides interactive search via fuzzy matching and integrates with many core Neovim features.
--- Usage tips:
---   - `<leader>ff` – Find files in the current working directory
---   - `<leader>fr` – Open recently opened files
---   - `<leader>fs` – Search for a string in the current working directory (live grep)
---   - `<leader>fc` – Search for the word under your cursor
---   - `<leader>ft` – Open TODO comments via TodoTelescope
---   - Can also be used for LSP actions via ui-select extension
--- Recommended extensions: `fzf`, `file_browser`, `projects`, `ui-select`
+-- ------------------------------------------------------------------------------
+-- telescope.nvim (nvim-telescope/telescope.nvim) — Fuzzy finder + extensions
+-- ------------------------------------------------------------------------------
+-- What it does: Find files, recent, grep, todos; file browser; project switch.
+--   Extensions: ui-select (LSP menus), fzf-native (faster sort), file_browser, project.
+-- Keymaps: <leader>ff/fr/fs/fc/ft, <leader>fe (file browser), <leader>fp (projects).
+-- Notes: fzf-native improves fuzzy sort; file_browser and project need this config.
+-- ------------------------------------------------------------------------------
 
 return {
-	-- UI select extension for Telescope (used in code actions, etc.)
-	{
-		"nvim-telescope/telescope-ui-select.nvim",
-	},
+	{ "nvim-telescope/telescope-ui-select.nvim" },
 
-	-- Core Telescope plugin
+	-- Native fzf sorter for Telescope (must be built on install)
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+
+	{ "nvim-telescope/telescope-file-browser.nvim" },
+	{ "nvim-telescope/telescope-project.nvim" },
+
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.5",
 		dependencies = {
-			"nvim-lua/plenary.nvim", -- Required dependency
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-fzf-native.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
+			"nvim-telescope/telescope-project.nvim",
 		},
 		config = function()
 			local telescope = require("telescope")
 
-			-- Configure Telescope with extensions
 			telescope.setup({
 				extensions = {
 					["ui-select"] = {
-						require("telescope.themes").get_dropdown({}), -- Use dropdown style for UI select
+						require("telescope.themes").get_dropdown({}),
 					},
+					file_browser = { hijack_netrw = true },
+					project = { base_dirs = { "~/.config", "~" }, hidden_files = true },
 				},
 			})
 
-			-- Load the ui-select extension
 			telescope.load_extension("ui-select")
+			telescope.load_extension("fzf")
+			telescope.load_extension("file_browser")
+			telescope.load_extension("project")
 
-			-- Set keymaps for Telescope
-			local keymap = vim.keymap -- for conciseness
-
+			local keymap = vim.keymap
 			keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
 			keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
 			keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-			keymap.set(
-				"n",
-				"<leader>fc",
-				"<cmd>Telescope grep_string<cr>",
-				{ desc = "Find string under cursor in cwd" }
-			)
+			keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find word under cursor" })
 			keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+			keymap.set("n", "<leader>fe", "<cmd>Telescope file_browser<cr>", { desc = "Telescope file browser" })
+			keymap.set("n", "<leader>fp", "<cmd>Telescope project<cr>", { desc = "Telescope projects" })
 		end,
 	},
 }

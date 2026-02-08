@@ -1,28 +1,20 @@
--- -----------------------------------------------------------------------------
--- 🎨 Plugin: catppuccin.nvim
--- https://github.com/catppuccin/nvim
---
--- A soothing pastel colorscheme for Neovim with multiple flavor variants.
--- Works well with LSP, Treesitter, and UI plugins like bufferline and lualine.
---
--- 🌈 How It Works:
--- Loads the Catppuccin colorscheme on startup using the "mocha" flavor.
--- Priority ensures it's loaded before other UI plugins that depend on highlights.
---
--- 🧠 Usage Tips:
--- - Change the flavor by using: "catppuccin-latte", "catppuccin-frappe", etc.
--- - Customize further with `require("catppuccin").setup()` for transparency,
---   integrations, or styles.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- catppuccin.nvim (catppuccin/nvim) — Colorscheme
+-- ------------------------------------------------------------------------------
+-- What it does: Pastel colorscheme with multiple flavors (mocha, frappe, etc.).
+--   Loaded early (priority 1000) so UI plugins pick up highlights.
+-- Keymaps: None.
+-- Notes: Change flavor to "catppuccin-latte", "catppuccin-frappe", etc. in config.
+-- ------------------------------------------------------------------------------
 
 return {
 	{
 		"catppuccin/nvim",
-		lazy = false, -- Load immediately on startup
-		name = "catppuccin", -- Alias for readability
-		priority = 1000, -- Load before all other plugins
+		lazy = false,
+		name = "catppuccin",
+		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("catppuccin-mocha") -- Set preferred flavor
+			vim.cmd.colorscheme("catppuccin-mocha")
 		end,
 	},
 }

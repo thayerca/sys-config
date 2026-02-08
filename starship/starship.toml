@@ -1,13 +1,17 @@
 # ------------------------------------------------------------------------------
-# 🚀 starship.toml — Prompt Configuration
+# starship.toml — Shell prompt configuration
 # ------------------------------------------------------------------------------
-# Description:
-#   Highly readable, minimal-yet-informative prompt using Starship and the
-#   Catppuccin Mocha theme. Designed for Python, Git, Kubernetes, and cloud-first workflows.
-#   Requires Starship version 1.14+ for palettes
+# What it does:
+#   Defines the prompt layout (Starship): OS, user, directory, git branch/status,
+#   language versions (Rust, Go, Python), Kubernetes context, gcloud project,
+#   time, and character (success/error). Uses Catppuccin Mocha palette.
+#
+# How to interact:
+#   Edit in repo (starship/starship.toml). Symlink: ~/.config/starship.toml → repo.
+#   Changes apply in new shell or after source ~/.zshrc. Requires Starship 1.14+.
 #
 # Author: Casey A. Thayer
-# Location: ~/.config/starship.toml
+# Location: ~/.config/starship.toml (symlinked from repo)
 # ------------------------------------------------------------------------------
 
 "$schema" = "https://starship.rs/config-schema.json"
@@ -215,7 +219,7 @@ disabled = false
 disabled = false
 success_symbol = '[](bold fg:green)'
 error_symbol = '[](bold fg:red)'
-vimcmd_symbol = '[](bold fg:creen)'
+vimcmd_symbol = '[](bold fg:green)'
 vimcmd_replace_one_symbol = '[](bold fg:purple)'
 vimcmd_replace_symbol = '[](bold fg:purple)'
 vimcmd_visual_symbol = '[](bold fg:lavender)'

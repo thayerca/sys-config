@@ -1,17 +1,11 @@
--- -----------------------------------------------------------------------------
--- 🔗 Plugin: nvim-surround
--- https://github.com/kylechui/nvim-surround
---
--- Adds text objects to easily add, change, or delete surrounding characters
--- like parentheses, quotes, brackets, tags, etc.
---
--- 🛠️ Usage Examples:
--- - `ysiw"` → add `"` around inner word
--- - `cs"'` → change surrounding `"` to `'`
--- - `ds"` → delete surrounding `"`
---
--- 💡 Works in normal, visual, and operator-pending modes.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- nvim-surround (kylechui/nvim-surround) — Add/change/delete surroundings
+-- ------------------------------------------------------------------------------
+-- What it does: Add (ys), change (cs), or delete (ds) surrounding chars: quotes,
+--   brackets, tags. E.g. ysiw", cs"', ds". Works in normal, visual, operator.
+-- Keymaps: ysiw + char, cs + old + new, ds + char (default keymaps).
+-- Notes: config = true uses defaults; override with a setup function if needed.
+-- ------------------------------------------------------------------------------
 
 return {
 	"kylechui/nvim-surround",

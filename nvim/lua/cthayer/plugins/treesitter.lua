@@ -1,11 +1,12 @@
--- Plugin: nvim-treesitter/nvim-treesitter
--- URL: https://github.com/nvim-treesitter/nvim-treesitter
--- Description: Syntax highlighting, code navigation, and more using Tree-sitter parsers.
--- How it works: Installs and configures language parsers for better syntax awareness and code manipulation.
--- Usage Tips:
---   - Run :TSInstall <language> to install a parser manually
---   - Use incremental selection: <C-space> to expand, <bs> to shrink selection
---   - Enable `nvim-ts-autotag` for auto-updating HTML/XML tags on edit
+-- ------------------------------------------------------------------------------
+-- nvim-treesitter (nvim-treesitter/nvim-treesitter) — Parsers and highlighting
+-- ------------------------------------------------------------------------------
+-- What it does: Tree-sitter parsers for syntax highlighting, indent, and
+--   incremental selection. nvim-ts-autotag for HTML/JSX tag pairs.
+-- Keymaps: <C-Space> / <BS> (incremental selection expand/shrink). :TSInstall <lang>
+-- Notes: ensure_installed list below; auto_install true. Build :TSUpdate.
+-- ------------------------------------------------------------------------------
+
 return {
 	"nvim-treesitter/nvim-treesitter",
 	event = { "BufReadPre", "BufNewFile" },
@@ -31,6 +32,11 @@ return {
 
 			-- Enable syntax highlighting
 			highlight = {
+				enable = true,
+			},
+
+			-- Enable folding based on AST
+			fold = {
 				enable = true,
 			},
 

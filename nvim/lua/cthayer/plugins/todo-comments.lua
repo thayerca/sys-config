@@ -1,11 +1,11 @@
--- Plugin: folke/todo-comments.nvim
--- URL: https://github.com/folke/todo-comments.nvim
--- Description: Highlights and searches for comment keywords like TODO, FIX, HACK, etc.
--- How it works: Uses Treesitter (or regex as fallback) to detect comment keywords and provides highlights, navigation, and Telescope integration.
--- Usage Tips:
---   - Use `:TodoTelescope` to search all TODO comments via Telescope
---   - Use `]t` and `[t` to jump to next/previous comment keyword
---   - Customize keywords and highlight colors via `keywords` in `setup()`
+-- ------------------------------------------------------------------------------
+-- todo-comments.nvim (folke/todo-comments.nvim) — TODO/FIXME highlight and search
+-- ------------------------------------------------------------------------------
+-- What it does: Highlights TODO, FIX, HACK, WARN, NOTE, etc. in comments and
+--   provides navigation and Telescope search. Uses Treesitter or regex.
+-- Keymaps: ]t [t (next/prev todo), :TodoTelescope (search; <leader>ft in telescope.lua).
+-- Notes: Keywords and colors in setup(); search uses rg. Depends on plenary.
+-- ------------------------------------------------------------------------------
 
 return {
 	"folke/todo-comments.nvim",

@@ -1,19 +1,16 @@
 # ------------------------------------------------------------------------------
-# 📁 .aliases.shrc — Shell Aliases for Local Dev Utilities
+# aliases.shrc — Shell aliases (git, docker, k8s, file ops, etc.)
 # ------------------------------------------------------------------------------
-# Description:
-#   Custom shell aliases and lightweight shell functions to streamline:
-#   - Git workflows
-#   - Docker and Kubernetes management
-#   - Python and environment tooling
-#   - File navigation, system introspection, and dev ergonomics
+# What it does:
+#   Defines short aliases for common commands: g/gst/gd (git), dkps/dkl (docker),
+#   kgp/kubectl (k8s), ls/ll/cat (eza/bat), lg (lazygit), and navigation (c, sz, cdh).
 #
-# Usage:
-#   Source this file in your `.zshrc` or `.bashrc`:
-#     source ~/.aliases.shrc
+# How to interact:
+#   Sourced from .zshrc at startup. Edit this file in repo (zsh/aliases.shrc);
+#   reload with: source ~/.zshrc (or open a new terminal).
 #
 # Author: Casey A. Thayer
-# Location: ~/.aliases.shrc
+# Location: ~/.aliases.shrc (symlinked from repo)
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
@@ -23,9 +20,8 @@ alias python=python3
 alias pip=pip3
 
 # ------------------------------------------------------------------------------
-# ✍️  Editor
+# ✍️  Editor (EDITOR set in .zprofile for GUI/commit messages; here only aliases)
 # ------------------------------------------------------------------------------
-export EDITOR="nvim"
 alias vim=nvim
 alias vv=nvim
 
@@ -37,7 +33,6 @@ alias c=clear
 alias xx='exit'
 alias rsh='exec $SHELL'
 alias sz='source ~/.zshrc'
-alias sb='source ~/.ct-bash.shrc'
 
 alias cdh='cd $HOME'
 alias cdm='cd $HOME/ct'

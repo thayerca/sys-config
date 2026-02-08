@@ -1,19 +1,11 @@
--- -----------------------------------------------------------------------------
--- 🔗 Plugin: lazygit.nvim
--- https://github.com/kdheepak/lazygit.nvim
---
--- Lightweight wrapper around LazyGit, integrated as a floating window in Neovim.
--- Lazy-loads on command or keypress to improve startup performance.
---
--- 🛠 How it works:
--- - Requires the `lazygit` CLI to be installed (https://github.com/jesseduffield/lazygit)
--- - Opens a floating terminal window running LazyGit
--- - Optional commands include filtering by file, editing config, etc.
---
--- 💡 Usage tips:
--- - Use `<leader>lg` to open LazyGit for the repo
--- - Use `<leader>lG` to open LazyGit scoped to the current file
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- lazygit.nvim (kdheepak/lazygit.nvim) — LazyGit in a floating terminal
+-- ------------------------------------------------------------------------------
+-- What it does: Opens the lazygit CLI in a floating window. Requires lazygit
+--   installed (e.g. brew install lazygit). Warns if lazygit is missing.
+-- Keymaps: <leader>lg (repo), <leader>lG (current file), <leader>lC (config).
+-- Notes: Uses plenary; window options set in config (blend, scaling).
+-- ------------------------------------------------------------------------------
 
 return {
 	"kdheepak/lazygit.nvim",

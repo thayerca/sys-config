@@ -1,19 +1,11 @@
--- -----------------------------------------------------------------------------
--- 📏 Plugin: indent-blankline.nvim
--- https://github.com/lukas-reineke/indent-blankline.nvim
---
--- Visually displays indentation levels with vertical lines.
--- Helps you understand code structure at a glance.
---
--- How it works:
---   - Shows a character (like '┊') for each indent level.
---   - Optionally supports context-aware highlighting (e.g., current scope).
---   - Can be customized per filetype or disabled on demand.
---
--- Tips:
---   - Toggle visibility with `:IBLToggle`
---   - Customize with `vim.g` or `opts` in Lazy config
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- indent-blankline.nvim (lukas-reineke/indent-blankline.nvim) — Indent guides
+-- ------------------------------------------------------------------------------
+-- What it does: Draws vertical lines at each indent level (char '┊') and can
+--   highlight the current scope. Excludes help, terminal, Telescope, etc.
+-- Keymaps: :IBLToggle to show/hide indent lines.
+-- Notes: Scope highlighting uses Treesitter when available.
+-- ------------------------------------------------------------------------------
 
 return {
 	"lukas-reineke/indent-blankline.nvim",

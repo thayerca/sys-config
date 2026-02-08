@@ -1,21 +1,11 @@
--- -----------------------------------------------------------------------------
--- 🔧 Plugin: gitsigns.nvim
--- https://github.com/lewis6991/gitsigns.nvim
---
--- Adds Git integration directly into the sign column and buffer.
--- Shows changes as signs, enables staging/resetting hunks, blame info, and diffs.
---
--- 🧠 How it works:
--- Hooks into your Git repo to track line changes (additions, deletions, modifications)
--- and visually indicates them beside the line number gutter.
---
--- 💡 Usage tips:
--- - Navigate between hunks: `]h` / `[h`
--- - Stage/reset hunks: `<leader>hs` / `<leader>hr`
--- - Toggle blame: `<leader>hB`
--- - Preview diffs or blame: `<leader>hp` / `<leader>hb`
--- - Use `ih` text object in operator/visual mode to select a hunk
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- gitsigns.nvim (lewis6991/gitsigns.nvim) — Git signs and hunk actions
+-- ------------------------------------------------------------------------------
+-- What it does: Shows added/modified/deleted lines in the sign column; stage or
+--   reset hunks, blame, and diff from the buffer. Text object `ih` for hunks.
+-- Keymaps: ]h [h (hunks), <leader>hs/hr (stage/reset), <leader>hB (blame), <leader>hp/hd.
+-- Notes: Buffer-local keymaps set in on_attach below.
+-- ------------------------------------------------------------------------------
 
 return {
 	"lewis6991/gitsigns.nvim",

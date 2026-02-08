@@ -1,23 +1,11 @@
--- -----------------------------------------------------------------------------
--- 🧹 Plugin: conform.nvim + formatter.nvim
--- https://github.com/stevearc/conform.nvim
--- https://github.com/mhartington/formatter.nvim
---
--- Provides format-on-save and manual formatting with support for multiple
--- filetypes and external formatters. `conform.nvim` is the primary tool,
--- while `formatter.nvim` is used for shell-specific formatting.
---
--- 💡 How it works:
--- - `conform.nvim` auto-formats files using language-specific tools
---   (like `black` for Python, `prettier` for HTML/JS/CSS, `stylua` for Lua).
--- - `formatter.nvim` is used for shell scripts (`.sh`, `.shrc`) via `shfmt`.
--- - `<leader>mp` manually formats the buffer or visual selection.
---
--- 🧠 Tips:
--- - Conform will auto-format on save unless you disable it.
--- - You can configure `.shrc` files to be recognized properly via `autocmd`.
--- - Install formatters using your system package manager or Mason.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- conform.nvim (stevearc/conform.nvim) — Format on save and manual format
+-- ------------------------------------------------------------------------------
+-- What it does: Runs formatters (prettier, black, stylua, shfmt, etc.) on save
+--   or on demand. formatter.nvim used for shell/.shrc; conform for the rest.
+-- Keymaps: <leader>mp — format buffer or visual selection manually.
+-- Notes: Formatters must be installed (Mason or system). .shrc → filetype sh.
+-- ------------------------------------------------------------------------------
 
 return {
 	"stevearc/conform.nvim",
@@ -37,8 +25,8 @@ return {
 				html = { "prettier" },
 				json = { "prettier" },
 				yaml = { "prettier" },
-				markdown = { "prettier" },
-				["markdown.mdx"] = { "prettier" },
+				markdown = { "markdownlint", "prettier" },
+				["markdown.mdx"] = { "markdownlint", "prettier" },
 
 				-- 💻 JavaScript / TypeScript
 				javascript = { "prettier" },

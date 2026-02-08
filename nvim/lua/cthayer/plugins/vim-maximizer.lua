@@ -1,9 +1,12 @@
--- Plugin: vim-maximizer (https://github.com/szw/vim-maximizer)
--- Description: Toggle maximizing the current split window in Neovim
--- How it works: Temporarily hides other windows to focus on the active split; toggles back
--- Usage Tips:
---   - Use `<leader>sm` to toggle maximization
---   - Works well with split-heavy workflows or tmux integration
+-- ------------------------------------------------------------------------------
+-- vim-maximizer (szw/vim-maximizer) — Maximize current split
+-- ------------------------------------------------------------------------------
+-- What it does: Toggles the current window to fill the screen (hides others);
+--   toggle again to restore. Loads on command/key.
+-- Keymaps: <leader>sm — MaximizerToggle
+-- Notes: cmd = MaximizerToggle; keys lazy-load the plugin.
+-- ------------------------------------------------------------------------------
+
 return {
 	"szw/vim-maximizer",
 	lazy = true,

@@ -1,22 +1,19 @@
--- -----------------------------------------------------------------------------
--- 🔗 Plugin: nvim-autopairs
--- https://github.com/windwp/nvim-autopairs
---
--- Automatically inserts matching pairs (e.g. (), {}, "", etc.)
--- and integrates with nvim-cmp to insert closing characters after completion.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- nvim-autopairs (windwp/nvim-autopairs) — Auto-close brackets and quotes
+-- ------------------------------------------------------------------------------
+-- What it does: Inserts matching pairs ((), {}, "") and integrates with nvim-cmp
+--   so completion confirm adds the closing character when appropriate.
+-- Keymaps: None; works on insert (typing an opener inserts closer).
+-- Notes: Uses Treesitter to avoid pairing inside strings/template literals.
+-- ------------------------------------------------------------------------------
 
 return {
 	"windwp/nvim-autopairs",
 	event = { "InsertEnter" },
-	dependencies = {
-		"hrsh7th/nvim-cmp", -- Completion plugin for integration
-	},
+	dependencies = { "hrsh7th/nvim-cmp" },
 	config = function()
-		-- 🧠 Import autopairs module
 		local autopairs = require("nvim-autopairs")
 
-		-- ⚙️ Setup autopairs with Treesitter integration
 		autopairs.setup({
 			check_ts = true, -- Use Treesitter to avoid pairing in certain syntax nodes
 			ts_config = {
@@ -26,7 +23,6 @@ return {
 			},
 		})
 
-		-- 🔗 Integration with nvim-cmp for autopair on completion confirm
 		local cmp = require("cmp")
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

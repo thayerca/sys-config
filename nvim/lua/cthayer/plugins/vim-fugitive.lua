@@ -1,23 +1,12 @@
--- -----------------------------------------------------------------------------
--- 🔧 Plugin: vim-fugitive
--- https://github.com/tpope/vim-fugitive
---
--- Comprehensive Git integration inside Neovim:
--- • `:G` opens Git status, staging, committing, rebasing, etc.
--- • `:Gdiffsplit`, `:Gvdiffsplit` for inline diffs.
--- • `:Gblame` with navigable blame info.
--- • `:Gread`, `:Gwrite` to checkout or add hunks.
---
--- How it works:
--- Internally runs Git commands and renders results in buffers, blends with
--- diff/quickfix lists, and supports split/diff modes seamlessly.
---
--- Usage tips:
--- • Launch `:G` or press `<leader>gs` for quick status.
--- • Use `<leader>gd` for vertical diff of current file.
--- • `<leader>gb` opens blame info; press `<Enter>` on lines to jump to commit.
--- • Stage/unstage hunks via interactive diff splits.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- vim-fugitive (tpope/vim-fugitive) — Git commands in Neovim
+-- ------------------------------------------------------------------------------
+-- What it does: :G (status), :Gdiffsplit/:Gvdiffsplit, :Gblame, :Gread/:Gwrite,
+--   :G rebase -i. Renders git output in buffers; uses delta for diffs when available.
+-- Keymaps: <leader>gs (status), <leader>gd/gD (diff), <leader>gb (blame), <leader>gh (file log), <leader>gr (rebase -i).
+-- Notes: Loads on cmd/keys; init enables delta if executable.
+-- ------------------------------------------------------------------------------
+
 return {
 	"tpope/vim-fugitive",
 	cmd = { "G", "Git", "Gdiffsplit", "Gvdiffsplit", "Gblame" },
@@ -27,6 +16,7 @@ return {
 		{ "<leader>gD", "<cmd>Gdiffsplit<CR>", desc = "Git diff (horizontal)" },
 		{ "<leader>gb", "<cmd>Gblame<CR>", desc = "Git blame current file" },
 		{ "<leader>gh", "<cmd>0Gclog<CR>", desc = "Git commit log (file)" },
+		{ "<leader>gr", ":G rebase -i ", desc = "Git rebase -i (type branch, then Enter)" },
 	},
 	init = function()
 		-- Enable Fugitive's use of delta for diffs if installed

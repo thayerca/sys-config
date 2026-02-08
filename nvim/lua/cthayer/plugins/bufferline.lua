@@ -1,26 +1,16 @@
--- -----------------------------------------------------------------------------
--- 📑 Plugin: bufferline.nvim
--- https://github.com/akinsho/bufferline.nvim
---
--- Provides a nice tabline interface using Neovim buffers or tabs.
--- Integrates with devicons and supports custom behaviors and styling.
---
--- 🔧 How It Works:
--- This plugin displays open buffers or tabs as a visual tabline at the top.
--- You can customize it to use buffer mode (more common) or tab mode (as below).
--- Works well with `nvim-web-devicons` for rich icons.
---
--- 🧠 Usage Tips:
--- - Use `<Tab>` / `<S-Tab>` or custom keymaps to switch between tabs or buffers.
--- - You can set `mode = "buffers"` for a more traditional bufferline.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- bufferline.nvim (akinsho/bufferline.nvim) — Tabline for buffers/tabs
+-- ------------------------------------------------------------------------------
+-- What it does: Displays open buffers or tabs as a tabline at the top with
+--   icons and LSP diagnostic indicators. Mode can be "tabs" or "buffers".
+-- Keymaps: Use <Tab> / <S-Tab> or your window/tab keymaps to switch.
+-- Notes: Depends on nvim-web-devicons; diagnostics shown from nvim_lsp.
+-- ------------------------------------------------------------------------------
 
 return {
 	"akinsho/bufferline.nvim",
 	version = "*",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons", -- Provides icons for buffers/tabs
-	},
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = {
 		options = {
 			mode = "tabs", -- You can change this to "buffers" if preferred

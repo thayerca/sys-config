@@ -1,15 +1,16 @@
--- -----------------------------------------------------------------------------
--- 🚀 Plugin: alpha-nvim
--- https://github.com/goolord/alpha-nvim
---
--- Customizable startup screen for Neovim.
--- This config uses the "startify" theme with a styled header and menu.
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- alpha-nvim (goolord/alpha-nvim) — Startup dashboard
+-- ------------------------------------------------------------------------------
+-- What it does: Shows a startup screen with Neovim logo, quick-action buttons
+--   (new file, find file, recent files, config, quit) and plugin load stats.
+-- Keymaps: Dashboard buttons e, f, r, c, q (defined in config below).
+-- Notes: Uses dashboard theme; depends on nvim-web-devicons for icons.
+-- ------------------------------------------------------------------------------
 
 return {
-	"goolord/alpha-nvim", -- ✨ Start screen plugin for Neovim
-	dependencies = { "nvim-tree/nvim-web-devicons" }, -- Adds icons to the dashboard
-	event = "VimEnter", -- Load on VimEnter for speed
+	"goolord/alpha-nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	event = "VimEnter",
 	config = function()
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")

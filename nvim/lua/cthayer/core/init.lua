@@ -1,9 +1,13 @@
 -- ------------------------------------------------------------------------------
--- 🧠 core/init.lua — Core Neovim Configuration
+-- core/init.lua — Core Neovim config loader
 -- ------------------------------------------------------------------------------
--- Description:
---   Loads base editor settings (options) and key mappings.
---   Keeps top-level init.lua clean and focused.
+-- What it does:
+--   Requires options.lua (UI, tabs, search, clipboard, etc.) and keymaps.lua
+--   (leader, window/split, tab keybindings). Plugin keymaps live in each plugin file.
+--
+-- How to interact:
+--   Edit options in core/options.lua; edit core keymaps in core/keymaps.lua.
+--   Restart Neovim or source to apply. See docs/CHEATSHEET.md for full keymap list.
 --
 -- Author: Casey A. Thayer
 -- Location: ~/.config/nvim/lua/cthayer/core/init.lua

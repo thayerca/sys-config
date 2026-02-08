@@ -1,6 +1,12 @@
--- -----------------------------------------------------------------------------
--- 📊 Plugin: lualine.nvim
--- https://github.com/nvim-lualine/lualine.nvim
+-- ------------------------------------------------------------------------------
+-- lualine.nvim (nvim-lualine/lualine.nvim) — Statusline
+-- ------------------------------------------------------------------------------
+-- What it does: Statusline with mode, branch, diff, diagnostics, filename,
+--   encoding, filetype, and optional Lazy plugin update indicator.
+-- Keymaps: None.
+-- Notes: Custom theme in config; depends on nvim-web-devicons.
+-- ------------------------------------------------------------------------------
+-- (Original: https://github.com/nvim-lualine/lualine.nvim)
 --
 -- A fast and customizable statusline plugin written in Lua.
 --
@@ -16,10 +22,10 @@
 
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" }, -- icons in statusline
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		local lualine = require("lualine")
-		local lazy_status = require("lazy.status") -- plugin update notifications
+		local lazy_status = require("lazy.status")
 
 		-- 🎨 Define a custom color palette for the theme
 		local colors = {
@@ -33,8 +39,6 @@ return {
 			inactive_bg = "#2c3043",
 			semilightgray = "#6c7086",
 		}
-
-		-- 🧱 Define lualine theme for each mode
 		local my_lualine_theme = {
 			normal = {
 				a = { bg = colors.blue, fg = colors.bg, gui = "bold" },
@@ -67,8 +71,6 @@ return {
 				c = { bg = colors.inactive_bg, fg = colors.semilightgray },
 			},
 		}
-
-		-- ⚙️ Configure lualine with custom theme and sections
 		lualine.setup({
 			options = {
 				icons_enabled = true,

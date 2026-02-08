@@ -1,18 +1,11 @@
--- -----------------------------------------------------------------------------
--- 🔗 Plugin: nvim-cmp
--- https://github.com/hrsh7th/nvim-cmp
---
--- Autocompletion plugin for Neovim that integrates with LSP, snippets, buffer
--- content, file paths, command line, and more. Displays VSCode-like
--- suggestions using pictograms via lspkind.
---
--- 💡 How it works:
--- - nvim-cmp fetches suggestions from different sources (LSP, snippets, buffer)
--- - Snippet expansion is handled via LuaSnip
--- - Icons and formatting powered by lspkind
--- - Lazy loads VSCode snippets via friendly-snippets
--- - Supports autocompletion in insert mode and command-line mode
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- nvim-cmp (hrsh7th/nvim-cmp) — Completion menu (LSP, snippets, buffer, path)
+-- ------------------------------------------------------------------------------
+-- What it does: Completion popup with LSP, Copilot, LuaSnip, buffer, path,
+--   cmdline. Uses lspkind for icons; LuaSnip for snippet expansion.
+-- Keymaps: <C-k>/<C-j> (prev/next), <C-b>/<C-f> (scroll docs), <C-Space> (complete), <C-e> (abort), <CR> (confirm).
+-- Notes: Sources include copilot, nvim_lsp, luasnip, buffer, path, nvim_lua, spell. Cmdline / and :.
+-- ------------------------------------------------------------------------------
 
 return {
 	"hrsh7th/nvim-cmp",

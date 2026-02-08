@@ -1,12 +1,18 @@
 # ------------------------------------------------------------------------------
-# 🧬 .gitconfig — Global Git Configuration
+# .gitconfig — Global Git configuration
 # ------------------------------------------------------------------------------
-# Description:
-#   Streamlined git configuration for command-line and tool integrations.
-#   Includes enhanced diffing, merge tooling, delta, LFS, and GitHub CLI support.
+# What it does:
+#   Sets user name/email, default branch (main), core.pager (delta), and
+#   difftool/mergetool to Neovim. Delta styles diff output; LFS and hub/github
+#   sections for large files and GitHub CLI.
+#
+# How to interact:
+#   Edit in repo (git-configs/.gitconfig). Symlink: ~/.gitconfig → repo.
+#   Use: git diff (uses delta); git difftool (opens nvim -d); git mergetool (nvim 3-way).
+#   Ensure nvim and delta are on PATH when running git.
 #
 # Author: Casey A. Thayer
-# Location: ~/.gitconfig
+# Location: ~/.gitconfig (symlinked from repo)
 # ------------------------------------------------------------------------------
 
 [user]
@@ -41,7 +47,8 @@
 
 [difftool "nvimdiff"]
   cmd = nvim -d "$LOCAL" "$REMOTE"
-  path = /opt/homebrew/bin/nvim
+  # Use nvim from PATH (portable across macOS/Linux; ensure nvim is installed)
+  path = nvim
 
 # ------------------------------------------------------------------------------
 # 🧠 Merge Tools

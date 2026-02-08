@@ -1,31 +1,22 @@
--- -----------------------------------------------------------------------------
--- 📁 Plugin: neo-tree.nvim
--- https://github.com/nvim-neo-tree/neo-tree.nvim
---
--- A modern file explorer that replaces netrw and nvim-tree.
--- Supports viewing files, buffers, and git status in a floating or split view.
---
--- 🛠 How it works:
--- - Displays project files in a sidebar or floating window
--- - Highly customizable; supports filtering dotfiles and gitignored files
--- - Can show buffers, git status, and diagnostics
---
--- 💡 Usage tips:
--- - <leader>ee opens the file system in a floating window
--- - <leader>bf opens the buffer list
--- - Easily switch to sidebar mode by replacing `float` with `left`
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- neo-tree.nvim (nvim-neo-tree/neo-tree.nvim) — File and buffer explorer
+-- ------------------------------------------------------------------------------
+-- What it does: File tree, buffer list, and git status in a float or sidebar.
+--   Replaces netrw; supports filtering and follow-current-file.
+-- Keymaps: <leader>ee (filesystem float), <leader>bf (buffers), <leader>eg (git status).
+-- Notes: Depends on nvim-window-picker, plenary, web-devicons, nui. Branch v3.x.
+-- ------------------------------------------------------------------------------
 
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v3.x",
-	cmd = "Neotree", -- Lazy-load on command
-	event = "VeryLazy", -- Also lazy-load on common UI events
+	cmd = "Neotree",
+	event = "VeryLazy",
 	dependencies = {
-		"s1n7ax/nvim-window-picker", -- 🔲 Allows interactive window selection (e.g., choose where to open files)
-		"nvim-lua/plenary.nvim", -- 🧰 Utility functions used by many plugins (required dependency)
-		"nvim-tree/nvim-web-devicons", -- 🎨 Adds filetype icons for a better UI experience
-		"MunifTanjim/nui.nvim", -- 🧱 UI component library used by Neo-tree (e.g., modals, popups)
+		"s1n7ax/nvim-window-picker",
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons",
+		"MunifTanjim/nui.nvim",
 	},
 	config = function()
 		require("neo-tree").setup({

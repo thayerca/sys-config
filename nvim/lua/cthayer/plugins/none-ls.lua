@@ -1,20 +1,12 @@
--- -----------------------------------------------------------------------------
--- 🧰 Plugin: none-ls.nvim
--- https://github.com/nvimtools/none-ls.nvim
---
--- Provides additional LSP-like capabilities using external tools such as
--- formatters, linters, and completion engines. Configured modularly here
--- for flexibility and easy removal or addition of sources.
---
--- 🧠 How it works:
--- Registers formatters, linters, and completion tools as LSP sources so they
--- can be invoked via LSP actions (e.g. `vim.lsp.buf.format()`).
---
--- 💡 Usage Tips:
--- - Use `<leader>gf` to format the current file with LSP/null-ls.
--- - Sources are lazily used per filetype when supported.
--- - Make sure tools are installed locally or globally (e.g. via Mason, Homebrew, etc).
--- -----------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
+-- none-ls.nvim (nvimtools/none-ls.nvim) — Formatters, linters, spell as LSP
+-- ------------------------------------------------------------------------------
+-- What it does: Registers external tools (stylua, prettier, shfmt, yamllint,
+--   markdownlint, hadolint, spell) as LSP sources so vim.lsp.buf.format() and
+--   diagnostics use them. Some diagnostics commented out until executables exist.
+-- Keymaps: <leader>gf — format file (LSP or null-ls).
+-- Notes: Install tools via Mason or system; add/remove sources in setup.
+-- ------------------------------------------------------------------------------
 
 return {
 	"nvimtools/none-ls.nvim",
@@ -22,9 +14,18 @@ return {
 	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
 		local null_ls = require("null-ls")
+		local helpers = require("null-ls.helpers")
 		local formatting = null_ls.builtins.formatting
 		local diagnostics = null_ls.builtins.diagnostics
 		local completion = null_ls.builtins.completion
+
+		-- Markdown: auto-fix all markdownlint rules (run with <leader>gf or format-on-save)
+		local markdownlint_fix = helpers.formatter_factory({
+			command = "markdownlint",
+			args = { "--fix", "$FILENAME" },
+			to_temp_file = true,
+			from_temp_file = true,
+		})
 
 		null_ls.setup({
 			sources = {
@@ -35,6 +36,12 @@ return {
 				formatting.terraform_fmt, -- Terraform
 				formatting.sqlfluff, -- SQL
 				formatting.pg_format, -- PostgreSQL
+				-- Markdown: fix all markdownlint violations
+				{
+					method = null_ls.methods.FORMATTING,
+					filetypes = { "markdown" },
+					generator = markdownlint_fix,
+				},
 
 				-- 🔍 Linters
 				--TODO: fix these built-ins executables are not being found

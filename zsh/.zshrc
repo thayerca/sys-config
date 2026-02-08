@@ -1,26 +1,40 @@
 # ------------------------------------------------------------------------------
-# 🧠 .zshrc — Zsh Configuration
+# 🧠 .zshrc — Zsh Interactive Configuration
 # ------------------------------------------------------------------------------
 # Description:
-#   Core shell configuration for local development. Handles:
-#   - Powerlevel10k theme and Oh My Zsh
-#   - Paths and environment setup
-#   - Tool integrations (direnv, kubectl, pyenv, gcloud)
-#   - Plugin configuration and shell enhancements
+#   Loaded for interactive zsh sessions. Sets up:
+#   - Oh My Zsh + plugins
+#   - Starship prompt (single init after OMZ)
+#   - PATH and env (single brew shellenv; avoid duplicate inits)
+#   - Tool integrations: direnv, fzf, pyenv, kubectl, gcloud
+#   - Custom aliases and functions from .aliases.shrc / .functions.shrc
+#
+# Load order: .zprofile (login) → .zshrc (interactive).
+# To tweak: edit files in repo (zsh/); symlinks point ~/.zshrc here.
+# Reload after changes: source ~/.zshrc (or exec $SHELL).
 #
 # Author: Casey A. Thayer
-# Location: ~/.zshrc
+# Location: ~/.zshrc (symlinked from repo)
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
-# 🎨 Theme and Oh My Zsh
+# 🎨 Oh My Zsh: framework and plugins (must come before Starship so prompt works).
 # ------------------------------------------------------------------------------
-export ZSH="$HOME/.oh-my-zsh"
-eval "$(/opt/homebrew/bin/brew shellenv)"
-#export ZSH_THEME="powerlevel10k/powerlevel10k"
+export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+
+# Single source for Homebrew PATH and vars (used by OMZ and rest of rc).
+# On Linux or non-Homebrew installs, ensure brew is on PATH or skip.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif command -v brew &>/dev/null; then
+  eval "$(brew shellenv)"
+fi
+
+# OMZ plugin dir for syntax highlighting; compdump per host to avoid conflicts.
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="$ZSH/custom/plugins/zsh-syntax-highlighting/highlighters"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
-eval "$(starship init zsh)"
+
+# Plugin list: add/remove here; then run setup or clone custom plugins as needed.
 plugins=(
   docker
   docker-compose
@@ -28,7 +42,7 @@ plugins=(
   git
   macos
   virtualenv
-  vi-mode 
+  vi-mode
   zsh-autosuggestions
   zsh-autocomplete
 )
@@ -36,54 +50,49 @@ plugins=(
 source "$ZSH/oh-my-zsh.sh"
 
 # ------------------------------------------------------------------------------
-# 💅 Prompt Configuration
+# 💅 Prompt: Starship (single init — config from ~/.config/starship.toml).
 # ------------------------------------------------------------------------------
-# Powerline
-# [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-# typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  # source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# Starship
 eval "$(starship init zsh)"
 
 # ------------------------------------------------------------------------------
-# 🧭 Shell Environment Variables & Paths
+# 🧭 Environment: PATH and shell options (one block to avoid duplication).
 # ------------------------------------------------------------------------------
 export SHELL=zsh
-eval "$(/opt/homebrew/bin/brew shellenv)"  # Adds Homebrew to PATH and sets variables
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"                            # Legacy tools
-export PATH="$HOME/.local/bin:$PATH"                          # pipx / uv installs
-export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
+# Optional: Homebrew formula paths (uncomment if you use these)
+# export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+# export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH="${PATH:+$PATH:}$HOME/.dagger/bin"
 export PYTHON_BUILD_HOMEBREW_OPENSSL_FORMULA=openssl@3
 
-# 🧠 History Enhancements
+# History: size and append-every-command (Bash-style timestamps in HISTTIMEFORMAT).
 export HISTTIMEFORMAT="%F %T "
 export HISTSIZE=10000
 export HISTFILESIZE=20000
-setopt APPEND_HISTORY           # Bash equivalent: shopt -s histappend
-setopt INC_APPEND_HISTORY       # Save every command to history immediately
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
 
 # ------------------------------------------------------------------------------
-# 🛠 CLI Tool Initialization
+# 🛠 CLI tool initialization (guarded so missing tools don't break shell).
 # ------------------------------------------------------------------------------
 
-# 📦 direnv
-eval "$(direnv hook zsh)"
+# direnv: auto-load .envrc in directories
+if command -v direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
-# 🔍 fzf
-[[ -f "$HOME/.fzf/key-bindings.zsh" ]] && source "$HOME/.fzf/key-bindings.zsh"
-
+# fzf: fuzzy finder key bindings (sourced from repo: ~/.fzf → repo/fzf/.fzf)
+if [[ -f "$HOME/.fzf/key-bindings.zsh" ]]; then
+  source "$HOME/.fzf/key-bindings.zsh"
+fi
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
 
-# Interactive search via fzf
+# Ctrl+R: search history with fzf and put result on command line
 fzf-history() {
-  local selected=$(history | fzf | awk '{$1=""; print substr($0,2)}')
-  if [ -n "$selected" ]; then
+  local selected
+  selected=$(history | fzf | awk '{$1=""; print substr($0,2)}')
+  if [[ -n "$selected" ]]; then
     READLINE_LINE=$selected
     READLINE_POINT=${#selected}
   fi
@@ -91,42 +100,51 @@ fzf-history() {
 zle -N fzf-history
 bindkey '^R' fzf-history
 
-# 📦 pyenv & virtualenv
-if command -v pyenv > /dev/null; then
+# pyenv + pyenv-virtualenv: Python version and venv switching
+if command -v pyenv &>/dev/null; then
   eval "$(pyenv init -)"
-  if command -v pyenv-virtualenv-init > /dev/null; then
+  if command -v pyenv-virtualenv-init &>/dev/null; then
     eval "$(pyenv virtualenv-init -)"
   fi
 fi
 
-# 📦 kubectl autocompletion
-if command -v kubectl > /dev/null; then
+# kubectl: shell completion
+if command -v kubectl &>/dev/null; then
   source <(kubectl completion zsh)
 fi
 
-# 📦 Google Cloud SDK
+# Google Cloud SDK: PATH and completion (macOS Homebrew cask path)
 if [[ -f "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]]; then
   source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 fi
 
-
 # ------------------------------------------------------------------------------
-# 🐍 Python & uv (optional)
+# 🐍 Python / uv: optional aliases (requires uv installed).
 # ------------------------------------------------------------------------------
-# If you're using Astral's `uv`, consider adding completions manually:
-# mkdir -p ~/.zfunc && uv completion zsh > ~/.zfunc/_uv && fpath+=~/.zfunc
-
 alias uvp="uv pip install -r pyproject.toml"
 alias uvr="uv pip uninstall -y -r <(uv pip freeze)"
 
 # ------------------------------------------------------------------------------
-# 🔧 Custom Aliases & Functions
+# 🔧 Custom aliases and functions (sourced from repo symlinks).
 # ------------------------------------------------------------------------------
 [[ -f "$HOME/.aliases.shrc" ]] && source "$HOME/.aliases.shrc"
 [[ -f "$HOME/.functions.shrc" ]] && source "$HOME/.functions.shrc"
 
 # ------------------------------------------------------------------------------
-# 🎛 Zsh Visual & Prompt Enhancements
+# 🎛 Zsh behavior: colors and compinit (skip_global_compinit for OMZ).
 # ------------------------------------------------------------------------------
 autoload -U colors && colors
-skip_global_compinit=1  # Prevent Oh My Zsh from running compinit again unnecessarily
+skip_global_compinit=1
+
+# fnm: Node version manager (faster alternative to nvm)
+FNM_PATH="/opt/homebrew/opt/fnm/bin"
+if [[ -d "$FNM_PATH" ]]; then
+  eval "$(fnm env)"
+fi
+
+# nvm: Node version manager (optional; comment out if using only fnm)
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  \. "$NVM_DIR/nvm.sh"
+  [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
+fi

@@ -1,12 +1,16 @@
 # ------------------------------------------------------------------------------
-# 📦 .zprofile — Login Shell Environment (macOS)
+# .zprofile — Login shell environment
 # ------------------------------------------------------------------------------
-# Description:
-#   One-time environment setup for login shells and GUI apps (VS Code, PyCharm).
-#   Paths and env vars defined here will apply outside interactive terminals.
+# What it does:
+#   Loaded once for login shells and for GUI apps (e.g. VS Code, Spotlight).
+#   Sets Homebrew path, pyenv shims, EDITOR/VISUAL, and optional $HOME/bin.
+#   For interactive-only settings (prompt, aliases, keybindings) see .zshrc.
+#
+# How to interact: Edit in repo (zsh/.zprofile). Symlink: ~/.zprofile → repo.
+#   Changes apply on next login or when GUI apps are restarted.
 #
 # Author: Casey A. Thayer
-# Location: ~/.zprofile
+# Location: ~/.zprofile (symlinked from repo)
 # ------------------------------------------------------------------------------
 
 # 🍺 Homebrew path setup (Apple Silicon, macOS)

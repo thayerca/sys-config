@@ -1,21 +1,17 @@
 # ------------------------------------------------------------------------------
-# 📁 .functions.shrc — Local Dev Utility Functions
+# functions.shrc — Shell functions (GCP, BigQuery, Git, Cloud SQL)
 # ------------------------------------------------------------------------------
-# Description:
-#   This file contains reusable shell functions to support local development
-#   workflows, including:
-#   - Switching GCP configurations
-#   - Estimating BigQuery costs
-#   - Managing Cloud SQL proxy connections
-#   - Git branch cleanup
-#   - BigQuery exploration utilities
+# What it does:
+#   Defines callable functions: gcpp (switch gcloud config), query-gcp (BigQuery
+#   with cost check), bigquery (open BQ UI), delete_branches (interactive branch
+#   cleanup), phil-db-up/down/status/switch (Cloud SQL proxy + MySQL).
 #
-# Usage:
-#   This file should be sourced in your `.zshrc` or `.bashrc`:
-#     source ~/.functions.shrc
+# How to interact:
+#   Sourced from .zshrc at startup. Edit in repo (zsh/functions.shrc); reload
+#   with: source ~/.zshrc. Each function has a USAGE/DESCRIPTION block above it.
 #
 # Author: Casey Thayer
-# Location: ~/.functions.shrc
+# Location: ~/.functions.shrc (symlinked from repo)
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
@@ -392,7 +388,8 @@ phil-db-up() {
   MYSQL_PWD="$PHIL_DB_PROD_ADMIN_PASS" mysql -u "$PHIL_DB_PROD_ADMIN_USER" -S "$sockpath"
 }
 
-# 🔄 phil-db-switch: Switch MySQL connection to another instance socket to another instance socket to another instance socket to another instance socket
+# ------------------------------------------------------------------------------
+# phil-db-switch: Switch MySQL connection to another proxy instance
 # ------------------------------------------------------------------------------
 # USAGE:
 #   phil-db-switch

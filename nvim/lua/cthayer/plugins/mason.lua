@@ -1,3 +1,12 @@
+-- ------------------------------------------------------------------------------
+-- mason.nvim (williamboman/mason.nvim) — LSP/formatter/linter installer
+-- ------------------------------------------------------------------------------
+-- What it does: Installs LSP servers (lua_ls, pyright, etc.) and tools (stylua,
+--   prettier, ruff, bash-language-server) via Mason. ensure_installed on startup.
+-- Keymaps: :Mason to open UI; LSP/keymaps come from lspconfig.
+-- Notes: mason-lspconfig bridges Mason with lspconfig; mason-tool-installer for non-LSP tools.
+-- ------------------------------------------------------------------------------
+
 return {
 	"williamboman/mason.nvim",
 	dependencies = {
