@@ -82,6 +82,7 @@ alias gcpr="gh pr create -w"
 alias gsync="git checkout main && git pull --rebase && git fetch --prune"
 alias glom="git pull origin main"
 alias lg=lazygit
+alias ppp='security find-generic-password -s com.phillies.onboarding.generate-ssh-key -w'
 
 # ------------------------------------------------------------------------------
 # 🐳 Docker
@@ -131,3 +132,7 @@ alias tf='./terraform.sh'
 alias ports='lsof -i -P -n | grep LISTEN'
 alias ip='curl ifconfig.me'
 alias devip='ipconfig getifaddr en0'
+
+# phillies db stuff (temp)
+alias prod-proxy='cloud-sql-proxy phil-new:us-east1:phil-db-prod-v2 --port 3306 --structured-logs'
+alias prod-db-cli='mycli -h 127.0.0.1 -P 3306 -u $PHIL_DB_PROD_ADMIN_USER -p $PHIL_DB_PROD_ADMIN_PASS'

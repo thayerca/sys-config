@@ -109,6 +109,7 @@ brew "llvm"                 # Compiler infrastructure project
 # ─────────────────────────────────────────────────────────────
 brew "postgresql@14"        # PostgreSQL database
 brew "mysql-client"         # MySQL client binaries
+brew "mycli"                # MySQL CLI
 
 # ─────────────────────────────────────────────────────────────
 # 🐳 Containers & Kubernetes

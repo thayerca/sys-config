@@ -137,3 +137,13 @@ skip_global_compinit=1  # Prevent Oh My Zsh from running compinit again unnecess
 # zsh-syntax-highlighting (Homebrew) — must be last
 [[ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
   source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# source global .env
+[ -f ~/.env ] && source ~/.env
+export PATH="$(brew --prefix)/opt/google-cloud-sdk/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/cthayer/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/cthayer/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/cthayer/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/cthayer/google-cloud-sdk/completion.zsh.inc'; fi

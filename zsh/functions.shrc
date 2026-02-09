@@ -75,18 +75,25 @@ gcpp() {
   }
 
   # ☁️ List available gcloud configs and let the user pick one with fzf
-  log_info "Fetching available gcloud configurations..."
-  PROJECT=$(gcloud config configurations list --format json | jq -r ".[] | .name" | fzf-tmux)
+  log_info "Select from a list of GCP projects..."
+  local projects="
+    phil-new
+    phil-stg
+  "
+  local choice project_id
+  choice="$(echo "$projects" | fzf --prompt="Select project: " --with-nth=1,2)"
 
   # ❌ Exit if nothing selected
-  if [[ -z "$PROJECT" ]]; then
+  if [[ -z "$choice" ]]; then
     log_warn "No project selected. Aborting."
     return
   fi
 
   # ✅ Activate the selected config
-  log_info "Activating configuration: $PROJECT"
-  gcloud config configurations activate "$PROJECT" && log_ok "Activated '$PROJECT'"
+  project_id="$(awk '{print $1}' <<< "$choice")"
+  log_info "Setting GCP project: $project_id"
+  gcloud config set project "$project_id"
+  log_ok "Set GCP project to: '$project_id'"
 }
 
 # ------------------------------------------------------------------------------
