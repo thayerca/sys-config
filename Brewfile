@@ -111,6 +111,7 @@ brew "zlib"                   # General-purpose lossless data-compression librar
 # ------------------------------------------------------------------------------
 brew "postgresql@14"          # Object-relational database system
 brew "sqlite"                 # Lightweight, embedded SQL database engine
+brew "mycli"                  # MySQL CLI
 
 # ------------------------------------------------------------------------------
 # Containers & Kubernetes
