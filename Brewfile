@@ -21,6 +21,7 @@ tap "homebrew/bundle"         # Support for using Brewfiles
 tap "homebrew/services"       # Manage background services via Homebrew
 tap "osx-cross/arm"           # Cross-compilation toolchains for ARM
 
+
 # ------------------------------------------------------------------------------
 # Core CLI Tools
 # ------------------------------------------------------------------------------
