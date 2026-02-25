@@ -11,13 +11,13 @@
 #   Use: git diff (uses delta); git difftool (opens nvim -d); git mergetool (nvim 3-way).
 #   Ensure nvim and delta are on PATH when running git.
 #
-# Author: Casey A. Thayer
+# Author: Casey A. Luna 
 # Location: ~/.gitconfig (symlinked from repo)
 # ------------------------------------------------------------------------------
 
 [user]
-  name = thayerca
-  email = casey.thayer6@gmail.com
+  name = caseyluna
+  email = caseyluna25@gmail.com
 
 [init]
   defaultBranch = main
@@ -29,7 +29,7 @@
   pager = delta
 
 [github]
-  user = thayerca
+  user = caseyluna
 
 [hub]
   protocol = https
