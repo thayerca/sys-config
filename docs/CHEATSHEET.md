@@ -65,6 +65,33 @@ Your shell uses **vi-mode** (Oh My Zsh), **zsh-autosuggestions**, **zsh-autocomp
 - **direnv:** Auto-loads `.envrc` in directories (use `da` to allow)
 - **pyenv / fnm / nvm:** Python and Node version switching
 
+### Ghostty + Dev session (opt-in)
+
+Run **`dev`** when you want this layout (not the default):
+
+- **Main (top):** Neovim  
+- **Bottom-left:** terminal (shell)  
+- **Bottom-right:** Claude Code — set `CODE_RIGHT_CMD` (e.g. `cursor .` or `open -a Cursor`); if unset, shell.
+
+```
+[     Neovim (main)     ]
+[ Terminal ] [ Claude Code ]
+```
+
+**How to adjust:**
+
+| What | How |
+|------|-----|
+| Bottom row height | `export CODE_BOTTOM_PCT=25` (default 25) before running `dev` |
+| Claude pane width | `export CODE_RIGHT_PCT=30` (default 30) |
+| Claude Code command | `export CODE_RIGHT_CMD='cursor .'` or `open -a Cursor` (empty = shell) |
+| Session name | `export CODE_SESSION_NAME=code` (default `code`) |
+| Repo path | If sys-config isn’t in `~/sys-config` or `~/ct/sys-config`, set `SYS_CONFIG_REPO` |
+
+Script: `scripts/code-session.sh`. If the session already exists, `dev` just attaches.
+
+**Ghostty native splits** (optional): `Super-D` split right, `Super-Shift-D` split down; `Super-←/→/↑/↓` move focus; `Super-=` equalize. Config: `ghostty/config`.
+
 ---
 
 ## Tmux
@@ -403,8 +430,8 @@ Requires [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) (`cla
 | `<Space>c` | Claude Code (group) |
 | `<Space>cc` | Toggle Claude |
 | `<Space>cf` | Focus Claude |
-| `<Space>cw` | Switch to other window (editor ↔ Claude) |
-| `Alt-w` | From Claude terminal input: switch to editor |
+| `Alt-w` | **Switch editor ↔ Claude** (works from editor or from Claude input) |
+| `<Space>cw` | Same as Alt+w (leader form) |
 | `<Space>cr` | Resume Claude |
 | `<Space>cC` | Continue Claude |
 | `<Space>cm` | Select Claude model |

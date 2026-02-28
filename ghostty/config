@@ -1,1 +1,10 @@
 theme = catppuccin-mocha
+
+# Splits: split right (main | new), split down (top | bottom). Navigate with super+arrows.
+keybind = super+d = new_split:right
+keybind = super+shift+d = new_split:down
+keybind = super+left = goto_split:left
+keybind = super+right = goto_split:right
+keybind = super+up = goto_split:up
+keybind = super+down = goto_split:down
+keybind = super+equal = equalize_splits

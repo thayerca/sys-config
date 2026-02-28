@@ -26,6 +26,21 @@ alias vim=nvim
 alias vv=nvim
 
 # ------------------------------------------------------------------------------
+# 🪟 Dev session (Ghostty + tmux: Neovim + terminal + right pane) — opt-in via dev
+# ------------------------------------------------------------------------------
+# Run when you want this layout:  dev   → tmux session with nvim (main), shell (bottom 25%), right pane.
+# To adjust: set CODE_BOTTOM_PCT, CODE_RIGHT_PCT, CODE_RIGHT_CMD (see scripts/code-session.sh).
+# Repo path: defaults to ~/sys-config, then ~/ct/sys-config; or set SYS_CONFIG_REPO.
+if [[ -z "${SYS_CONFIG_REPO-}" ]]; then
+  if [[ -f "$HOME/sys-config/scripts/code-session.sh" ]]; then
+    SYS_CONFIG_REPO="$HOME/sys-config"
+  else
+    SYS_CONFIG_REPO="$HOME/ct/sys-config"
+  fi
+fi
+alias dev='bash "${SYS_CONFIG_REPO}/scripts/code-session.sh"'
+
+# ------------------------------------------------------------------------------
 # 💻 Shell & Navigation
 # ------------------------------------------------------------------------------
 alias ...='cd ../..'

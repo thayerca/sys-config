@@ -4,9 +4,8 @@
 -- What it does: Neovim integration for Claude Code (Anthropic's AI coding assistant).
 --   Uses the same WebSocket MCP protocol as the official VS Code extension.
 --   Requires: Claude Code CLI (claude doctor), folke/snacks.nvim (dependency).
--- Keymaps: <leader>c (group), <leader>cc toggle, <leader>cf focus, <leader>cw switch
---   (normal mode). In Claude terminal input: Alt+w switches to editor (terminal-mode).
---   <leader>cs send, <leader>cA/cd diff. (cA avoids conflict with LSP <leader>ca.)
+-- Keymaps: <leader>c (group), <leader>cc toggle, <leader>cf focus. Alt+w = switch
+--   editor ↔ Claude from anywhere (normal or terminal input). <leader>cs, cA, cd.
 -- ------------------------------------------------------------------------------
 
 return {
@@ -14,13 +13,16 @@ return {
 	dependencies = { "folke/snacks.nvim" },
 	config = function()
 		require("claudecode").setup()
-		-- From terminal mode (e.g. typing in Claude): Alt+w → switch to other window
-		vim.keymap.set("t", "<A-w>", "<C-\\><C-n><C-w>p", { desc = "Switch to other window (editor ↔ Claude)" })
+		local switch_win = { desc = "Switch to other window (editor ↔ Claude)" }
+		-- Normal mode: Alt+w → previous window (editor ↔ Claude)
+		vim.keymap.set("n", "<A-w>", "<C-w>p", switch_win)
+		-- Terminal mode (e.g. typing in Claude): Alt+w → exit to normal, then previous window
+		vim.keymap.set("t", "<A-w>", "<C-\\><C-n><C-w>p", switch_win)
 	end,
 	keys = {
 		{ "<leader>cc", "<cmd>ClaudeCode<CR>", desc = "Toggle Claude" },
 		{ "<leader>cf", "<cmd>ClaudeCodeFocus<CR>", desc = "Focus Claude" },
-		{ "<leader>cw", "<C-w>p", desc = "Switch to other window (editor ↔ Claude)" },
+		{ "<leader>cw", "<C-w>p", desc = "Switch to other window (same as Alt+w)" },
 		{ "<leader>cr", "<cmd>ClaudeCode --resume<CR>", desc = "Resume Claude" },
 		{ "<leader>cC", "<cmd>ClaudeCode --continue<CR>", desc = "Continue Claude" },
 		{ "<leader>cm", "<cmd>ClaudeCodeSelectModel<CR>", desc = "Select Claude model" },
