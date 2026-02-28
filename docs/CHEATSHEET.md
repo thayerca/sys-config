@@ -403,6 +403,8 @@ Requires [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) (`cla
 | `<Space>c` | Claude Code (group) |
 | `<Space>cc` | Toggle Claude |
 | `<Space>cf` | Focus Claude |
+| `<Space>cw` | Switch to other window (editor ↔ Claude) |
+| `Alt-w` | From Claude terminal input: switch to editor |
 | `<Space>cr` | Resume Claude |
 | `<Space>cC` | Continue Claude |
 | `<Space>cm` | Select Claude model |
