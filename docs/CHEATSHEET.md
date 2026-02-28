@@ -394,6 +394,23 @@ Your shell uses **vi-mode** (Oh My Zsh), **zsh-autosuggestions**, **zsh-autocomp
 | `c` | Open config |
 | `q` | Quit |
 
+### Claude Code (claudecode.nvim)
+
+Requires [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) (`claude doctor`).
+
+| Key | Action |
+|-----|--------|
+| `<Space>c` | Claude Code (group) |
+| `<Space>cc` | Toggle Claude |
+| `<Space>cf` | Focus Claude |
+| `<Space>cr` | Resume Claude |
+| `<Space>cC` | Continue Claude |
+| `<Space>cm` | Select Claude model |
+| `<Space>cb` | Add current buffer to Claude |
+| `<Space>cs` | Send selection (visual); in neo-tree/oil: add file |
+| `<Space>cA` | Accept diff |
+| `<Space>cd` | Deny diff |
+
 ### Misc
 
 | Key | Action |

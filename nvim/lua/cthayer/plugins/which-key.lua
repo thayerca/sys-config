@@ -16,6 +16,7 @@ return {
 		{ "<leader>?", function() require("which-key").show({ global = false }) end, desc = "Show buffer-local keymaps" },
 		{ "<leader>a", name = "+harpoon" },
 		{ "<leader>b", name = "+buffer" },
+		{ "<leader>c", name = "+Claude Code" },
 		{ "<leader>f", name = "+file/telescope" },
 		{ "<leader>g", name = "+git" },
 		{ "<leader>h", name = "+gitsigns/harpoon" },
