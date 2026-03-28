@@ -35,7 +35,10 @@ return {
 				typescriptreact = { "prettier" },
 
 				-- 🐍 Python
+				-- for phillies stuff keep black
 				python = { "isort", "black" },
+				-- TODO: for personal stuff
+				-- python = { "ruff" },
 
 				-- 🛠️ Lua
 				lua = { "stylua" },
@@ -65,7 +68,7 @@ return {
 			format_on_save = {
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 5000,
 			},
 		})
 
