@@ -62,6 +62,7 @@ return {
 				java = { "google-java-format" },
 				c = { "clang-format" },
 				cpp = { "clang-format" },
+				terraform = { "terraform_fmt" },
 			},
 
 			-- 🔁 Format-on-save behavior
@@ -72,41 +73,20 @@ return {
 			},
 		})
 
-		-- Separate shell formatter using formatter.nvim (for shfmt edge case)
-		require("formatter").setup({
-			filetype = {
-				sh = {
-					function()
-						return {
-							exe = "shfmt",
-							args = { "-i", "2" },
-							stdin = true,
-						}
-					end,
-				},
-				["shrc"] = {
-					function()
-						return {
-							exe = "shfmt",
-							args = { "-i", "2" },
-							stdin = true,
-						}
-					end,
-				},
-			},
-		})
-
 		-- Set filetype for .shrc files
-		vim.cmd([[
-      autocmd BufRead,BufNewFile *.shrc set filetype=sh
-    ]])
+		vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+			pattern = "*.shrc",
+			callback = function()
+				vim.bo.filetype = "sh"
+			end,
+		})
 
 		-- 🔑 Keymap for manual format trigger
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 5000,
 			})
 		end, { desc = "Format file or range (in visual mode)" })
 	end,

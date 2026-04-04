@@ -29,20 +29,6 @@ return {
 
 		null_ls.setup({
 			sources = {
-				-- 🧹 Formatters
-				formatting.stylua, -- Lua
-				formatting.prettier, -- JS/TS, HTML, etc.
-				formatting.shfmt, -- Shell
-				formatting.terraform_fmt, -- Terraform
-				formatting.sqlfluff, -- SQL
-				formatting.pg_format, -- PostgreSQL
-				-- Markdown: fix all markdownlint violations
-				{
-					method = null_ls.methods.FORMATTING,
-					filetypes = { "markdown" },
-					generator = markdownlint_fix,
-				},
-
 				-- 🔍 Linters
 				--TODO: fix these built-ins executables are not being found
 				--diagnostics.ruff, -- Python (linter)

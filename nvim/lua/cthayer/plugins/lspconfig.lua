@@ -44,8 +44,18 @@ return {
 				local opts = { buffer = ev.buf, silent = true }
 				keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration", unpack(opts) })
 				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "LSP definitions", unpack(opts) })
-				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "LSP implementations", unpack(opts) })
-				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "LSP type definitions", unpack(opts) })
+				keymap.set(
+					"n",
+					"gi",
+					"<cmd>Telescope lsp_implementations<CR>",
+					{ desc = "LSP implementations", unpack(opts) }
+				)
+				keymap.set(
+					"n",
+					"gt",
+					"<cmd>Telescope lsp_type_definitions<CR>",
+					{ desc = "LSP type definitions", unpack(opts) }
+				)
 				keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "LSP references", unpack(opts) })
 				keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions", unpack(opts) })
 				-- Rename: use inc-rename (inline preview) when available, else LSP rename
@@ -58,7 +68,12 @@ return {
 					end
 				end, { desc = "Rename (inline preview)", unpack(opts) })
 				keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Line diagnostics", unpack(opts) })
-				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Buffer diagnostics", unpack(opts) })
+				keymap.set(
+					"n",
+					"<leader>D",
+					"<cmd>Telescope diagnostics bufnr=0<CR>",
+					{ desc = "Buffer diagnostics", unpack(opts) }
+				)
 				keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic", unpack(opts) })
 				keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic", unpack(opts) })
 				keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover", unpack(opts) })
@@ -100,7 +115,18 @@ return {
 				},
 			},
 			marksman = {},
-			pyright = {},
+			pylsp = {
+				settings = {
+					pylsp = {
+						plugins = {
+							pyflakes = { enabled = false },
+							pycodestyle = { enabled = false },
+							mccabe = { enabled = false },
+							pylsp_mypy = { enabled = true },
+						},
+					},
+				},
+			},
 			tailwindcss = {},
 			terraformls = {},
 			yamlls = {},
@@ -116,10 +142,10 @@ return {
 				filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
 			},
 			r_language_server = {},
-			ltex = {},        -- LaTeX/markdown grammar/spell; install ltex-ls or omit from list
-			ansiblels = {},   -- Ansible; install ansible-language-server or omit
-			lemminx = {},     -- XML; install lemminx or omit
-			groovyls = {},    -- Groovy; install groovyls or omit
+			ltex = {}, -- LaTeX/markdown grammar/spell; install ltex-ls or omit from list
+			ansiblels = {}, -- Ansible; install ansible-language-server or omit
+			lemminx = {}, -- XML; install lemminx or omit
+			groovyls = {}, -- Groovy; install groovyls or omit
 		}
 
 		for server, custom in pairs(servers) do

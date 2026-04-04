@@ -34,17 +34,20 @@ return {
 				"cssls",
 				"html",
 				"bashls",
-				"pyright",
+				"pylsp",
+				-- removed for phillies stuff
+				--"pyright",
 				"jsonls",
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"ruff", -- Formatter + linter
+				--"ruff", -- Formatter + linter
 				"stylua", -- Lua formatter
 				"bash-language-server",
 				"prettier",
+				"python-lsp-server",
 			},
 		})
 	end,
