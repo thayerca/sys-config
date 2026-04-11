@@ -62,7 +62,7 @@ return {
 				keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic", unpack(opts) })
 				keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic", unpack(opts) })
 				keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover", unpack(opts) })
-				keymap.set("n", "<leader>rs", "<cmd>lsp restart<CR>", { desc = "Restart LSP", unpack(opts) })
+				keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>", { desc = "Restart LSP", unpack(opts) })
 				-- Svelte: notify server on TS/JS file changes (replaces old on_attach)
 				if client.name == "svelte" then
 					vim.api.nvim_create_autocmd("BufWritePost", {
