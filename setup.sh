@@ -163,6 +163,18 @@ if brew list fzf &>/dev/null 2>&1; then
 fi
 
 # ------------------------------------------------------------------------------
+# 🔭 fzf-tab: fzf-powered Tab completion for zsh.
+#    Must be cloned into OMZ custom plugins; .zshrc sources it after compinit.
+# ------------------------------------------------------------------------------
+FZF_TAB_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
+if [[ ! -d "$FZF_TAB_DIR" ]]; then
+  log "Installing fzf-tab..."
+  git clone https://github.com/Aloxaf/fzf-tab "$FZF_TAB_DIR"
+else
+  log "fzf-tab already installed."
+fi
+
+# ------------------------------------------------------------------------------
 # 🔌 TPM (Tmux Plugin Manager): clone so tmux can load plugins.
 #    After first tmux attach, run: prefix + I (capital I) to install plugins.
 # ------------------------------------------------------------------------------
