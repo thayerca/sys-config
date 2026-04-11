@@ -44,10 +44,10 @@ return {
 				},
 
 				-- 🔍 Linters
-				--TODO: fix these built-ins executables are not being found
-				--diagnostics.ruff, -- Python (linter)
-				--diagnostics.eslint_d, -- JS/TS
-				--diagnostics.shellcheck, -- Shell
+				-- guarded: only register if binary is installed
+				vim.fn.executable("ruff") == 1 and diagnostics.ruff or nil, -- Python
+				vim.fn.executable("eslint_d") == 1 and diagnostics.eslint_d or nil, -- JS/TS
+				vim.fn.executable("shellcheck") == 1 and diagnostics.shellcheck or nil, -- Shell
 				diagnostics.stylelint, -- CSS/SCSS
 				diagnostics.yamllint, -- YAML
 				diagnostics.markdownlint, -- Markdown
