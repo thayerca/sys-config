@@ -49,8 +49,25 @@ plugins=(
 source "$ZSH/oh-my-zsh.sh"
 
 # fzf-tab: fzf-powered tab completion (load after compinit, before other completion wrappers)
-[[ -f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh ]] && \
+# setup.sh clones it automatically; or: git clone https://github.com/Aloxaf/fzf-tab \
+#   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+if [[ -f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh ]]; then
   source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh
+
+  # Required: disable zsh's native menu so fzf-tab owns Tab entirely.
+  # Without this, the native menu and fzf-tab both activate and fight each other.
+  zstyle ':completion:*' menu no
+
+  # Preview: show directory contents when completing cd (and zoxide z)
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath 2>/dev/null'
+  zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color=always $realpath 2>/dev/null'
+
+  # Consistent appearance across all completions
+  zstyle ':fzf-tab:*' fzf-flags '--height=50%' '--reverse' '--border=rounded'
+
+  # Switch between completion groups (e.g. files vs flags) with , and .
+  zstyle ':fzf-tab:*' switch-group ',' '.'
+fi
 
 # ------------------------------------------------------------------------------
 # 💅 Prompt: Starship (single init — config from ~/.config/starship.toml).
