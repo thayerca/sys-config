@@ -100,6 +100,13 @@ fzf-history() {
 zle -N fzf-history
 bindkey '^R' fzf-history
 
+# atuin: shell history with fuzzy search TUI, stats, and optional sync
+# Ctrl+R opens atuin's TUI; replaces the fzf-history widget above if installed.
+# Install: brew install atuin  |  First run: atuin import auto
+if command -v atuin &>/dev/null; then
+  eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
 # pyenv + pyenv-virtualenv: Python version and venv switching
 if command -v pyenv &>/dev/null; then
   eval "$(pyenv init -)"

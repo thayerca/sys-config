@@ -36,6 +36,7 @@ brew "curl"                   # Get a file from HTTP, HTTPS or FTP servers
 brew "exa"                    # Modern replacement for ls (legacy; eza is the maintained fork)
 brew "eza"                    # Modern, maintained replacement for ls with icons and colors
 brew "fnm"                    # Fast and simple Node.js version manager
+brew "atuin"                  # Shell history with fuzzy search, stats, and optional cloud sync
 brew "fzf"                    # Command-line fuzzy finder written in Go
 brew "jq"                     # Lightweight and flexible command-line JSON processor
 brew "ripgrep"                # Search tool like grep and The Silver Searcher
