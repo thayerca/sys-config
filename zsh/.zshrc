@@ -88,18 +88,6 @@ fi
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
 
-# Ctrl+R: search history with fzf and put result on command line
-fzf-history() {
-  local selected
-  selected=$(history | fzf | awk '{$1=""; print substr($0,2)}')
-  if [[ -n "$selected" ]]; then
-    READLINE_LINE=$selected
-    READLINE_POINT=${#selected}
-  fi
-}
-zle -N fzf-history
-bindkey '^R' fzf-history
-
 # pyenv + pyenv-virtualenv: Python version and venv switching
 if command -v pyenv &>/dev/null; then
   eval "$(pyenv init -)"
