@@ -10,14 +10,17 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/highlighters
-plugins=(git macos docker docker-compose virtualenv vi-mode poetry)
+plugins=(git macos docker docker-compose virtualenv poetry)
 # installed with brew therefor not in above list: zsh-syntax-highlighting zsh-autosuggestions
 
 #this line should route all .zcompdump files into the cached dir
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
 source $ZSH/oh-my-zsh.sh
+
+# fzf-tab: better tab completion using fzf (must load after compinit, before other plugins that wrap completion)
+[[ -f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh ]] && \
+  source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # direnv
 eval "$(direnv hook zsh)"
