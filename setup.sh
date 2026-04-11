@@ -141,6 +141,10 @@ ln -sf "$REPO/powerline/.p10k.zsh" "$HOME/.p10k.zsh" 2>/dev/null || true
 # Terminals
 ln -sf "$REPO/kitty" "$HOME/.config/kitty"
 
+# Scripts: link tmux-sessionizer (and any future scripts) to ~/.local/bin so they're on PATH
+mkdir -p "$HOME/.local/bin"
+ln -sf "$REPO/scripts/tmux-sessionizer" "$HOME/.local/bin/tmux-sessionizer"
+
 # ------------------------------------------------------------------------------
 # 🔤 Powerline fonts: optional, improves prompt/icons in some terminals.
 # ------------------------------------------------------------------------------

@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# ------------------------------------------------------------------------------
+# tmux-sessionizer — Fuzzy-jump to (or create) a tmux session per project dir
+# ------------------------------------------------------------------------------
+# What it does:
+#   Uses fzf to pick a directory from a list of common project roots.
+#   If a tmux session already exists for that directory, switch to it.
+#   If not, create a new session named after the directory's basename.
+#
+# Usage:
+#   tmux-sessionizer              — fzf picker of project directories
+#   tmux-sessionizer <path>       — jump directly without picker
+#
+# Wired to tmux prefix+f (see .tmux.conf) and shell alias `ts`.
+#
+# Inspired by ThePrimeagen's workflow. Customize PROJECT_DIRS below.
+# ------------------------------------------------------------------------------
+
+PROJECT_DIRS=(
+  "$HOME"
+  "$HOME/projects"
+  "$HOME/work"
+  "$HOME/dev"
+  "$HOME/sys-config"
+)
+
+# If a path is passed directly, skip fzf
+if [[ $# -eq 1 ]]; then
+  selected="$1"
+else
+  # Build the directory list: expand each dir up to 2 levels deep, dedupe
+  dir_list=""
+  for base in "${PROJECT_DIRS[@]}"; do
+    [[ -d "$base" ]] || continue
+    # Include the base dir itself and immediate subdirectories
+    dir_list+="$base"$'\n'
+    while IFS= read -r d; do
+      dir_list+="$d"$'\n'
+    done < <(find "$base" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort)
+  done
+
+  selected=$(echo "$dir_list" | sort -u | fzf \
+    --prompt="  session: " \
+    --height=50% \
+    --reverse \
+    --border=rounded \
+    --preview='ls --color=always {} 2>/dev/null || echo "(empty)"')
+fi
+
+[[ -z "$selected" ]] && exit 0
+
+# Derive session name: basename, replace dots with underscores (tmux dislikes dots)
+session_name=$(basename "$selected" | tr '.' '_')
+
+# If inside tmux already, switch-client; otherwise attach or create
+if [[ -z "$TMUX" ]]; then
+  # Outside tmux: create or attach
+  tmux new-session -As "$session_name" -c "$selected"
+else
+  # Inside tmux: switch to existing session or create new one
+  if ! tmux has-session -t "=$session_name" 2>/dev/null; then
+    tmux new-session -ds "$session_name" -c "$selected"
+  fi
+  tmux switch-client -t "=$session_name"
+fi
