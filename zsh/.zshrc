@@ -156,15 +156,8 @@ alias uvr="uv pip uninstall -y -r <(uv pip freeze)"
 autoload -U colors && colors
 skip_global_compinit=1
 
-# fnm: Node version manager (faster alternative to nvm)
+# fnm: Node version manager — preferred over nvm (faster, no shell slowdown)
 FNM_PATH="/opt/homebrew/opt/fnm/bin"
 if [[ -d "$FNM_PATH" ]]; then
   eval "$(fnm env)"
-fi
-
-# nvm: Node version manager (optional; comment out if using only fnm)
-export NVM_DIR="$HOME/.nvm"
-if [[ -s "$NVM_DIR/nvm.sh" ]]; then
-  \. "$NVM_DIR/nvm.sh"
-  [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
 fi
