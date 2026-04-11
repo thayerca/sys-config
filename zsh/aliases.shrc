@@ -66,7 +66,7 @@ alias R='R --no-restore-data --no-save'
 alias r="radian"
 
 # duckdb
-alias duckdb="/Applications/duckdb ; exit;"
+alias duckdb="/Applications/duckdb"
 
 # terraform
 alias tf="./terraform.sh"
