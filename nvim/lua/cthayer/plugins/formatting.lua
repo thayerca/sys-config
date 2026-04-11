@@ -17,6 +17,10 @@ return {
 		local conform = require("conform")
 
 		conform.setup({
+			-- Suppress notifications when a formatter binary is not installed.
+			-- Formatters silently skip; LSP fallback handles the rest.
+			notify_on_error = false,
+
 			formatters_by_ft = {
 				-- 🖼️ Frontend / Web
 				css = { "prettier" },
