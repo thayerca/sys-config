@@ -33,7 +33,6 @@ brew "bzip2"                  # Freely available high-quality data compressor
 brew "coreutils"              # GNU core utilities (grealpath, gsort, etc.)
 brew "cscope"                 # Code browsing and navigation tool
 brew "curl"                   # Get a file from HTTP, HTTPS or FTP servers
-brew "exa"                    # Modern replacement for ls (legacy; eza is the maintained fork)
 brew "eza"                    # Modern, maintained replacement for ls with icons and colors
 brew "fnm"                    # Fast and simple Node.js version manager
 brew "fzf"                    # Command-line fuzzy finder written in Go
@@ -79,7 +78,6 @@ brew "go"                     # Open source programming language (Go)
 brew "macvim"                 # GUI for vim, made for macOS
 brew "neovim"                 # Ambitious Vim-fork focused on extensibility and agility
 brew "node"                   # Open-source, cross-platform JavaScript runtime (Node.js)
-brew "node@16"                # Node.js 16 LTS (platform built on V8)
 brew "r"                      # Software environment for statistical computing
 brew "rust"                   # Safe, concurrent, practical systems language
 brew "yarn"                   # JavaScript package manager
@@ -92,8 +90,6 @@ brew "pipenv"                 # Python dependency management via Pipfile
 brew "poetry"                 # Python package management tool
 brew "pyenv"                  # Python version management
 brew "pyenv-virtualenv"       # Pyenv plugin to manage virtualenv
-brew "python@3.8"             # Interpreted, interactive, object-oriented programming language
-brew "python@3.9"             # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"            # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"            # Interpreted, interactive, object-oriented programming language
 brew "python@3.13"            # Interpreted, interactive, object-oriented programming language
