@@ -30,11 +30,12 @@ elif command -v brew &>/dev/null; then
   eval "$(brew shellenv)"
 fi
 
-# OMZ plugin dir for syntax highlighting; compdump per host to avoid conflicts.
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="$ZSH/custom/plugins/zsh-syntax-highlighting/highlighters"
+# compdump per host to avoid conflicts.
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
 
 # Plugin list: add/remove here; then run setup or clone custom plugins as needed.
+# Note: vi-mode removed — conflicts with fzf keybindings (ctrl+r, ctrl+t, alt+c)
+# Note: zsh-autocomplete removed — conflicts with vi-mode and fzf-tab
 plugins=(
   docker
   docker-compose
@@ -42,12 +43,14 @@ plugins=(
   git
   macos
   virtualenv
-  vi-mode
   zsh-autosuggestions
-  zsh-autocomplete
 )
 
 source "$ZSH/oh-my-zsh.sh"
+
+# fzf-tab: fzf-powered tab completion (load after compinit, before other completion wrappers)
+[[ -f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh ]] && \
+  source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # ------------------------------------------------------------------------------
 # 💅 Prompt: Starship (single init — config from ~/.config/starship.toml).

@@ -163,6 +163,12 @@ else
   log "Oh My Zsh already installed."
 fi
 
+# fzf-tab: fzf-powered tab completion (replaces vi-mode + zsh-autocomplete combo)
+if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab" ]]; then
+  log "Installing fzf-tab plugin..."
+  git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
+fi
+
 # ------------------------------------------------------------------------------
 # 🔍 FZF shell integration: key bindings + fuzzy completion (from Homebrew fzf).
 # ------------------------------------------------------------------------------
