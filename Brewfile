@@ -66,6 +66,7 @@ brew "commitizen"             # Defines a standard way of committing (convention
 brew "gh"                     # GitHub command-line tool
 brew "git-delta"              # Syntax-highlighting pager for git and diff output
 brew "hub"                    # Add GitHub support to git on the command-line
+brew "lazydocker"             # Simple terminal UI for docker and docker-compose
 brew "lazygit"                # Simple terminal UI for git commands
 brew "pre-commit"             # Framework for managing multi-language pre-commit hooks
 brew "shellcheck"             # Static analysis and lint tool for (ba)sh scripts
