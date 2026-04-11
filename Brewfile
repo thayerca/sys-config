@@ -26,6 +26,7 @@ tap "osx-cross/arm"           # Cross-compilation toolchains for ARM
 # ------------------------------------------------------------------------------
 brew "ack"                    # Search tool like grep, optimized for programmers
 brew "asciinema"              # Record and share terminal sessions
+brew "atuin"                  # Shell history with fuzzy TUI, stats, and optional cloud sync
 brew "bat"                    # Clone of cat(1) with syntax highlighting and Git integration
 brew "beautysh"               # Bash beautifier
 brew "brew-cask-completion"   # Fish/zsh completion for brew cask commands
@@ -33,7 +34,6 @@ brew "bzip2"                  # Freely available high-quality data compressor
 brew "coreutils"              # GNU core utilities (grealpath, gsort, etc.)
 brew "cscope"                 # Code browsing and navigation tool
 brew "curl"                   # Get a file from HTTP, HTTPS or FTP servers
-brew "exa"                    # Modern replacement for ls (legacy; eza is the maintained fork)
 brew "eza"                    # Modern, maintained replacement for ls with icons and colors
 brew "fnm"                    # Fast and simple Node.js version manager
 brew "fzf"                    # Command-line fuzzy finder written in Go
@@ -42,6 +42,7 @@ brew "ripgrep"                # Search tool like grep and The Silver Searcher
 brew "tree"                   # Display directories as trees (with optional color/HTML output)
 brew "wget"                   # Internet file retriever
 brew "xz"                     # General-purpose data compression with high compression ratio
+brew "zoxide"                 # Smarter cd — jumps to frecently used dirs; replaces autojump/z
 brew "zstd"                   # Zstandard real-time compression algorithm
 
 # ------------------------------------------------------------------------------
@@ -66,6 +67,7 @@ brew "commitizen"             # Defines a standard way of committing (convention
 brew "gh"                     # GitHub command-line tool
 brew "git-delta"              # Syntax-highlighting pager for git and diff output
 brew "hub"                    # Add GitHub support to git on the command-line
+brew "lazydocker"             # Terminal UI for docker containers, images, and volumes
 brew "lazygit"                # Simple terminal UI for git commands
 brew "pre-commit"             # Framework for managing multi-language pre-commit hooks
 brew "shellcheck"             # Static analysis and lint tool for (ba)sh scripts
@@ -79,7 +81,6 @@ brew "go"                     # Open source programming language (Go)
 brew "macvim"                 # GUI for vim, made for macOS
 brew "neovim"                 # Ambitious Vim-fork focused on extensibility and agility
 brew "node"                   # Open-source, cross-platform JavaScript runtime (Node.js)
-brew "node@16"                # Node.js 16 LTS (platform built on V8)
 brew "r"                      # Software environment for statistical computing
 brew "rust"                   # Safe, concurrent, practical systems language
 brew "yarn"                   # JavaScript package manager
@@ -92,8 +93,6 @@ brew "pipenv"                 # Python dependency management via Pipfile
 brew "poetry"                 # Python package management tool
 brew "pyenv"                  # Python version management
 brew "pyenv-virtualenv"       # Pyenv plugin to manage virtualenv
-brew "python@3.8"             # Interpreted, interactive, object-oriented programming language
-brew "python@3.9"             # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"            # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"            # Interpreted, interactive, object-oriented programming language
 brew "python@3.13"            # Interpreted, interactive, object-oriented programming language
