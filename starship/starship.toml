@@ -132,11 +132,11 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol $branch ](fg:base bg:green)]($style)'
 
 [git_status]
-style = "bg:teal"
+style = "bg:green"
 format = '[[($all_status)](fg:base bg:green)]($style)'
 conflicted = " "  # Git conflict icon
 ahead = " "        # Rocket icon
@@ -190,12 +190,13 @@ format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
 [gcloud]
 symbol = "󰅟"
 format = '[[ $symbol( $project) ](fg:black bg:yellow)]($style)'
-style = "bright-yellow"
+style = "bg:yellow"
 disabled = false
 
 [kubernetes]
 symbol = "󱃾"
 format = '[[ $symbol( $context) ](fg:black bg:blue)]($style)'
+style = "bg:blue"
 disabled = false
 
 # ------------------------------------------------------------------------------
@@ -205,7 +206,7 @@ disabled = false
 [time]
 disabled = false
 time_format = "%R"
-style = "bg:peach"
+style = "bg:purple"
 format = '[[  $time ](fg:mantle bg:purple)]($style)'
 
 # ------------------------------------------------------------------------------
