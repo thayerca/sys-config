@@ -27,6 +27,7 @@ return {
 		{ "<leader>o", name = "+oil" },
 		{ "<leader>r", name = "+refactor/LSP" },
 		{ "<leader>t", name = "+tab/term/todo" },
+		{ "<leader>T", name = "+neotest" },
 		{ "<leader>u", name = "+undo/inlay" },
 		{ "<leader>d", name = "+diagnostics" },
 		{ "<leader>l", name = "+lazygit" },
