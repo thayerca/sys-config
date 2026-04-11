@@ -81,6 +81,12 @@ if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
 fi
 
+# zoxide: smarter cd — jump to frecently visited dirs with `z` and `zi` (interactive)
+# Install: brew install zoxide  |  Usage: z <partial-path>, zi (fzf picker)
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
 # fzf: fuzzy finder key bindings (sourced from repo: ~/.fzf → repo/fzf/.fzf)
 if [[ -f "$HOME/.fzf/key-bindings.zsh" ]]; then
   source "$HOME/.fzf/key-bindings.zsh"

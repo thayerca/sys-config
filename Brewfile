@@ -40,6 +40,7 @@ brew "fzf"                    # Command-line fuzzy finder written in Go
 brew "jq"                     # Lightweight and flexible command-line JSON processor
 brew "ripgrep"                # Search tool like grep and The Silver Searcher
 brew "tree"                   # Display directories as trees (with optional color/HTML output)
+brew "zoxide"                 # Smarter cd — jumps to frecently used dirs; replaces autojump/z
 brew "wget"                   # Internet file retriever
 brew "xz"                     # General-purpose data compression with high compression ratio
 brew "zstd"                   # Zstandard real-time compression algorithm
