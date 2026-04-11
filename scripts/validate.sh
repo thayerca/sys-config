@@ -11,8 +11,8 @@
 #   bash scripts/validate.sh
 #
 # Interpreting output:
-#   - "linked" / "present" / "found" — OK.
-#   - "MISSING" or wrong paths — fix symlinks or re-run setup.sh; see docs/DEBUG.md.
+#   - "✓" — good.
+#   - "✗" — fix symlinks or re-run setup.sh; see docs/DEBUG.md.
 #   - Neovim checkhealth may show warnings; fix only if you use that feature.
 #
 # See: docs/DEBUG.md (troubleshooting), docs/INDEX.md (all docs).
@@ -20,36 +20,89 @@
 
 set -e
 
-echo "=== Shell ==="
-echo "SHELL=$SHELL"
-command -v starship &>/dev/null && echo "starship: found" || echo "starship: not in PATH"
-[[ -f ~/.config/starship.toml ]] && echo "starship config: linked" || echo "starship config: MISSING"
-[[ -f ~/.fzf/key-bindings.zsh ]] && echo "fzf key-bindings: present" || echo "fzf key-bindings: MISSING"
+PASS="✓"
+FAIL="✗"
 
+ok()   { echo "  $PASS $*"; }
+warn() { echo "  $FAIL $*" >&2; }
+
+# ------------------------------------------------------------------------------
+echo "=== Shell ==="
+# ------------------------------------------------------------------------------
+echo "SHELL=$SHELL"
+command -v starship &>/dev/null && ok "starship: found" || warn "starship: not in PATH"
+[[ -f ~/.config/starship.toml ]] && ok "starship config: present" || warn "starship config: MISSING"
+
+# fzf key-bindings live inside the .fzf symlink (setup.sh: ~/.fzf -> repo/fzf/.fzf)
+if [[ -f "$HOME/.fzf/key-bindings.zsh" ]]; then
+  ok "fzf key-bindings: present ($HOME/.fzf/key-bindings.zsh)"
+else
+  warn "fzf key-bindings: MISSING — run setup.sh or: ln -sf \$REPO/fzf/.fzf ~/.fzf"
+fi
+command -v fzf &>/dev/null && ok "fzf binary: found" || warn "fzf binary: not in PATH"
+
+# ------------------------------------------------------------------------------
 echo ""
 echo "=== Symlinks (should point into repo) ==="
-for f in ~/.zshrc ~/.zprofile ~/.tmux.conf ~/.config/nvim ~/.fzf ~/.config/starship.toml; do
+# ------------------------------------------------------------------------------
+for f in ~/.zshrc ~/.zprofile ~/.tmux.conf ~/.config/nvim ~/.fzf ~/.config/starship.toml \
+          ~/.aliases.shrc ~/.functions.shrc ~/.gitconfig; do
   if [[ -L "$f" ]]; then
-    echo "$f -> $(readlink "$f")"
+    ok "$f -> $(readlink "$f")"
   elif [[ -e "$f" ]]; then
-    echo "$f (not a symlink)"
+    warn "$f (exists but is NOT a symlink — may shadow repo version)"
   else
-    echo "$f MISSING"
+    warn "$f MISSING"
   fi
 done
 
+# ------------------------------------------------------------------------------
+echo ""
+echo "=== Required tools ==="
+# ------------------------------------------------------------------------------
+for cmd in git nvim tmux zsh starship brew; do
+  command -v "$cmd" &>/dev/null && ok "$cmd: found" || warn "$cmd: not in PATH"
+done
+
+# Optional power tools
+echo "  (optional tools)"
+for cmd in zoxide atuin lazydocker lazygit; do
+  command -v "$cmd" &>/dev/null && ok "$cmd: found" || echo "  - $cmd: not installed (optional)"
+done
+
+# ------------------------------------------------------------------------------
 echo ""
 echo "=== Git ==="
-git config --global core.pager 2>/dev/null || true
-git config --global difftool.nvimdiff.path 2>/dev/null || true
+# ------------------------------------------------------------------------------
+pager=$(git config --global core.pager 2>/dev/null) && ok "core.pager: $pager" || warn "core.pager not set"
+gname=$(git config --global user.name 2>/dev/null) && ok "user.name: $gname" || warn "user.name not set"
+gemail=$(git config --global user.email 2>/dev/null) && ok "user.email: $gemail" || warn "user.email not set"
 
+# ------------------------------------------------------------------------------
 echo ""
-echo "=== Neovim (run in normal env; may fail in sandbox) ==="
+echo "=== Neovim ==="
+# ------------------------------------------------------------------------------
 if command -v nvim &>/dev/null; then
-  nvim --headless +"checkhealth" +qa 2>&1 | tail -20 || true
+  ok "nvim: $(nvim --version | head -1)"
 else
-  echo "nvim not in PATH"
+  warn "nvim not in PATH — skipping checkhealth"
 fi
 
+# ------------------------------------------------------------------------------
 echo ""
-echo "Done. Fix any MISSING or wrong paths; see docs/DEBUG.md."
+echo "=== tmux ==="
+# ------------------------------------------------------------------------------
+if command -v tmux &>/dev/null; then
+  ok "tmux: $(tmux -V)"
+  if [[ -d "$HOME/.tmux/plugins/tpm" ]]; then
+    ok "TPM: installed"
+  else
+    warn "TPM: not found — run: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
+  fi
+else
+  warn "tmux not in PATH"
+fi
+
+# ------------------------------------------------------------------------------
+echo ""
+echo "Done. Fix any $FAIL items above; see docs/DEBUG.md."
