@@ -28,7 +28,7 @@
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [mergetool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE" -c '$wincmd w' -c 'wincmd J'
 	trustExitCode = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
