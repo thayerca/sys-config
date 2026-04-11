@@ -2,21 +2,25 @@
 -- conform.nvim (stevearc/conform.nvim) — Format on save and manual format
 -- ------------------------------------------------------------------------------
 -- What it does: Runs formatters (prettier, black, stylua, shfmt, etc.) on save
---   or on demand. formatter.nvim used for shell/.shrc; conform for the rest.
+--   or on demand.
 -- Keymaps: <leader>mp — format buffer or visual selection manually.
 -- Notes: Formatters must be installed (Mason or system). .shrc → filetype sh.
 -- ------------------------------------------------------------------------------
 
 return {
 	"stevearc/conform.nvim",
-	dependencies = {
-		"mhartington/formatter.nvim",
-	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
+		-- Register .shrc extension as shell filetype (idiomatic Neovim 0.8+ API)
+		vim.filetype.add({ extension = { shrc = "sh" } })
+
 		local conform = require("conform")
 
 		conform.setup({
+			-- Suppress notifications when a formatter binary is not installed.
+			-- Formatters silently skip; LSP fallback handles the rest.
+			notify_on_error = false,
+
 			formatters_by_ft = {
 				-- 🖼️ Frontend / Web
 				css = { "prettier" },
@@ -40,7 +44,7 @@ return {
 				-- 🛠️ Lua
 				lua = { "stylua" },
 
-				-- 🐚 Shell
+				-- 🐚 Shell (covers .sh and .shrc via vim.filetype.add above)
 				sh = { "shfmt" },
 
 				-- 🐘 SQL
@@ -68,35 +72,6 @@ return {
 				timeout_ms = 1000,
 			},
 		})
-
-		-- Separate shell formatter using formatter.nvim (for shfmt edge case)
-		require("formatter").setup({
-			filetype = {
-				sh = {
-					function()
-						return {
-							exe = "shfmt",
-							args = { "-i", "2" },
-							stdin = true,
-						}
-					end,
-				},
-				["shrc"] = {
-					function()
-						return {
-							exe = "shfmt",
-							args = { "-i", "2" },
-							stdin = true,
-						}
-					end,
-				},
-			},
-		})
-
-		-- Set filetype for .shrc files
-		vim.cmd([[
-      autocmd BufRead,BufNewFile *.shrc set filetype=sh
-    ]])
 
 		-- 🔑 Keymap for manual format trigger
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
