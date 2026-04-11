@@ -13,7 +13,7 @@
 #   3. Backup existing dotfiles to ~/.dotfiles-backup.YYYYMMDD (if present).
 #   4. Install Homebrew if missing; run brew bundle (Brewfile).
 #   5. Create symlinks: .zshrc, .zprofile, aliases, functions, tmux, fzf, git,
-#      nvim, starship, kitty, optional p10k.
+#      nvim, starship, kitty.
 #   6. Optional: Powerline fonts, Oh My Zsh (KEEP_ZSHRC=yes), fzf install, TPM,
 #      TPM plugin install, pyenv + Python.
 #   7. Print next steps (exec $SHELL, prefix+I in tmux).
@@ -135,22 +135,8 @@ ln -sf "$REPO/nvim" "$HOME/.config/nvim"
 # Prompt: Starship looks for ~/.config/starship.toml by default
 ln -sf "$REPO/starship/starship.toml" "$HOME/.config/starship.toml"
 
-# Optional: Powerlevel10k (commented out in .zshrc; uncomment to use)
-ln -sf "$REPO/powerline/.p10k.zsh" "$HOME/.p10k.zsh" 2>/dev/null || true
-
 # Terminals
 ln -sf "$REPO/kitty" "$HOME/.config/kitty"
-
-# ------------------------------------------------------------------------------
-# 🔤 Powerline fonts: optional, improves prompt/icons in some terminals.
-# ------------------------------------------------------------------------------
-if [[ ! -d "$HOME/fonts" ]] && [[ ! -d "$HOME/.local/share/fonts" ]]; then
-  if git clone https://github.com/powerline/fonts.git --depth=1 "$HOME/fonts" 2>/dev/null; then
-    log "Installing Powerline fonts..."
-    "$HOME/fonts/install.sh" || true
-    rm -rf "$HOME/fonts"
-  fi
-fi
 
 # ------------------------------------------------------------------------------
 # 🎨 Oh My Zsh: keep existing .zshrc (our symlink) — do not overwrite.
