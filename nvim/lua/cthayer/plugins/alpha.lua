@@ -1,8 +1,8 @@
 -- ------------------------------------------------------------------------------
 -- alpha-nvim (goolord/alpha-nvim) — Startup dashboard
 -- ------------------------------------------------------------------------------
--- What it does: Shows a startup screen with time-of-day greeting, date, cwd,
---   quick-action buttons, and lazy.nvim plugin stats in the footer.
+-- What it does: Shows a startup screen with Neovim logo, time-of-day greeting,
+--   quick-action buttons (key left, description right), and lazy plugin stats.
 -- Keymaps: n e f F w r b g t p c l q (see buttons below).
 -- Notes: Uses dashboard theme; depends on nvim-web-devicons for icons.
 -- ------------------------------------------------------------------------------
@@ -16,47 +16,59 @@ return {
 		local dashboard = require("alpha.themes.dashboard")
 
 		-- ------------------------------------------------------------------------------
-		-- 🌅 Header: greeting + date + cwd
+		-- 🎨 Header: ASCII logo + greeting
 		-- ------------------------------------------------------------------------------
 		local function greeting()
 			local hour = tonumber(os.date("%H"))
-			if hour < 5 then return "  Still up?" end
-			if hour < 12 then return "  Good morning" end
-			if hour < 17 then return "  Good afternoon" end
-			if hour < 21 then return "  Good evening" end
-			return "  Good night"
+			if hour < 5  then return "🌙  Still up?" end
+			if hour < 12 then return "🌅  Good morning" end
+			if hour < 17 then return "☀️   Good afternoon" end
+			if hour < 21 then return "🌆  Good evening" end
+			return "🌙  Good night"
 		end
 
 		dashboard.section.header.val = {
-			"",
+			"                                                     ",
+			"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+			"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+			"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+			"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+			"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+			"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+			"                                                     ",
 			greeting(),
 			"  " .. os.date("%A, %B %d"),
-			"  " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":~"),
 			"",
 		}
 		dashboard.section.header.opts = { hl = "AlphaHeader", position = "center" }
 
 		-- ------------------------------------------------------------------------------
-		-- 🛠 Buttons (Quick Actions)
+		-- 🛠 Buttons — key on left, description on right
 		-- ------------------------------------------------------------------------------
+		local function btn(key, icon, desc, cmd)
+			local b = dashboard.button(key, icon .. "  " .. desc, cmd)
+			b.opts.align_shortcut = "left"
+			return b
+		end
+
 		dashboard.section.buttons.val = {
-			dashboard.button("n", "  New file",        "<cmd>ene <BAR> startinsert<CR>"),
-			dashboard.button("e", "  Explorer",        "<cmd>Neotree toggle<CR>"),
-			dashboard.button("f", "  Find file",       "<cmd>Telescope find_files<CR>"),
-			dashboard.button("F", "  Git files",       "<cmd>Telescope git_files<CR>"),
-			dashboard.button("w", "  Find word",       "<cmd>Telescope live_grep<CR>"),
-			dashboard.button("r", "  Recent files",    "<cmd>Telescope oldfiles<CR>"),
-			dashboard.button("b", "  Git branches",   "<cmd>Telescope git_branches<CR>"),
-			dashboard.button("g", "  Git status",      "<cmd>LazyGit<CR>"),
-			dashboard.button("t", "  Find todos",      "<cmd>TodoTelescope<CR>"),
-			dashboard.button("p", "  Plugins",         "<cmd>Lazy<CR>"),
-			dashboard.button("c", "  Config",          "<cmd>e $MYVIMRC<CR>"),
-			dashboard.button("l", "  Changelog",       "<cmd>LazyChangelog<CR>"),
-			dashboard.button("q", "  Quit",            "<cmd>qa<CR>"),
+			btn("n", "",  "New file",        "<cmd>ene <BAR> startinsert<CR>"),
+			btn("e", "",  "Explorer",         "<cmd>Neotree toggle<CR>"),
+			btn("f", "",  "Find file",        "<cmd>Telescope find_files<CR>"),
+			btn("F", "",  "Git files",        "<cmd>Telescope git_files<CR>"),
+			btn("w", "",  "Find word",        "<cmd>Telescope live_grep<CR>"),
+			btn("r", "󰄉",  "Recent files",     "<cmd>Telescope oldfiles<CR>"),
+			btn("b", "",  "Git branches",    "<cmd>Telescope git_branches<CR>"),
+			btn("g", "",  "Git status",       "<cmd>LazyGit<CR>"),
+			btn("t", "",  "Find todos",       "<cmd>TodoTelescope<CR>"),
+			btn("p", "󰒲",  "Plugins",          "<cmd>Lazy<CR>"),
+			btn("c", "",  "Config",           "<cmd>e $MYVIMRC<CR>"),
+			btn("l", "",  "Changelog",        "<cmd>LazyChangelog<CR>"),
+			btn("q", "",  "Quit",             "<cmd>qa<CR>"),
 		}
 
 		-- ------------------------------------------------------------------------------
-		-- 📈 Footer: plugin count + pending updates
+		-- 📈 Footer: plugin count + load time
 		-- ------------------------------------------------------------------------------
 		local function footer()
 			local ok, lazy = pcall(require, "lazy")
