@@ -49,9 +49,9 @@ return {
 
 				-- 🔍 Linters
 				-- guarded: only register if binary is installed
-				-- (eslint_d and shellcheck moved to none-ls-extras)
+				-- eslint_d moved to none-ls-extras; shellcheck still in none-ls core
 				vim.fn.executable("eslint_d") == 1 and require("none-ls.diagnostics.eslint_d") or nil,
-				vim.fn.executable("shellcheck") == 1 and require("none-ls.diagnostics.shellcheck") or nil,
+				vim.fn.executable("shellcheck") == 1 and diagnostics.shellcheck or nil,
 				diagnostics.stylelint, -- CSS/SCSS
 				diagnostics.yamllint, -- YAML
 				diagnostics.markdownlint, -- Markdown
