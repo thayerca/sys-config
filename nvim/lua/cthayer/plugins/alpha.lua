@@ -67,10 +67,11 @@ return {
 			local ok, lazy = pcall(require, "lazy")
 			if not ok then return "" end
 			local stats = lazy.stats()
+			local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
 			local updates = (stats.updates and stats.updates > 0)
-				and ("  " .. stats.updates .. " update" .. (stats.updates > 1 and "s" or "") .. " available")
+				and ("  · " .. stats.updates .. " update" .. (stats.updates > 1 and "s" or "") .. " available")
 				or ""
-			return "⚡ " .. stats.loaded .. "/" .. stats.count .. " plugins loaded" .. updates
+			return "⚡ " .. stats.count .. " plugins · loaded in " .. ms .. "ms" .. updates
 		end
 
 		dashboard.section.footer.val = footer()
