@@ -61,15 +61,14 @@ return {
 						},
 					})
 
-					-- Auto-open/close UI with session lifecycle
+					-- Auto-open UI when session starts; leave it open on errors so you can inspect state
 					dap.listeners.after.event_initialized["dapui_config"] = function()
 						dapui.open()
 					end
-					dap.listeners.before.event_terminated["dapui_config"] = function()
-						dapui.close()
-					end
-					dap.listeners.before.event_exited["dapui_config"] = function()
-						dapui.close()
+					dap.listeners.before.event_exited["dapui_config"] = function(_, body)
+						if body and body.exitCode == 0 then
+							dapui.close()
+						end
 					end
 				end,
 			},
