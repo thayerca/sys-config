@@ -3,7 +3,7 @@
 -- ------------------------------------------------------------------------------
 -- What it does: Displays open buffers or tabs as a tabline at the top with
 --   icons and LSP diagnostic indicators. Mode can be "tabs" or "buffers".
--- Keymaps: Use <Tab> / <S-Tab> or your window/tab keymaps to switch.
+-- Keymaps: <Tab> next tab, <S-Tab> previous tab.
 -- Notes: Depends on nvim-web-devicons; diagnostics shown from nvim_lsp.
 -- ------------------------------------------------------------------------------
 
@@ -11,6 +11,10 @@ return {
 	"akinsho/bufferline.nvim",
 	version = "*",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	keys = {
+		{ "<Tab>",   "<cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+		{ "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", desc = "Previous tab" },
+	},
 	opts = {
 		options = {
 			mode = "tabs", -- You can change this to "buffers" if preferred
