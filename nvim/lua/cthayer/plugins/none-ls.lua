@@ -5,7 +5,8 @@
 --   markdownlint, hadolint, spell) as LSP sources so vim.lsp.buf.format() and
 --   diagnostics use them. Some diagnostics commented out until executables exist.
 -- Keymaps: <leader>gf — format file (LSP or null-ls).
--- Notes: Install tools via Mason or system; add/remove sources in setup.
+-- Notes: shellcheck removed — not available in none-ls core or extras.
+--   Install tools via Mason or system; add/remove sources in setup.
 -- ------------------------------------------------------------------------------
 
 return {
@@ -49,9 +50,8 @@ return {
 
 				-- 🔍 Linters
 				-- guarded: only register if binary is installed
-				-- eslint_d moved to none-ls-extras; shellcheck still in none-ls core
+				-- eslint_d moved to none-ls-extras; shellcheck removed from none-ls (not in core or extras)
 				vim.fn.executable("eslint_d") == 1 and require("none-ls.diagnostics.eslint_d") or nil,
-				vim.fn.executable("shellcheck") == 1 and diagnostics.shellcheck or nil,
 				diagnostics.stylelint, -- CSS/SCSS
 				diagnostics.yamllint, -- YAML
 				diagnostics.markdownlint, -- Markdown
