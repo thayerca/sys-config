@@ -25,6 +25,11 @@ return {
 		{ "<leader>r", name = "+refactor/LSP" },
 		{ "<leader>t", name = "+tab/term/todo" },
 		{ "<leader>u", name = "+undo/inlay" },
+		{ "<leader>d", name = "+diagnostics" },
+		{ "<leader>l", name = "+lazygit" },
+		{ "<leader>m", name = "+format" },
+		{ "<leader>s", name = "+splits" },
+		{ "<leader>x", name = "+trouble" },
 		{ "<leader>z", name = "+no-neck-pain" },
 	},
 }

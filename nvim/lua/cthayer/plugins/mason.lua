@@ -43,7 +43,6 @@ return {
 			ensure_installed = {
 				"ruff", -- Formatter + linter
 				"stylua", -- Lua formatter
-				"bash-language-server",
 				"prettier",
 			},
 		})
