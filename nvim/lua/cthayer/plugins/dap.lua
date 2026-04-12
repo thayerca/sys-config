@@ -98,12 +98,81 @@ return {
 		},
 
 		config = function()
+			local dap = require("dap")
+
 			-- Sign column icons for breakpoints
 			vim.fn.sign_define("DapBreakpoint",          { text = "●", texthl = "DapBreakpoint",          linehl = "", numhl = "" })
 			vim.fn.sign_define("DapBreakpointCondition", { text = "◆", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
 			vim.fn.sign_define("DapBreakpointRejected",  { text = "○", texthl = "DapBreakpointRejected",  linehl = "", numhl = "" })
 			vim.fn.sign_define("DapLogPoint",            { text = "◉", texthl = "DapLogPoint",            linehl = "", numhl = "" })
 			vim.fn.sign_define("DapStopped",             { text = "▶", texthl = "DapStopped",             linehl = "DapStoppedLine", numhl = "" })
+
+			-- Python: uses debugpy installed via Mason
+			dap.adapters.python = {
+				type = "executable",
+				command = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python",
+				args = { "-m", "debugpy.adapter" },
+			}
+			dap.configurations.python = {
+				{
+					type    = "python",
+					request = "launch",
+					name    = "Launch file",
+					program = "${file}",
+					pythonPath = function()
+						local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX")
+						if venv then return venv .. "/bin/python" end
+						return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
+					end,
+				},
+				{
+					type    = "python",
+					request = "launch",
+					name    = "Launch file with args",
+					program = "${file}",
+					args    = function()
+						local args = vim.fn.input("Args: ")
+						return vim.split(args, " ", { trimempty = true })
+					end,
+					pythonPath = function()
+						local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX")
+						if venv then return venv .. "/bin/python" end
+						return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
+					end,
+				},
+			}
+
+			-- JavaScript / TypeScript: uses js-debug-adapter installed via Mason
+			dap.adapters["pwa-node"] = {
+				type = "server",
+				host = "localhost",
+				port = "${port}",
+				executable = {
+					command = "node",
+					args = {
+						vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+						"${port}",
+					},
+				},
+			}
+			for _, lang in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact" }) do
+				dap.configurations[lang] = {
+					{
+						type    = "pwa-node",
+						request = "launch",
+						name    = "Launch file",
+						program = "${file}",
+						cwd     = "${workspaceFolder}",
+					},
+					{
+						type    = "pwa-node",
+						request = "attach",
+						name    = "Attach to process",
+						processId = require("dap.utils").pick_process,
+						cwd     = "${workspaceFolder}",
+					},
+				}
+			end
 		end,
 	},
 }
