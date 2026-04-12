@@ -14,9 +14,12 @@ return {
 		local substitute = require("substitute")
 		substitute.setup()
 		local keymap = vim.keymap
-		keymap.set("n", "s", substitute.operator, { desc = "Substitute with motion" })
-		keymap.set("n", "ss", substitute.line, { desc = "Substitute entire line" })
-		keymap.set("n", "S", substitute.eol, { desc = "Substitute to end of line" })
-		keymap.set("x", "s", substitute.visual, { desc = "Substitute selection" })
+		local function if_modifiable(fn)
+			return function() if vim.bo.modifiable then fn() end end
+		end
+		keymap.set("n", "s", if_modifiable(substitute.operator), { desc = "Substitute with motion" })
+		keymap.set("n", "ss", if_modifiable(substitute.line), { desc = "Substitute entire line" })
+		keymap.set("n", "S", if_modifiable(substitute.eol), { desc = "Substitute to end of line" })
+		keymap.set("x", "s", if_modifiable(substitute.visual), { desc = "Substitute selection" })
 	end,
 }
