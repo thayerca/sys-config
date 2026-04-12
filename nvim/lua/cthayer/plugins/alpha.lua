@@ -38,26 +38,26 @@ return {
 		-- ------------------------------------------------------------------------------
 		-- 🛠 Buttons — key on left, description on right
 		-- ------------------------------------------------------------------------------
-		local function btn(key, icon, desc, cmd)
-			local b = dashboard.button(key, icon .. "  " .. desc, cmd)
+		local function btn(key, label, cmd)
+			local b = dashboard.button(key, label, cmd)
 			b.opts.align_shortcut = "left"
 			return b
 		end
 
 		dashboard.section.buttons.val = {
-			btn("n", "",  "New file",        "<cmd>ene <BAR> startinsert<CR>"),
-			btn("e", "",  "Explorer",         "<cmd>Neotree toggle<CR>"),
-			btn("f", "",  "Find file",        "<cmd>Telescope find_files<CR>"),
-			btn("F", "",  "Git files",        "<cmd>Telescope git_files<CR>"),
-			btn("w", "",  "Find word",        "<cmd>Telescope live_grep<CR>"),
-			btn("r", "󰄉",  "Recent files",     "<cmd>Telescope oldfiles<CR>"),
-			btn("b", "",  "Git branches",    "<cmd>Telescope git_branches<CR>"),
-			btn("g", "",  "Git status",       "<cmd>LazyGit<CR>"),
-			btn("t", "",  "Find todos",       "<cmd>TodoTelescope<CR>"),
-			btn("p", "󰒲",  "Plugins",          "<cmd>Lazy<CR>"),
-			btn("c", "",  "Config",           "<cmd>e $MYVIMRC<CR>"),
-			btn("l", "",  "Changelog",        "<cmd>LazyChangelog<CR>"),
-			btn("q", "",  "Quit",             "<cmd>qa<CR>"),
+			btn("n", "  New file",        "<cmd>ene <BAR> startinsert<CR>"),
+			btn("e", "  Explorer",        "<cmd>Neotree toggle<CR>"),
+			btn("f", "  Find file",       "<cmd>Telescope find_files<CR>"),
+			btn("F", "  Git files",       "<cmd>Telescope git_files<CR>"),
+			btn("w", "  Find word",       "<cmd>Telescope live_grep<CR>"),
+			btn("r", "  Recent files",    "<cmd>Telescope oldfiles<CR>"),
+			btn("b", "  Git branches",    "<cmd>Telescope git_branches<CR>"),
+			btn("g", "  Git status",      "<cmd>LazyGit<CR>"),
+			btn("t", "  Find todos",      "<cmd>TodoTelescope<CR>"),
+			btn("p", "  Plugins",         "<cmd>Lazy<CR>"),
+			btn("c", "  Config",          "<cmd>e $MYVIMRC<CR>"),
+			btn("l", "  Changelog",       "<cmd>LazyChangelog<CR>"),
+			btn("q", "  Quit",            "<cmd>qa<CR>"),
 		}
 
 		-- ------------------------------------------------------------------------------
