@@ -1,0 +1,25 @@
+# ------------------------------------------------------------------------------
+# Lint configs on push/PR — zsh syntax, bash syntax, tmux config, nvim load.
+# Runs scripts/lint.sh. Uses macos-latest so zsh is available natively.
+# validate.sh is intentionally omitted — it checks live ~ symlinks.
+# ------------------------------------------------------------------------------
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: brew install neovim tmux shellcheck
+
+      - name: Run lint.sh
+        run: bash scripts/lint.sh
