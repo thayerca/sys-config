@@ -165,11 +165,4 @@ if [[ -d "$FNM_PATH" ]]; then
   eval "$(fnm env)"
 fi
 
-# nvm: Node version manager (optional; comment out if using only fnm)
-export NVM_DIR="$HOME/.nvm"
-if [[ -s "$NVM_DIR/nvm.sh" ]]; then
-  \. "$NVM_DIR/nvm.sh"
-  [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
-fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
