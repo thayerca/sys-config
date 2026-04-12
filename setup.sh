@@ -109,39 +109,68 @@ brew bundle --file="$REPO/Brewfile"
 #    Order matters: we symlink .zshrc before Oh My Zsh so OMZ won't overwrite it
 #    when we pass KEEP_ZSHRC=yes.
 # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# 🔗 Symlinks: point home/config at repo files so edits stay in repo.
+# ------------------------------------------------------------------------------
 log "Creating symlinks..."
 
+link_file() {
+  local src="$1"
+  local dst="$2"
+
+  mkdir -p "$(dirname "$dst")"
+
+  # Already correct
+  if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+    log "SKIP   $dst already linked -> $src"
+    return 0
+  fi
+
+  # Wrong symlink
+  if [ -L "$dst" ]; then
+    log "FIX    Removing incorrect symlink: $dst"
+    rm -f "$dst"
+
+  # Existing real file/dir
+  elif [ -e "$dst" ]; then
+    local backup="${dst}.bak.$(date +%Y%m%d-%H%M%S)"
+    log "BACKUP Moving existing $dst -> $backup"
+    mv "$dst" "$backup"
+  fi
+
+  ln -s "$src" "$dst"
+  log "LINK   $dst -> $src"
+}
+
 # Shell (zsh only; no bash config)
-ln -sf "$REPO/zsh/.zshrc" "$HOME/.zshrc"
-ln -sf "$REPO/zsh/.zprofile" "$HOME/.zprofile"
-ln -sf "$REPO/zsh/aliases.shrc" "$HOME/.aliases.shrc"
-ln -sf "$REPO/zsh/functions.shrc" "$HOME/.functions.shrc"
+link_file "$REPO/zsh/.zshrc" "$HOME/.zshrc"
+link_file "$REPO/zsh/.zprofile" "$HOME/.zshprofile"
+link_file "$REPO/zsh/aliases.shrc" "$HOME/.aliases.shrc"
+link_file "$REPO/zsh/functions.shrc" "$HOME/.functions.shrc"
 
 # Tmux
-ln -sf "$REPO/tmux/.tmux.conf" "$HOME/.tmux.conf"
+link_file "$REPO/tmux/.tmux.conf" "$HOME/.tmux.conf"
 
-# FZF: key-bindings live in repo at fzf/.fzf/ — symlink that dir to ~/.fzf
-#      so ~/.fzf/key-bindings.zsh and ~/.fzf/widgets/ resolve correctly.
-ln -sf "$REPO/fzf/.fzf" "$HOME/.fzf"
+# FZF
+link_file "$REPO/fzf/.fzf" "$HOME/.fzf"
 
 # Git
-ln -sf "$REPO/git-configs/.gitconfig" "$HOME/.gitconfig"
-ln -sf "$REPO/git-configs/.gitignore_global" "$HOME/.gitignore_global"
+link_file "$REPO/git-configs/.gitconfig" "$HOME/.gitconfig"
+link_file "$REPO/git-configs/.gitignore_global" "$HOME/.gitignore_global"
 
-# Neovim (entire config dir)
+# Neovim
 mkdir -p "$HOME/.config"
-ln -sf "$REPO/nvim" "$HOME/.config/nvim"
+link_file "$REPO/nvim" "$HOME/.config/nvim"
 
-# Prompt: Starship looks for ~/.config/starship.toml by default
-ln -sf "$REPO/starship/starship.toml" "$HOME/.config/starship.toml"
+# Prompt
+link_file "$REPO/starship/starship.toml" "$HOME/.config/starship.toml"
 
 # Terminals
-ln -sf "$REPO/kitty" "$HOME/.config/kitty"
+link_file "$REPO/kitty" "$HOME/.config/kitty"
 
-# Scripts: link repo scripts to ~/.local/bin so they are on PATH
+# Scripts
 mkdir -p "$HOME/.local/bin"
-ln -sf "$REPO/scripts/tmux-sessionizer" "$HOME/.local/bin/tmux-sessionizer"
-
+link_file "$REPO/scripts/tmux-sessionizer" "$HOME/.local/bin/tmux-sessionizer"
 # ------------------------------------------------------------------------------
 # 🎨 Oh My Zsh: keep existing .zshrc (our symlink) — do not overwrite.
 # ------------------------------------------------------------------------------
@@ -178,20 +207,16 @@ fi
 # 🔌 TPM (Tmux Plugin Manager): clone so tmux can load plugins.
 #    After first tmux attach, run: prefix + I (capital I) to install plugins.
 # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# 🔌 TPM (Tmux Plugin Manager): clone so tmux can load plugins.
+# ------------------------------------------------------------------------------
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   log "Installing Tmux Plugin Manager (TPM)..."
   mkdir -p "$HOME/.tmux/plugins"
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-  log "Start tmux and press prefix+I to install plugins."
-else
-  log "TPM already installed."
 fi
 
-# Optional: install TPM plugins non-interactively (so user doesn't have to prefix+I)
-if [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
-  log "Installing tmux plugins..."
-  "$HOME/.tmux/plugins/tpm/bin/install_plugins" || true
-fi
+log "TPM ready. Start tmux and press prefix+I to install plugins."
 
 # ------------------------------------------------------------------------------
 # 🐍 pyenv: optional Python version manager + default 3.13.
