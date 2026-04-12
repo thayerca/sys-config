@@ -11,7 +11,10 @@
 return {
 	"nvimtools/none-ls.nvim",
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "nvim-lua/plenary.nvim" },
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvimtools/none-ls-extras.nvim", -- eslint_d, shellcheck, and others moved here
+	},
 	config = function()
 		local null_ls = require("null-ls")
 		local helpers = require("null-ls.helpers")
@@ -36,8 +39,7 @@ return {
 				formatting.terraform_fmt, -- Terraform
 				formatting.sqlfluff, -- SQL
 				formatting.pg_format, -- PostgreSQL
-				-- Python: ruff for fast auto-fix (diagnostics come from ruff LSP)
-				vim.fn.executable("ruff") == 1 and formatting.ruff or nil,
+				-- Python: ruff diagnostics and formatting handled by ruff LSP server
 				-- Markdown: fix all markdownlint violations
 				{
 					method = null_ls.methods.FORMATTING,
@@ -47,8 +49,9 @@ return {
 
 				-- 🔍 Linters
 				-- guarded: only register if binary is installed
-				vim.fn.executable("eslint_d") == 1 and diagnostics.eslint_d or nil, -- JS/TS
-				vim.fn.executable("shellcheck") == 1 and diagnostics.shellcheck or nil, -- Shell
+				-- (eslint_d and shellcheck moved to none-ls-extras)
+				vim.fn.executable("eslint_d") == 1 and require("none-ls.diagnostics.eslint_d") or nil,
+				vim.fn.executable("shellcheck") == 1 and require("none-ls.diagnostics.shellcheck") or nil,
 				diagnostics.stylelint, -- CSS/SCSS
 				diagnostics.yamllint, -- YAML
 				diagnostics.markdownlint, -- Markdown
