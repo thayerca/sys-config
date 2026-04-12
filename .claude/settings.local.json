@@ -12,7 +12,10 @@
       "Bash(git rebase:*)",
       "Bash(git branch:*)",
       "Bash(git stash:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(fnm list:*)",
+      "Bash(fnm default:*)",
+      "Bash(fnm install:*)"
     ]
   }
 }
