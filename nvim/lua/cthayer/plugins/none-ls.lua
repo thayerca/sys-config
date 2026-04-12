@@ -36,6 +36,8 @@ return {
 				formatting.terraform_fmt, -- Terraform
 				formatting.sqlfluff, -- SQL
 				formatting.pg_format, -- PostgreSQL
+				-- Python: ruff for fast auto-fix (diagnostics come from ruff LSP)
+				vim.fn.executable("ruff") == 1 and formatting.ruff or nil,
 				-- Markdown: fix all markdownlint violations
 				{
 					method = null_ls.methods.FORMATTING,
@@ -45,7 +47,6 @@ return {
 
 				-- 🔍 Linters
 				-- guarded: only register if binary is installed
-				vim.fn.executable("ruff") == 1 and diagnostics.ruff or nil, -- Python
 				vim.fn.executable("eslint_d") == 1 and diagnostics.eslint_d or nil, -- JS/TS
 				vim.fn.executable("shellcheck") == 1 and diagnostics.shellcheck or nil, -- Shell
 				diagnostics.stylelint, -- CSS/SCSS
