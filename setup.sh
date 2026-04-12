@@ -47,7 +47,7 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 fi
 ### Install fzf shell integration
 echo "Setting up fzf shell integration..."
-$(brew --prefix)/opt/fzf/install --all
+"$(brew --prefix)"/opt/fzf/install --all
 
 ### Set up tpm
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
