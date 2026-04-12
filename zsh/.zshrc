@@ -3,10 +3,11 @@
 # ------------------------------------------------------------------------------
 # Description:
 #   Loaded for interactive zsh sessions. Sets up:
-#   - Oh My Zsh + plugins
+#   - Oh My Zsh + plugins (vi-mode and zsh-autocomplete removed: conflict with fzf-tab)
+#   - fzf-tab: fzf-powered Tab completion (replaces native menu)
 #   - Starship prompt (single init after OMZ)
 #   - PATH and env (single brew shellenv; avoid duplicate inits)
-#   - Tool integrations: direnv, fzf, pyenv, kubectl, gcloud
+#   - Tool integrations: direnv, fzf, zoxide, atuin, pyenv, kubectl, gcloud
 #   - Custom aliases and functions from .aliases.shrc / .functions.shrc
 #
 # Load order: .zprofile (login) → .zshrc (interactive).
@@ -30,11 +31,12 @@ elif command -v brew &>/dev/null; then
   eval "$(brew shellenv)"
 fi
 
-# OMZ plugin dir for syntax highlighting; compdump per host to avoid conflicts.
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="$ZSH/custom/plugins/zsh-syntax-highlighting/highlighters"
+# compdump per host to avoid conflicts.
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
 
 # Plugin list: add/remove here; then run setup or clone custom plugins as needed.
+# Note: vi-mode removed — conflicts with fzf keybindings (Ctrl+R, Ctrl+T, Alt+C)
+# Note: zsh-autocomplete removed — conflicts with fzf-tab; use fzf-tab instead
 plugins=(
   docker
   docker-compose
@@ -42,12 +44,31 @@ plugins=(
   git
   macos
   virtualenv
-  vi-mode
   zsh-autosuggestions
-  zsh-autocomplete
 )
 
 source "$ZSH/oh-my-zsh.sh"
+
+# fzf-tab: fzf-powered Tab completion (load after compinit, before other completion wrappers)
+# setup.sh clones it automatically; or manually:
+#   git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+if [[ -f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh ]]; then
+  source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh
+
+  # Required: disable zsh's native menu so fzf-tab owns Tab entirely.
+  # Without this, the native menu and fzf-tab both activate simultaneously and fight.
+  zstyle ':completion:*' menu no
+
+  # Preview: show directory contents when completing cd / zoxide z
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath 2>/dev/null'
+  zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color=always $realpath 2>/dev/null'
+
+  # Consistent fzf appearance across all completions
+  zstyle ':fzf-tab:*' fzf-flags '--height=50%' '--reverse' '--border=rounded'
+
+  # Switch between completion groups (e.g. files vs flags) with , and .
+  zstyle ':fzf-tab:*' switch-group ',' '.'
+fi
 
 # ------------------------------------------------------------------------------
 # 💅 Prompt: Starship (single init — config from ~/.config/starship.toml).
@@ -81,24 +102,26 @@ if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
 fi
 
+# zoxide: smarter cd — jump to frecently visited dirs with `z` and `zi` (interactive)
+# Install: brew install zoxide  |  Usage: z <partial-path>, zi (fzf picker)
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# atuin: shell history with fuzzy TUI, per-directory filtering, timestamps, exit codes
+# Install: brew install atuin && atuin import auto
+# Ctrl+R opens atuin TUI; --disable-up-arrow keeps up-arrow for sequential cycling
+if command -v atuin &>/dev/null; then
+  eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
 # fzf: fuzzy finder key bindings (sourced from repo: ~/.fzf → repo/fzf/.fzf)
+# fzf's native key-bindings.zsh provides correct Ctrl+R/Ctrl+T/Alt+C via ZLE
 if [[ -f "$HOME/.fzf/key-bindings.zsh" ]]; then
   source "$HOME/.fzf/key-bindings.zsh"
 fi
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
-
-# Ctrl+R: search history with fzf and put result on command line
-fzf-history() {
-  local selected
-  selected=$(history | fzf | awk '{$1=""; print substr($0,2)}')
-  if [[ -n "$selected" ]]; then
-    READLINE_LINE=$selected
-    READLINE_POINT=${#selected}
-  fi
-}
-zle -N fzf-history
-bindkey '^R' fzf-history
 
 # pyenv + pyenv-virtualenv: Python version and venv switching
 if command -v pyenv &>/dev/null; then
@@ -136,17 +159,10 @@ alias uvr="uv pip uninstall -y -r <(uv pip freeze)"
 autoload -U colors && colors
 skip_global_compinit=1
 
-# fnm: Node version manager (faster alternative to nvm)
+# fnm: Node version manager — preferred over nvm (faster, no shell slowdown)
 FNM_PATH="/opt/homebrew/opt/fnm/bin"
 if [[ -d "$FNM_PATH" ]]; then
   eval "$(fnm env)"
-fi
-
-# nvm: Node version manager (optional; comment out if using only fnm)
-export NVM_DIR="$HOME/.nvm"
-if [[ -s "$NVM_DIR/nvm.sh" ]]; then
-  \. "$NVM_DIR/nvm.sh"
-  [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

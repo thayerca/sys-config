@@ -92,6 +92,8 @@ alias gcpr="gh pr create -w"
 alias gsync="git checkout main && git pull --rebase && git fetch --prune"
 alias glom="git pull origin main"
 alias lg=lazygit
+alias ld=lazydocker       # TUI for docker containers, logs, and images
+alias ts=tmux-sessionizer # fuzzy-jump to project dir / create tmux session
 alias ppp='security find-generic-password -s com.phillies.onboarding.generate-ssh-key -w'
 
 # ------------------------------------------------------------------------------
@@ -129,7 +131,7 @@ alias r='radian'
 # ------------------------------------------------------------------------------
 # 🦆 DuckDB
 # ------------------------------------------------------------------------------
-alias duckdb='/Applications/duckdb ; exit;'
+alias duckdb='/Applications/duckdb'
 
 # ------------------------------------------------------------------------------
 # 🛠️ Terraform
