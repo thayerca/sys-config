@@ -1,7 +1,7 @@
 -- ------------------------------------------------------------------------------
 -- alpha-nvim (goolord/alpha-nvim) — Startup dashboard
 -- ------------------------------------------------------------------------------
--- What it does: Shows a startup screen with Neovim logo, time-of-day greeting,
+-- What it does: Shows a startup screen with time-of-day greeting,
 --   quick-action buttons (key left, description right), and lazy plugin stats.
 -- Keymaps: n e f F w r b g t p c l q (see buttons below).
 -- Notes: Uses dashboard theme; depends on nvim-web-devicons for icons.
@@ -16,7 +16,7 @@ return {
 		local dashboard = require("alpha.themes.dashboard")
 
 		-- ------------------------------------------------------------------------------
-		-- 🎨 Header: ASCII logo + greeting
+		-- 🌅 Header: greeting + date
 		-- ------------------------------------------------------------------------------
 		local function greeting()
 			local hour = tonumber(os.date("%H"))
@@ -28,14 +28,7 @@ return {
 		end
 
 		dashboard.section.header.val = {
-			"                                                     ",
-			"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-			"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-			"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-			"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-			"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-			"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-			"                                                     ",
+			"",
 			greeting(),
 			"  " .. os.date("%A, %B %d"),
 			"",
