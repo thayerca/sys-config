@@ -15,7 +15,9 @@
       "Bash(git reset:*)",
       "Bash(fnm list:*)",
       "Bash(fnm default:*)",
-      "Bash(fnm install:*)"
+      "Bash(fnm install:*)",
+      "Bash(ls -1 /Users/caseythayer/sys-config/nvim/lua/cthayer/plugins/*.lua)",
+      "Bash(xargs basename:*)"
     ]
   }
 }

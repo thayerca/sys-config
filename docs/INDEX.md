@@ -10,6 +10,7 @@ This folder is the single place for all **human-readable documentation** for sys
 |----------|------------------------|
 | **[INSTALL.md](INSTALL.md)** | Install the config on a new machine, understand what gets symlinked, verify the setup, or run clean-room tests. |
 | **[WORKFLOWS.md](WORKFLOWS.md)** | Task-based guide: how to navigate code, run git workflows, debug, test, manage sessions, and use Claude Code with this config. |
+| **[KEYS.md](KEYS.md)** | Task-first keybinding reference: find what you want to do, get the exact keys. Covers navigation, editing, git, debug, test, tmux, Claude. |
 | **[CHEATSHEET.md](CHEATSHEET.md)** | Quick reference for every keybinding and command: Zsh, Tmux, and all Neovim leader keymaps (LSP, git, DAP, Telescope, etc.). |
 | **[UPDATING.md](UPDATING.md)** | How to update plugins, add new tools, make config changes, and maintain the repo over time. |
 | **[DEBUG.md](DEBUG.md)** | Something broke after install or after pulling changes: shell, tmux, Neovim, git, or setup script. Step-by-step fixes and a validation checklist. |
@@ -24,7 +25,8 @@ This folder is the single place for all **human-readable documentation** for sys
 - **Neovim leader:** `<Space>` — see [CHEATSHEET.md](CHEATSHEET.md) for all `<Space>…` bindings.
 - **Tmux prefix:** `Ctrl-A` — see [CHEATSHEET.md](CHEATSHEET.md) for all `prefix + …` bindings.
 - **Install from scratch:** [INSTALL.md](INSTALL.md) → clone repo → `bash setup.sh` → `exec $SHELL` → tmux: `prefix + I`.
-- **How to do X:** [WORKFLOWS.md](WORKFLOWS.md) — task-based guide for common workflows.
+- **Keys for a specific task:** [KEYS.md](KEYS.md) — task-first: find what you want to do, get the keys.
+- **How to do X in depth:** [WORKFLOWS.md](WORKFLOWS.md) — task-based guide with context and steps.
 - **Adding/updating tools:** [UPDATING.md](UPDATING.md) — which file to edit, how to add plugins, update Homebrew.
 - **Something’s wrong:** [DEBUG.md](DEBUG.md) and/or `bash scripts/validate.sh`.
 - **Config checks:** `bash scripts/lint.sh` (before commit); `bash scripts/validate.sh` (after install). See [TESTING.md](TESTING.md).
