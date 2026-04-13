@@ -10,7 +10,7 @@
 #   Sourced from .zshrc at startup. Edit in repo (zsh/functions.shrc); reload
 #   with: source ~/.zshrc. Each function has a USAGE/DESCRIPTION block above it.
 #
-# Author: Casey Thayer
+# Author: Casey Luna
 # Location: ~/.functions.shrc (symlinked from repo)
 # ------------------------------------------------------------------------------
 
@@ -61,32 +61,23 @@ gcpp() {
     log_error "gcloud CLI not found."
     return 1
   }
-  command -v jq >/dev/null || {
-    log_error "jq not found."
-    return 1
-  }
   command -v fzf >/dev/null || {
     log_error "fzf not found."
     return 1
   }
 
-  # ☁️ List available gcloud configs and let the user pick one with fzf
-  log_info "Select from a list of GCP projects..."
-  local projects="
-    phil-new
-    phil-new-stg
-  "
-  local choice project_id
-  choice="$(echo "$projects" | fzf --prompt="Select project: " --with-nth=1,2)"
-  
+  # ☁️ Fetch live project list from gcloud and let the user pick with fzf
+  log_info "Fetching GCP projects..."
+  local project_id
+  project_id="$(gcloud projects list --format="value(projectId)" 2>/dev/null | fzf --prompt="Select project: ")"
+
   # ❌ Exit if nothing selected
-  if [[ -z "$choice" ]]; then
+  if [[ -z "$project_id" ]]; then
     log_warn "No project selected. Aborting."
     return
   fi
 
-  # ✅ Activate the selected config
-  project_id="$(awk '{print $1}' <<< "$choice")"
+  # ✅ Activate the selected project
   log_info "Setting GCP project: $project_id"
   gcloud config set project "$project_id"
   log_ok "Set GCP project to: '$project_id'"
