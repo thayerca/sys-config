@@ -76,19 +76,19 @@ return {
 		end
 
 		dashboard.section.buttons.val = {
-			btn("n ", c(0xF15B) .. "  New file", "<cmd>ene <BAR> startinsert<CR>"),
-			btn("e ", c(0xF07C) .. "  Explorer", "<cmd>Neotree toggle<CR>"),
-			btn("f ", c(0xF002) .. "  Find file", "<cmd>Telescope find_files<CR>"),
-			btn("F ", c(0xE702) .. "  Git files", "<cmd>Telescope git_files<CR>"),
-			btn("w ", c(0xF002) .. "  Find word", "<cmd>Telescope live_grep<CR>"),
-			btn("r ", c(0xF1DA) .. "  Recent files", "<cmd>Telescope oldfiles<CR>"),
-			btn("b ", c(0xF126) .. "  Git branches", "<cmd>Telescope git_branches<CR>"),
-			btn("g ", c(0xE702) .. "  Git status", "<cmd>LazyGit<CR>"),
-			btn("t ", c(0xF14A) .. "  Find todos", "<cmd>TodoTelescope<CR>"),
-			btn("p ", c(0xF12E) .. "  Plugins", "<cmd>Lazy<CR>"),
-			btn("c ", c(0xF013) .. "  Config", "<cmd>e $MYVIMRC<CR>"),
-			btn("l ", c(0xF017) .. "  Changelog", "<cmd>LazyChangelog<CR>"),
-			btn("q ", c(0xF011) .. "  Quit", "<cmd>qa<CR>"),
+			btn("n  ", c(0xF15B) .. "  New file", "<cmd>ene <BAR> startinsert<CR>"),
+			btn("e  ", c(0xF07C) .. "  Explorer", "<cmd>Neotree toggle<CR>"),
+			btn("f  ", c(0xF002) .. "  Find file", "<cmd>Telescope find_files<CR>"),
+			btn("F  ", c(0xE702) .. "  Git files", "<cmd>Telescope git_files<CR>"),
+			btn("w  ", c(0xF002) .. "  Find word", "<cmd>Telescope live_grep<CR>"),
+			btn("r  ", c(0xF1DA) .. "  Recent files", "<cmd>Telescope oldfiles<CR>"),
+			btn("b  ", c(0xF126) .. "  Git branches", "<cmd>Telescope git_branches<CR>"),
+			btn("g  ", c(0xE702) .. "  Git status", "<cmd>LazyGit<CR>"),
+			btn("t  ", c(0xF14A) .. "  Find todos", "<cmd>TodoTelescope<CR>"),
+			btn("p  ", c(0xF12E) .. "  Plugins", "<cmd>Lazy<CR>"),
+			btn("c  ", c(0xF013) .. "  Config", "<cmd>e $MYVIMRC<CR>"),
+			btn("l  ", c(0xF017) .. "  Changelog", "<cmd>LazyChangelog<CR>"),
+			btn("q  ", c(0xF011) .. "  Quit", "<cmd>qa<CR>"),
 		}
 
 		-- ------------------------------------------------------------------------------
