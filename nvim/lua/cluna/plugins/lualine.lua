@@ -2,7 +2,7 @@
 -- lualine.nvim (nvim-lualine/lualine.nvim) — Statusline
 -- ------------------------------------------------------------------------------
 -- What it does: Statusline with mode, branch, diff, diagnostics, filename,
---   encoding, filetype, and optional Lazy plugin update indicator.
+--   encoding, filetype, active LSP servers, and optional Lazy plugin update indicator.
 -- Keymaps: None.
 -- Notes: Custom theme in config; depends on nvim-web-devicons.
 -- ------------------------------------------------------------------------------
@@ -26,6 +26,17 @@ return {
 	config = function()
 		local lualine = require("lualine")
 		local lazy_status = require("lazy.status")
+
+		-- Returns names of active LSP servers for the current buffer
+		local function lsp_status()
+			local clients = vim.lsp.get_clients({ bufnr = 0 })
+			if #clients == 0 then return "" end
+			local names = {}
+			for _, c in ipairs(clients) do
+				table.insert(names, c.name)
+			end
+			return "\u{f489} " .. table.concat(names, " ")
+		end
 
 		-- 🎨 Define a custom color palette for the theme
 		local colors = {
@@ -90,6 +101,7 @@ return {
 						cond = lazy_status.has_updates,
 						color = { fg = "#ff9e64" },
 					},
+					{ lsp_status, color = { fg = colors.green } },
 					"encoding",
 					"fileformat",
 					"filetype",

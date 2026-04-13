@@ -53,7 +53,7 @@ Task-first quick reference. Find what you want to do, get the exact keys. For fu
 
 | I want to… | Keys |
 |------------|------|
-| See diagnostics for the current line | `<Space>d` |
+| See diagnostics for the current line | `<Space>D` |
 | Jump to next / previous diagnostic | `]d` / `[d` |
 | Open the diagnostics panel | `<Space>xx` |
 | Run a code action (fix / import / etc.) | `<Space>ca` |
@@ -146,6 +146,8 @@ Task-first quick reference. Find what you want to do, get the exact keys. For fu
 | Split pane right | `Ctrl-A |` |
 | Split pane down | `Ctrl-A -` |
 | Zoom a pane to fullscreen | `Ctrl-A z` |
+| Resize pane (repeatable) | `Ctrl-A H/J/K/L` |
+| Swap window left / right | `Ctrl-A <` / `Ctrl-A >` |
 | Copy text in tmux | `Ctrl-A v` → `v` to select → `y` to yank |
 | Save session to disk | `Ctrl-A Ctrl-S` |
 | Restore session from disk | `Ctrl-A Ctrl-R` |
