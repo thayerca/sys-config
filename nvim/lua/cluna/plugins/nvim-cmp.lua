@@ -56,8 +56,8 @@ return {
 			}),
 			-- Sources used for completion
 			sources = cmp.config.sources({
+				{ name = "nvim_lsp" }, -- LSP first: precise type-aware completions
 				{ name = "copilot" },
-				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "buffer" },
 				{ name = "path" },

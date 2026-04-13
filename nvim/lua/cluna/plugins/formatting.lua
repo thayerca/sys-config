@@ -53,6 +53,10 @@ return {
 				-- 🐳 Docker
 				dockerfile = { "prettier" },
 
+				-- 🌍 Terraform
+				terraform = { "terraform_fmt" },
+				["terraform-vars"] = { "terraform_fmt" },
+
 				-- 🔧 Configs
 				toml = { "taplo" },
 				xml = { "xmlformat" },
@@ -73,13 +77,11 @@ return {
 			},
 		})
 
-		-- 🔑 Keymap for manual format trigger
-		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
-			conform.format({
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			})
-		end, { desc = "Format file or range (in visual mode)" })
+		-- 🔑 Keymaps for manual format trigger
+		local fmt = function()
+			conform.format({ lsp_fallback = true, async = false, timeout_ms = 1000 })
+		end
+		vim.keymap.set({ "n", "v" }, "<leader>mp", fmt, { desc = "Format file or range (in visual mode)" })
+		vim.keymap.set("n", "<leader>gf", fmt, { desc = "Format file (conform)" })
 	end,
 }
