@@ -9,8 +9,10 @@ This folder is the single place for all **human-readable documentation** for sys
 | Document | Use when you want to… |
 |----------|------------------------|
 | **[INSTALL.md](INSTALL.md)** | Install the config on a new machine, understand what gets symlinked, verify the setup, or run clean-room tests. |
+| **[WORKFLOWS.md](WORKFLOWS.md)** | Task-based guide: how to navigate code, run git workflows, debug, test, manage sessions, and use Claude Code with this config. |
+| **[CHEATSHEET.md](CHEATSHEET.md)** | Quick reference for every keybinding and command: Zsh, Tmux, and all Neovim leader keymaps (LSP, git, DAP, Telescope, etc.). |
+| **[UPDATING.md](UPDATING.md)** | How to update plugins, add new tools, make config changes, and maintain the repo over time. |
 | **[DEBUG.md](DEBUG.md)** | Something broke after install or after pulling changes: shell, tmux, Neovim, git, or setup script. Step-by-step fixes and a validation checklist. |
-| **[CHEATSHEET.md](CHEATSHEET.md)** | Look up keybindings and commands: Zsh (vi-mode, FZF), Tmux (prefix keybindings, copy mode, plugins), Neovim (leader keymaps, LSP, Telescope, Git, etc.). |
 | **[GIT-REBASE.md](GIT-REBASE.md)** | Run an interactive rebase: with Fugitive (`<Space>gr`), LazyGit, or the terminal. Explains pick/reword/squash and continue/abort. |
 | **[AUDIT-AND-PLAN.md](AUDIT-AND-PLAN.md)** | Historical audit snapshot (deprecated). Inventory and recommendations are out of date; see repo and [CHEATSHEET.md](CHEATSHEET.md) for current plugins/keymaps. |
 | **[TESTING.md](TESTING.md)** | How to run lint (config parse/load) and validate (post-install); optional CI. |
@@ -22,6 +24,8 @@ This folder is the single place for all **human-readable documentation** for sys
 - **Neovim leader:** `<Space>` — see [CHEATSHEET.md](CHEATSHEET.md) for all `<Space>…` bindings.
 - **Tmux prefix:** `Ctrl-A` — see [CHEATSHEET.md](CHEATSHEET.md) for all `prefix + …` bindings.
 - **Install from scratch:** [INSTALL.md](INSTALL.md) → clone repo → `bash setup.sh` → `exec $SHELL` → tmux: `prefix + I`.
+- **How to do X:** [WORKFLOWS.md](WORKFLOWS.md) — task-based guide for common workflows.
+- **Adding/updating tools:** [UPDATING.md](UPDATING.md) — which file to edit, how to add plugins, update Homebrew.
 - **Something’s wrong:** [DEBUG.md](DEBUG.md) and/or `bash scripts/validate.sh`.
 - **Config checks:** `bash scripts/lint.sh` (before commit); `bash scripts/validate.sh` (after install). See [TESTING.md](TESTING.md).
 
