@@ -20,11 +20,11 @@ return {
 		-- ------------------------------------------------------------------------------
 		local function greeting()
 			local hour = tonumber(os.date("%H"))
-			if hour < 5  then return "🌙  Still up?" end
-			if hour < 12 then return "🌅  Good morning" end
-			if hour < 17 then return "☀️   Good afternoon" end
-			if hour < 21 then return "🌆  Good evening" end
-			return "🌙  Good night"
+			if hour < 5  then return "󰽦  Still up?" end
+			if hour < 12 then return "󰖕  Good morning" end
+			if hour < 17 then return "󰖙  Good afternoon" end
+			if hour < 21 then return "󰖜  Good evening" end
+			return "󰽦  Good night"
 		end
 
 		dashboard.section.header.val = {
@@ -71,7 +71,7 @@ return {
 			local updates = (stats.updates and stats.updates > 0)
 				and ("  · " .. stats.updates .. " update" .. (stats.updates > 1 and "s" or "") .. " available")
 				or ""
-			return "⚡ " .. stats.count .. " plugins · loaded in " .. ms .. "ms" .. updates
+			return "󱐋 " .. stats.count .. " plugins · loaded in " .. ms .. "ms" .. updates
 		end
 
 		dashboard.section.footer.val = footer()
