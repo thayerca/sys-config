@@ -87,7 +87,7 @@ opt.fileencoding = "utf-8" -- File-specific encoding
 -- ------------------------------------------------------------------------------
 
 opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.require('nvim-treesitter.fold').get_fold_indic(v:lnum)"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- current nvim-treesitter API (replaces removed nvim-treesitter.fold module)
 opt.foldlevelstart = 99 -- Start with folds open when opening a file
 opt.foldenable = true
 

@@ -12,8 +12,8 @@ return {
 	version = "*",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	keys = {
-		{ "<Tab>",   "<cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-		{ "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", desc = "Previous tab" },
+		{ "<Tab>",   "<cmd>BufferLineCycleNext<CR>", desc = "Next tab",     mode = "n" },
+		{ "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", desc = "Previous tab", mode = "n" },
 	},
 	opts = {
 		options = {
