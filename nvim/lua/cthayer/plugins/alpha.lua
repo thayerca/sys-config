@@ -47,16 +47,16 @@ return {
 		dashboard.section.buttons.val = {
 			btn("n", "  New file",        "<cmd>ene <BAR> startinsert<CR>"),
 			btn("e", "  Explorer",        "<cmd>Neotree toggle<CR>"),
-			btn("f", "  Find file",       "<cmd>Telescope find_files<CR>"),
+			btn("f", "󰈞  Find file",       "<cmd>Telescope find_files<CR>"),
 			btn("F", "  Git files",       "<cmd>Telescope git_files<CR>"),
-			btn("w", "  Find word",       "<cmd>Telescope live_grep<CR>"),
-			btn("r", "  Recent files",    "<cmd>Telescope oldfiles<CR>"),
+			btn("w", "󰊄  Find word",       "<cmd>Telescope live_grep<CR>"),
+			btn("r", "󰄉  Recent files",    "<cmd>Telescope oldfiles<CR>"),
 			btn("b", "  Git branches",    "<cmd>Telescope git_branches<CR>"),
 			btn("g", "  Git status",      "<cmd>LazyGit<CR>"),
 			btn("t", "  Find todos",      "<cmd>TodoTelescope<CR>"),
-			btn("p", "  Plugins",         "<cmd>Lazy<CR>"),
+			btn("p", "󰒲  Plugins",         "<cmd>Lazy<CR>"),
 			btn("c", "  Config",          "<cmd>e $MYVIMRC<CR>"),
-			btn("l", "  Changelog",       "<cmd>LazyChangelog<CR>"),
+			btn("l", "󰋚  Changelog",       "<cmd>LazyChangelog<CR>"),
 			btn("q", "  Quit",            "<cmd>qa<CR>"),
 		}
 
