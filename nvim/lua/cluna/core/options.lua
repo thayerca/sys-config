@@ -10,7 +10,7 @@
 --   Edit this file to change default UI or editing behavior. Restart Neovim to apply.
 --
 -- Author: Casey A. Thayer
--- Location: ~/.config/nvim/lua/cthayer/core/options.lua
+-- Location: ~/.config/nvim/lua/cluna/core/options.lua
 -- ------------------------------------------------------------------------------
 
 local opt = vim.opt

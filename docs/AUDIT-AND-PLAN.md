@@ -14,7 +14,7 @@
 - **Bash removed:** Repo is zsh-only. `bash/` and `ct-bash.shrc` no longer exist; setup and docs do not reference bash config.
 - **Setup:** Preflight (git, curl, zsh), backup of existing dotfiles, and clear execution flow are in place. Python default is 3.13 (optional).
 - **Validation:** `scripts/validate.sh` (post-install) and `scripts/lint.sh` (syntax/load, no install) exist. See [TESTING.md](TESTING.md).
-- **Plugins:** Neovim and tmux plugin set may differ from the "24 plugin" count here; see `nvim/lua/cthayer/plugins/` and `tmux/.tmux.conf`.
+- **Plugins:** Neovim and tmux plugin set may differ from the "24 plugin" count here; see `nvim/lua/cluna/plugins/` and `tmux/.tmux.conf`.
 - **Docs:** INSTALL, DEBUG, CHEATSHEET, GIT-REBASE, TESTING, INDEX are the current docs.
 
 ---
@@ -46,7 +46,7 @@ sys-config/
 ├── nvim/
 │   ├── init.lua              # Entry: core + lazy + python3_host_prog
 │   ├── lazy-lock.json        # Lockfile for lazy.nvim
-│   └── lua/cthayer/
+│   └── lua/cluna/
 │       ├── core/
 │       │   ├── init.lua      # Requires options + keymaps
 │       │   ├── options.lua   # UI, tabs, search, clipboard, splits, files, perf
@@ -80,9 +80,9 @@ sys-config/
 | ~~`bash/ct-bash.shrc`~~ | *Removed; repo is zsh-only.* |
 | `tmux/.tmux.conf` | default-shell zsh, 256color, mouse, prefix C-a, vim copy-mode, TPM + plugins (yank, catppuccin, fzf, vim-tmux-navigator). |
 | `nvim/init.lua` | Load core + lazy; set `python3_host_prog`. |
-| `nvim/lua/cthayer/core/*` | Options and keymaps (no autocmds in core). |
-| `nvim/lua/cthayer/lazy.lua` | Lazy bootstrap + disabled_plugins, checker, format_on_save implied by plugins. |
-| `nvim/lua/cthayer/plugins/*` | LSP, Mason, Telescope, Catppuccin, formatting (conform + formatter.nvim), none-ls, etc. |
+| `nvim/lua/cluna/core/*` | Options and keymaps (no autocmds in core). |
+| `nvim/lua/cluna/lazy.lua` | Lazy bootstrap + disabled_plugins, checker, format_on_save implied by plugins. |
+| `nvim/lua/cluna/plugins/*` | LSP, Mason, Telescope, Catppuccin, formatting (conform + formatter.nvim), none-ls, etc. |
 | `git-configs/*` | Global git identity, pager (delta), difftool/mergetool (nvim), LFS, colors. |
 | `starship/starship.toml` | Prompt layout and Catppuccin Mocha palette. |
 | `powerline/.p10k.zsh` | P10k theme config; **not sourced** (Starship used instead). |
@@ -104,7 +104,7 @@ sys-config/
   8. colors, compinit skip, fnm, nvm
 - **Aliases/functions:** `~/.aliases.shrc`, `~/.functions.shrc` (both from .zshrc). *(Bash config was removed; repo is zsh-only.)*
 - **tmux:** Started by user or by Ghostty (if TERM_PROGRAM=ghostty). Reads `~/.tmux.conf` once; runs TPM from `~/.tmux/plugins/tpm/tpm`.
-- **Neovim:** Reads `~/.config/nvim/init.lua` → `cthayer.core` (options, keymaps) → `cthayer.lazy` (plugins). LSP/tools assume PATH from the shell that launched nvim (login/zprofile + zshrc).
+- **Neovim:** Reads `~/.config/nvim/init.lua` → `cluna.core` (options, keymaps) → `cluna.lazy` (plugins). LSP/tools assume PATH from the shell that launched nvim (login/zprofile + zshrc).
 
 ### 1.4 Duplicates / Conflicting Responsibilities
 
@@ -195,7 +195,7 @@ sys-config/
 
 ### 4.1 Structure and documentation
 
-- **Layout:** Single entry `init.lua` → `cthayer.core` (options, keymaps) → `cthayer.lazy` (plugin specs). Plugin specs live in `lua/cthayer/plugins/`; each file is a module returning a spec. Good and modular.
+- **Layout:** Single entry `init.lua` → `cluna.core` (options, keymaps) → `cluna.lazy` (plugin specs). Plugin specs live in `lua/cluna/plugins/`; each file is a module returning a spec. Good and modular.
 - **Comments:** Most files have a header block; plugin files describe purpose and sometimes usage. Add short comments for any non-obvious option (e.g. `lazyredraw`, `synmaxcol`) and for leader keymap groups.
 
 ### 4.2 Footguns and fixes
@@ -217,8 +217,8 @@ sys-config/
 ### 4.3 “Known good” baseline structure
 
 - **init.lua:** Only require core, require lazy, optional one or two global sets (e.g. python3_host_prog) with a comment.
-- **lua/cthayer/core/:** options.lua (all opt/g sets), keymaps.lua (leader + non-plugin keymaps only), optional autocmds.lua if needed later.
-- **lua/cthayer/plugins/:** One file per plugin or logical group; each returns a lazy spec. Comments at top: what it does, key maps it adds, and any dependency (e.g. “requires node for prettier”).
+- **lua/cluna/core/:** options.lua (all opt/g sets), keymaps.lua (leader + non-plugin keymaps only), optional autocmds.lua if needed later.
+- **lua/cluna/plugins/:** One file per plugin or logical group; each returns a lazy spec. Comments at top: what it does, key maps it adds, and any dependency (e.g. “requires node for prettier”).
 - **Where comments live:** Top of each file (purpose); above non-obvious options; above keymap blocks (e.g. “Window management”).
 
 ### 4.4 Validation checklist
@@ -290,7 +290,7 @@ sys-config/
 | P1-3 | zsh/.zshrc | Source `$HOME/.fzf/key-bindings.zsh` | Depends on P0-1; after fix path is correct. | After P0-1, optionally use `"${XDG_CONFIG_HOME:-$HOME/.config}/fzf/key-bindings.zsh"` if you move fzf under config later. |
 | P1-4 | setup.sh | Hardcoded `~/sys-config` | Fails when repo is cloned elsewhere. | Set `REPO="${REPO:-$HOME/sys-config}"` at top (or detect from script path); use `$REPO` in all paths. |
 | P1-5 | git-configs/.gitconfig | difftool/mergetool `path = /opt/homebrew/bin/nvim` | Breaks on Linux. | Use `path = nvim` (rely on PATH) or a wrapper that runs `nvim` from PATH. |
-| P1-6 | nvim/lua/cthayer/core/keymaps.lua | <C-h/j/k/l> for window nav | Overridden by vim-tmux-navigator; redundant. | Remove the four <C-h/j/k/l> lines; add comment that tmux-style nav is in plugin. |
+| P1-6 | nvim/lua/cluna/core/keymaps.lua | <C-h/j/k/l> for window nav | Overridden by vim-tmux-navigator; redundant. | Remove the four <C-h/j/k/l> lines; add comment that tmux-style nav is in plugin. |
 | P1-7 | zsh/aliases.shrc | `export EDITOR="nvim"` | Duplicate of .zprofile. | Remove; keep EDITOR in .zprofile (and optional env file). |
 | P1-8 | setup.sh | Powerline fonts: `rm -rf ~/fonts` | Not idempotent; removes dir every run. | Only remove after successful install, or skip clone if fonts already installed. |
 
@@ -323,7 +323,7 @@ sys-config/
   - Remove the line `export EDITOR="nvim"`.
 - **git-configs/.gitconfig**
   - In `[difftool "nvimdiff"]` and `[mergetool "nvimdiff"]`, change `path = /opt/homebrew/bin/nvim` to `path = nvim` (or omit and rely on PATH).
-- **nvim/lua/cthayer/core/keymaps.lua**
+- **nvim/lua/cluna/core/keymaps.lua**
   - Remove the four keymap.set lines for <C-h>, <C-j>, <C-k>, <C-l> (window nav); add comment: “Pane/split nav: vim-tmux-navigator plugin”.
 - **starship/starship.toml**
   - Fix `vimcmd_symbol` value: `creen` → `green`.
@@ -352,7 +352,7 @@ sys-config/
 
 - New env vars: Add to one place (e.g. `config/shell/env.zsh`) and source from .zprofile and .zshrc.
 - New aliases: Prefer `aliases.shrc`; if many, split by topic and source from .zshrc.
-- New Neovim plugin: Add a file under `lua/cthayer/plugins/` returning a lazy spec; no new plugins in this pass, but when you do, keep one file per plugin.
+- New Neovim plugin: Add a file under `lua/cluna/plugins/` returning a lazy spec; no new plugins in this pass, but when you do, keep one file per plugin.
 - New tmux plugin: Add to @plugin list in .tmux.conf; run prefix+I.
 - OS-specific: Use a single small “platform” include (e.g. `[[ -f ~/.config/sys-config/env.$(uname).zsh ]] && source ...`) or branch in setup.sh.
 

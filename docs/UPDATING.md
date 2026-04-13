@@ -50,9 +50,9 @@ fnm default 22        # set as default for new shells
 ### Which file to edit
 | What you want to change | File |
 |-------------------------|------|
-| Neovim plugin config | `nvim/lua/cthayer/plugins/<plugin>.lua` |
-| Neovim options (line numbers, tabs, etc.) | `nvim/lua/cthayer/core/options.lua` |
-| Neovim core keymaps (non-plugin) | `nvim/lua/cthayer/core/keymaps.lua` |
+| Neovim plugin config | `nvim/lua/cluna/plugins/<plugin>.lua` |
+| Neovim options (line numbers, tabs, etc.) | `nvim/lua/cluna/core/options.lua` |
+| Neovim core keymaps (non-plugin) | `nvim/lua/cluna/core/keymaps.lua` |
 | Shell aliases | `zsh/aliases.shrc` |
 | Shell functions | `zsh/functions.shrc` |
 | Shell config, plugins, PATH | `zsh/.zshrc` |
@@ -69,7 +69,7 @@ All config files are symlinked from your home directory into this repo by `setup
 
 ### Adding a new Neovim plugin
 
-1. Create `nvim/lua/cthayer/plugins/<name>.lua` following the existing pattern:
+1. Create `nvim/lua/cluna/plugins/<name>.lua` following the existing pattern:
 ```lua
 -- Header comment explaining what it does and keymaps
 return {
@@ -84,13 +84,13 @@ return {
 { "<leader>x", name = "+my-group" },
 ```
 
-3. Lazy.nvim auto-discovers any file in `nvim/lua/cthayer/plugins/` — no import needed.
+3. Lazy.nvim auto-discovers any file in `nvim/lua/cluna/plugins/` — no import needed.
 
 4. Restart Neovim; `:Lazy` will show the new plugin and install it.
 
 ### Removing a Neovim plugin
 
-1. Delete `nvim/lua/cthayer/plugins/<name>.lua`
+1. Delete `nvim/lua/cluna/plugins/<name>.lua`
 2. Run `:Lazy clean` in Neovim to remove the installed files
 3. Remove any group label from `which-key.lua` if relevant
 4. Remove from `nvim/lazy-lock.json` entry (Lazy handles this automatically)
@@ -141,7 +141,7 @@ sys-config/
 ├── nvim/
 │   ├── init.lua                # Entry point
 │   ├── lazy-lock.json          # Plugin lockfile (commit after :Lazy update)
-│   └── lua/cthayer/
+│   └── lua/cluna/
 │       ├── core/
 │       │   ├── options.lua     # Vim options
 │       │   └── keymaps.lua     # Core keymaps (non-plugin)

@@ -79,7 +79,7 @@ Use this when something doesn’t work after install or after pulling changes.
 **Keymaps not working**
 
 - Pane/split navigation: <C-h/j/k/l> are set by the vim-tmux-navigator plugin. If they don’t work in tmux, ensure the TPM plugin `christoomey/vim-tmux-navigator` is installed (prefix + I).
-- Leader is Space; Telescope: <leader>ff, <leader>fr, etc. See `nvim/lua/cthayer/plugins/*.lua` for comments.
+- Leader is Space; Telescope: <leader>ff, <leader>fr, etc. See `nvim/lua/cluna/plugins/*.lua` for comments.
 
 ---
 

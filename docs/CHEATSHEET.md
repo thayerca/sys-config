@@ -4,7 +4,7 @@ Quick reference for every tool in this config. Press `<Space>` in Neovim and pau
 
 | Context | Leader / prefix | Source |
 |---------|-----------------|--------|
-| **Neovim** | `<Space>` | `nvim/lua/cthayer/plugins/*.lua` |
+| **Neovim** | `<Space>` | `nvim/lua/cluna/plugins/*.lua` |
 | **Tmux** | `Ctrl-A` | `tmux/.tmux.conf` |
 
 ---

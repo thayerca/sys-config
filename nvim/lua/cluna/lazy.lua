@@ -3,16 +3,16 @@
 -- ------------------------------------------------------------------------------
 -- What it does:
 --   Bootstraps lazy.nvim from data dir, prepends to rtp, then loads all specs
---   from lua/cthayer/plugins/ (each file is auto-imported). Enables checker,
+--   from lua/cluna/plugins/ (each file is auto-imported). Enables checker,
 --   install of missing plugins, and disables several built-in plugins for performance.
 --
 -- How to interact:
---   Add a plugin: create lua/cthayer/plugins/name.lua that returns a lazy.nvim
+--   Add a plugin: create lua/cluna/plugins/name.lua that returns a lazy.nvim
 --   spec (table or array of tables). Restart Neovim; lazy will install. Open
 --   :Lazy to manage plugins. See docs/PLUGIN-RECOMMENDATIONS.md for ideas.
 --
 -- Author: Casey A. Thayer
--- Location: ~/.config/nvim/lua/cthayer/lazy.lua
+-- Location: ~/.config/nvim/lua/cluna/lazy.lua
 -- ------------------------------------------------------------------------------
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -30,9 +30,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Load all plugin specs from cthayer.plugins (each file in plugins/ is auto-imported)
+-- Load all plugin specs from cluna.plugins (each file in plugins/ is auto-imported)
 require("lazy").setup({
-	{ import = "cthayer.plugins" },
+	{ import = "cluna.plugins" },
 }, {
 	checker = { enabled = true, notify = false },
 	change_detection = {

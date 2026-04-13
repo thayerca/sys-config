@@ -57,4 +57,4 @@ All documentation lives under **docs/** and is listed in **[docs/INDEX.md](docs/
 
 - **Reorganize:** Optional future layout could use `config/`, `scripts/`, `docs/` more explicitly.
 - **macOS defaults / fonts:** Optional scripts or docs (not included yet).
-- **More plugins:** Add Neovim plugins under `nvim/lua/cthayer/plugins/`, tmux plugins in `tmux/.tmux.conf`. Keymaps are in [docs/CHEATSHEET.md](docs/CHEATSHEET.md).
+- **More plugins:** Add Neovim plugins under `nvim/lua/cluna/plugins/`, tmux plugins in `tmux/.tmux.conf`. Keymaps are in [docs/CHEATSHEET.md](docs/CHEATSHEET.md).
