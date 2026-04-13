@@ -9,10 +9,10 @@
 --
 -- How to interact:
 --   Add keymaps with vim.keymap.set(mode, lhs, rhs, { desc = "..." }).
---   Plugin keymaps are in each file under lua/cthayer/plugins/. Full list: docs/CHEATSHEET.md.
+--   Plugin keymaps are in each file under lua/cluna/plugins/. Full list: docs/CHEATSHEET.md.
 --
 -- Author: Casey A. Thayer
--- Location: ~/.config/nvim/lua/cthayer/core/keymaps.lua
+-- Location: ~/.config/nvim/lua/cluna/core/keymaps.lua
 -- ------------------------------------------------------------------------------
 
 vim.g.mapleader = " "

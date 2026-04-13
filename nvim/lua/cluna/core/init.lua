@@ -10,8 +10,8 @@
 --   Restart Neovim or source to apply. See docs/CHEATSHEET.md for full keymap list.
 --
 -- Author: Casey A. Thayer
--- Location: ~/.config/nvim/lua/cthayer/core/init.lua
+-- Location: ~/.config/nvim/lua/cluna/core/init.lua
 -- ------------------------------------------------------------------------------
 
-require("cthayer.core.options") -- Basic editor settings (e.g., line numbers, tabstop)
-require("cthayer.core.keymaps") -- Custom keybindings (normal, visual, terminal)
+require("cluna.core.options") -- Basic editor settings (e.g., line numbers, tabstop)
+require("cluna.core.keymaps") -- Custom keybindings (normal, visual, terminal)

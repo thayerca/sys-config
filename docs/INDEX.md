@@ -43,7 +43,7 @@ This folder is the single place for all **human-readable documentation** for sys
 | `scripts/lint.sh` | Checks config syntax/load (zsh, tmux, nvim); run before commit or in CI. |
 | `zsh/` | `.zshrc`, `.zprofile`, `aliases.shrc`, `functions.shrc` — shell config (symlinked to `~`). |
 | `tmux/.tmux.conf` | Tmux config and TPM plugin list (symlinked to `~/.tmux.conf`). |
-| `nvim/` | Neovim config: `init.lua`, `lua/cthayer/` (core + plugins). Symlinked to `~/.config/nvim`. |
+| `nvim/` | Neovim config: `init.lua`, `lua/cluna/` (core + plugins). Symlinked to `~/.config/nvim`. |
 | `git-configs/` | `.gitconfig`, `.gitignore_global` (symlinked to `~`). |
 | `starship/` | `starship.toml` (symlinked to `~/.config/starship.toml`). |
 | `fzf/.fzf/` | FZF key-bindings and widgets; `~/.fzf` symlinks here. |
