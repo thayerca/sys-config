@@ -87,9 +87,16 @@ Quick reference for every tool in this config. Press `<Space>` in Neovim and pau
 | `prefix + -` | Split down |
 | `prefix + h/j/k/l` | Move focus (vim-style) |
 | `Ctrl-h/j/k/l` | Move across tmux panes **and** Neovim splits (no prefix) |
+| `prefix + H/J/K/L` | Resize pane (repeatable) |
 | `prefix + z` | Zoom pane (toggle fullscreen) |
 | `prefix + x` | Kill pane |
 | Mouse | Click to focus; drag border to resize |
+
+### Windows
+| Key | Action |
+|-----|--------|
+| `prefix + <` | Swap window left (repeatable) |
+| `prefix + >` | Swap window right (repeatable) |
 
 ### Copy mode
 | Key | Action |
@@ -150,6 +157,7 @@ Quick reference for every tool in this config. Press `<Space>` in Neovim and pau
 | `<Space>fs` | Live grep |
 | `<Space>fc` | Find word under cursor |
 | `<Space>ft` | Find TODO/FIXME comments |
+| `<Space>fp` | Switch project (Telescope projects) |
 | `<Space>fb` | List open buffers |
 | `<Space>fg` | Git files |
 | `<Space>ee` | File explorer (Neo-tree, float) |
@@ -185,7 +193,7 @@ Quick reference for every tool in this config. Press `<Space>` in Neovim and pau
 | `<Space>rs` | Restart LSP |
 | `<Space>uh` | Toggle inlay hints |
 | `[d` / `]d` | Previous / next diagnostic |
-| `<Space>d` | Line diagnostics popup |
+| `<Space>D` | Line diagnostics popup |
 | `<Space>ra` | Aerial: toggle symbol outline |
 | `<Space>rA` | Aerial: fuzzy symbol search (Telescope) |
 | `:Mason` | Open tool installer |
@@ -320,7 +328,7 @@ Quick reference for every tool in this config. Press `<Space>` in Neovim and pau
 | Key | Action |
 |-----|--------|
 | `<Space>mp` | Format buffer / selection (conform, manual) |
-| `<Space>gf` | Format file (LSP / null-ls) |
+| `<Space>gf` | Format file (conform) |
 | *(auto)* | Format on save (conform) |
 
 ### Refactoring
